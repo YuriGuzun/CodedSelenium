@@ -98,7 +98,7 @@ namespace CodedSelenium
             public static readonly string TagInstance = "taginstance";
             public static readonly string Title = "title";
             public static readonly string Type = "type";
-            public static readonly string ValueAttribute = "valueattribute";
+            public static readonly string ValueAttribute = "value";
             public static readonly string TagName = "tagname";
 
             [EditorBrowsable(EditorBrowsableState.Never)]

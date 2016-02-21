@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CodedSelenium.HtmlControls
 {
-    internal class HtmlDiv : HtmlControl
+    public class HtmlDiv : HtmlControl
     {
         public HtmlDiv(UITestControl parent)
             : base(parent)

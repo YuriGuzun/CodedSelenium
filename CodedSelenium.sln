@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodedSelenium", "CodedSelenium\CodedSelenium.csproj", "{860FA38E-2B31-43B0-8A57-8E5909CE9D6B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodedSelenium.Test", "CodedSelenium.Test\CodedSelenium.Test.csproj", "{702949E6-6391-4005-B7BF-074AEDAF5B51}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,17 +17,12 @@ Global
 		{860FA38E-2B31-43B0-8A57-8E5909CE9D6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{860FA38E-2B31-43B0-8A57-8E5909CE9D6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{860FA38E-2B31-43B0-8A57-8E5909CE9D6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{702949E6-6391-4005-B7BF-074AEDAF5B51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{702949E6-6391-4005-B7BF-074AEDAF5B51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{702949E6-6391-4005-B7BF-074AEDAF5B51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{702949E6-6391-4005-B7BF-074AEDAF5B51}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 2
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://ygsandbox.visualstudio.com/defaultcollection
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = CodedSelenium\\CodedSelenium.csproj
-		SccProjectName1 = CodedSelenium
-		SccLocalPath1 = CodedSelenium
 	EndGlobalSection
 EndGlobal

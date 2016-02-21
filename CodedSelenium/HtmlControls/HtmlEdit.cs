@@ -17,7 +17,7 @@ namespace CodedSelenium.HtmlControls
         {
             get
             {
-                return WebElement.Text;
+                return WebElement.GetAttribute(HtmlEdit.PropertyNames.ValueAttribute);
             }
 
             set
