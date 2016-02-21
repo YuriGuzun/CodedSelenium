@@ -2,8 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CodedSelenium
 {
@@ -24,6 +22,19 @@ namespace CodedSelenium
             get
             {
                 return false;
+            }
+        }
+
+        public string this[string propertyName]
+        {
+            get
+            {
+                return this.propertyExpressions.FirstOrDefault(item => item.PropertyName == propertyName).PropertyValue;
+            }
+
+            set
+            {
+                this.propertyExpressions.FirstOrDefault(item => item.PropertyName == propertyName).PropertyValue = value;
             }
         }
 

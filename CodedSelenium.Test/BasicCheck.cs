@@ -1,7 +1,6 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CodedSelenium.HtmlControls;
+﻿using CodedSelenium.HtmlControls;
 using FluentAssert;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 
 namespace CodedSelenium.Test
@@ -22,6 +21,10 @@ namespace CodedSelenium.Test
             string value = "banana";
             edit.Text = value;
             edit.Text.ShouldBeEqualTo(value);
+
+            HtmlButton button = new HtmlButton(div);
+            button.SearchProperties.Add(HtmlButton.PropertyNames.InnerText, "Cancel");
+            button.Click();
         }
     }
 }

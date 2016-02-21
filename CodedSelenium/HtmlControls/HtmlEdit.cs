@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace CodedSelenium.HtmlControls
+﻿namespace CodedSelenium.HtmlControls
 {
     public class HtmlEdit : HtmlControl
     {

@@ -1,16 +1,16 @@
 ﻿using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CodedSelenium
 {
     public class UITestControl
     {
+        private readonly string ContainsCharacter = "*";
         private PropertyExpressionCollection searchProperties;
 
         public UITestControl()
@@ -64,7 +64,7 @@ namespace CodedSelenium
 
                     if (searchProperty.PropertyOperator == PropertyExpressionOperator.Contains)
                     {
-                        key += "*";
+                        key += this.ContainsCharacter;
                     }
 
                     dictionary.Add(key, searchProperty.PropertyValue);
@@ -73,10 +73,26 @@ namespace CodedSelenium
                 string attributeTemplate = "[{0}=\"{1}\"]";
                 IEnumerable<string> attributes = dictionary
                     .Where(item => item.Key != PropertyNames.TagName)
+                    .Where(item => item.Key != PropertyNames.InnerText)
                     .Select(item => string.Format(attributeTemplate, item.Key, item.Value));
 
-                IWebElement webElement = this.Parent.FindElement(
-                    By.CssSelector(dictionary[PropertyNames.TagName] + string.Join(string.Empty, attributes)));
+                IWebElement webElement = null;
+
+                if (dictionary.ContainsKey(PropertyNames.InnerText))
+                {
+                    ReadOnlyCollection<IWebElement> matchingElements = this.Parent.FindElements(
+                        By.CssSelector(dictionary[PropertyNames.TagName] + string.Join(string.Empty, attributes)));
+
+                    if (dictionary[PropertyNames.InnerText].Contains(ContainsCharacter))
+                        webElement = matchingElements.FirstOrDefault(item => item.Text.Contains(dictionary[PropertyNames.InnerText]));
+                    else
+                        webElement = matchingElements.FirstOrDefault(item => item.Text.Equals(dictionary[PropertyNames.InnerText]));
+                }
+                else
+                {
+                    webElement = this.Parent.FindElement(
+                        By.CssSelector(dictionary[PropertyNames.TagName] + string.Join(string.Empty, attributes)));
+                }
 
                 return webElement;
             }

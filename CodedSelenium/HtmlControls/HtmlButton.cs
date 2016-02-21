@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CodedSelenium.HtmlControls
+﻿namespace CodedSelenium.HtmlControls
 {
-    internal class HtmlButton : HtmlControl
+    public class HtmlButton : HtmlControl
     {
         public HtmlButton(UITestControl parent)
             : base(parent)
         {
+            SearchProperties.Add(HtmlButton.PropertyNames.TagName, "button");
         }
     }
 }
