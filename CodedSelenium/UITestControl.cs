@@ -118,14 +118,12 @@ namespace CodedSelenium
             public static readonly string TagName = "tagname";
 
             [EditorBrowsable(EditorBrowsableState.Never)]
-            [SuppressMessage("Microsoft.Naming", "CA1720:IdentifiersShouldNotContainTypeNames", MessageId = "obj", Justification = "Method in the base class has the same variable names in the parameter list")]
             public static new bool ReferenceEquals(object objA, object objB)
             {
                 return true;
             }
 
             [EditorBrowsable(EditorBrowsableState.Never)]
-            [SuppressMessage("Microsoft.Naming", "CA1720:IdentifiersShouldNotContainTypeNames", MessageId = "obj", Justification = "Method in the base class has the same variable names in the parameter list")]
             public static new bool Equals(object objA, object objB)
             {
                 return true;
