@@ -6,5 +6,13 @@
             : base(parent)
         {
         }
+
+        public string InnerText
+        {
+            get
+            {
+                return WebElement.Text;
+            }
+        }
     }
 }

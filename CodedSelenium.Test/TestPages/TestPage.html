@@ -6,10 +6,22 @@
     <title></title>
 </head>
 <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("button").on("click", function (e) {
+                console.log(e);
+                document.getElementById("log").innerHTML = 'Element accessed: <p id="id">' + e.currentTarget.id + '</p><p id="action">' + e.type + '</p>';
+            })
+        });
+    </script>
+
     <div id="loginFields">
-        <input />
-        <button>Login</button>
-        <button>Cancel</button>
+        <input id="inputField" />
+        <button class="simpleButtons" id="firstButton">First Button</button>
+        <button class="simpleButtons" id="secondButton">Second Button</button>
     </div>
+
+    <p id="log"></p>
 </body>
 </html>

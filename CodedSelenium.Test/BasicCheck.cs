@@ -23,8 +23,19 @@ namespace CodedSelenium.Test
             edit.Text.ShouldBeEqualTo(value);
 
             HtmlButton button = new HtmlButton(div);
-            button.SearchProperties.Add(HtmlButton.PropertyNames.InnerText, "Cancel");
+            button.SearchProperties.Add(HtmlButton.PropertyNames.InnerText, "Second Button");
             button.Click();
+
+            HtmlControl id = new HtmlControl(bw);
+            id.SearchProperties.Add(HtmlControl.PropertyNames.TagName, "p");
+            id.SearchProperties.Add(HtmlControl.PropertyNames.Id, "id");
+
+            HtmlControl action = new HtmlControl(bw);
+            action.SearchProperties.Add(HtmlControl.PropertyNames.TagName, "p");
+            action.SearchProperties.Add(HtmlControl.PropertyNames.Id, "action");
+
+            id.InnerText.ShouldBeEqualTo("secondButton");
+            action.InnerText.ShouldBeEqualTo("click");
         }
     }
 }
