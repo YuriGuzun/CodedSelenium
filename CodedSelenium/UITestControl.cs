@@ -3,14 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace CodedSelenium
 {
     public class UITestControl
     {
-        private readonly string ContainsCharacter = "*";
         private PropertyExpressionCollection searchProperties;
 
         public UITestControl()
@@ -57,6 +55,7 @@ namespace CodedSelenium
             get
             {
                 Dictionary<string, string> dictionary = new Dictionary<string, string>();
+                string containsSufix = "*";
 
                 foreach (PropertyExpression searchProperty in this.SearchProperties)
                 {
@@ -64,7 +63,7 @@ namespace CodedSelenium
 
                     if (searchProperty.PropertyOperator == PropertyExpressionOperator.Contains)
                     {
-                        key += this.ContainsCharacter;
+                        key += containsSufix;
                     }
 
                     dictionary.Add(key, searchProperty.PropertyValue);
@@ -83,7 +82,7 @@ namespace CodedSelenium
                     ReadOnlyCollection<IWebElement> matchingElements = this.Parent.FindElements(
                         By.CssSelector(dictionary[PropertyNames.TagName] + string.Join(string.Empty, attributes)));
 
-                    if (dictionary[PropertyNames.InnerText].Contains(ContainsCharacter))
+                    if (dictionary[PropertyNames.InnerText].Contains(containsSufix))
                         webElement = matchingElements.FirstOrDefault(item => item.Text.Contains(dictionary[PropertyNames.InnerText]));
                     else
                         webElement = matchingElements.FirstOrDefault(item => item.Text.Equals(dictionary[PropertyNames.InnerText]));
