@@ -72,6 +72,7 @@
     <Compile Include="PropertyExpressionCollection.cs" />
     <Compile Include="PropertyExpressionOperator.cs" />
     <Compile Include="UITestControl.cs" />
+    <Compile Include="UITestControlCollection.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

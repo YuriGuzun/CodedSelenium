@@ -1,16 +1,14 @@
 ﻿using CodedSelenium.HtmlControls;
-using FluentAssert;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.IO;
 
 namespace CodedSelenium.Test
 {
     [TestClass]
-    public class BasicCheck
+    public class BasicCheck : BasicTest
     {
-        private static string PathToPage = Directory.GetCurrentDirectory() + "\\TestPages\\TestPage.html";
-        private static BrowserWindow BrowserWindow = BrowserWindow.Launch(PathToPage);
-
         [TestMethod]
         public void BasicCheck_HtmlEdit()
         {
@@ -20,7 +18,7 @@ namespace CodedSelenium.Test
 
             string value = "banana";
             edit.Text = value;
-            edit.Text.ShouldBeEqualTo(value);
+            edit.Text.Should().Be(value);
         }
 
         [TestMethod]
@@ -30,16 +28,46 @@ namespace CodedSelenium.Test
             button.SearchProperties.Add(HtmlButton.PropertyNames.InnerText, "Second Button");
             button.Click();
 
-            HtmlControl id = new HtmlControl(BrowserWindow);
-            id.SearchProperties.Add(HtmlControl.PropertyNames.TagName, "p");
-            id.SearchProperties.Add(HtmlControl.PropertyNames.Id, "id");
+            AssertResult("secondButton", "click");
+        }
 
-            HtmlControl action = new HtmlControl(BrowserWindow);
-            action.SearchProperties.Add(HtmlControl.PropertyNames.TagName, "p");
-            action.SearchProperties.Add(HtmlControl.PropertyNames.Id, "action");
+        [TestMethod]
+        public void BasicCheck_FilterProperties()
+        {
+            HtmlButton button = new HtmlButton(BrowserWindow);
+            button.FilterProperties.Add(HtmlButton.PropertyNames.InnerText, "Second Button");
+            button.Click();
 
-            id.InnerText.ShouldBeEqualTo("secondButton");
-            action.InnerText.ShouldBeEqualTo("click");
+            AssertResult("secondButton", "click");
+        }
+
+        [TestMethod]
+        public void BasicCheck_GetChildren()
+        {
+            HtmlDiv div = new HtmlDiv(BrowserWindow);
+            div.SearchProperties.Add(HtmlControl.PropertyNames.Id, "loginFields");
+            div.GetChildren()[2].Click();
+
+            AssertResult("thirdButton", "click");
+        }
+
+        [TestMethod]
+        public void BasicCheck_FindMatchingControls()
+        {
+            HtmlButton button = new HtmlButton(BrowserWindow);
+            button.FindMatchingControls()[2].Click();
+
+            AssertResult("thirdButton", "click");
+        }
+
+        [TestMethod]
+        public void BasicCheck_CopyFrom()
+        {
+            HtmlButton button = new HtmlButton(BrowserWindow);
+            button.CopyFrom(button.FindMatchingControls()[2]);
+            button.Click();
+
+            AssertResult("thirdButton", "click");
         }
     }
 }

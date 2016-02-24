@@ -14,6 +14,11 @@
             this.PropertyOperator = propertyOperator;
         }
 
+        public object Clone()
+        {
+            return (object)new PropertyExpression(this.PropertyName, this.PropertyValue, this.PropertyOperator);
+        }
+
         public string PropertyName { get; set; }
 
         public PropertyExpressionOperator PropertyOperator { get; set; }
