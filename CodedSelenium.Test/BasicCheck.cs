@@ -28,7 +28,7 @@ namespace CodedSelenium.Test
             button.SearchProperties.Add(HtmlButton.PropertyNames.InnerText, "Second Button");
             button.Click();
 
-            AssertResult("secondButton", "click");
+            this.AssertResult("secondButton", "click");
         }
 
         [TestMethod]
@@ -38,7 +38,7 @@ namespace CodedSelenium.Test
             button.FilterProperties.Add(HtmlButton.PropertyNames.InnerText, "Second Button");
             button.Click();
 
-            AssertResult("secondButton", "click");
+            this.AssertResult("secondButton", "click");
         }
 
         [TestMethod]
@@ -48,7 +48,7 @@ namespace CodedSelenium.Test
             div.SearchProperties.Add(HtmlControl.PropertyNames.Id, "loginFields");
             div.GetChildren()[2].Click();
 
-            AssertResult("thirdButton", "click");
+            this.AssertResult("thirdButton", "click");
         }
 
         [TestMethod]
@@ -57,7 +57,7 @@ namespace CodedSelenium.Test
             HtmlButton button = new HtmlButton(BrowserWindow);
             button.FindMatchingControls()[2].Click();
 
-            AssertResult("thirdButton", "click");
+            this.AssertResult("thirdButton", "click");
         }
 
         [TestMethod]
@@ -67,7 +67,7 @@ namespace CodedSelenium.Test
             button.CopyFrom(button.FindMatchingControls()[2]);
             button.Click();
 
-            AssertResult("thirdButton", "click");
+            this.AssertResult("thirdButton", "click");
         }
     }
 }

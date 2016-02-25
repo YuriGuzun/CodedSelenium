@@ -60,10 +60,15 @@
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Extension\BrowserDialogAction.cs" />
+    <Compile Include="HtmlControls\HtmlAreaHyperlink.cs" />
     <Compile Include="HtmlControls\HtmlButton.cs" />
+    <Compile Include="HtmlControls\HtmlCheckBox.cs" />
+    <Compile Include="HtmlControls\HtmlComboBox.cs" />
     <Compile Include="HtmlControls\HtmlControl.cs" />
     <Compile Include="HtmlControls\HtmlDiv.cs" />
+    <Compile Include="HtmlControls\HtmlDocument.cs" />
     <Compile Include="HtmlControls\HtmlEdit.cs" />
+    <Compile Include="HtmlControls\HtmlHyperlink.cs" />
     <Compile Include="Mouse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>

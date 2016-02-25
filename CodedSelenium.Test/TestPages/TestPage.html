@@ -11,7 +11,24 @@
         $(document).ready(function () {
             $("button").on("click", function (e) {
                 console.log(e);
-                document.getElementById("log").innerHTML = 'Element accessed: <p id="id">' + e.currentTarget.id + '</p><p id="action">' + e.type + '</p>';
+                document.getElementById("logId").innerHTML = e.currentTarget.id;
+                document.getElementById("logAction").innerHTML = e.type;
+            })
+        });
+
+        $(document).ready(function () {
+            $("input").on("click change", function (e) {
+                console.log(e);
+                document.getElementById("logId").innerHTML = e.currentTarget.id;
+                document.getElementById("logAction").innerHTML = e.type;
+            })
+        });
+
+        $(document).ready(function () {
+            $("select").on("click change", function (e) {
+                console.log(e);
+                document.getElementById("logId").innerHTML = e.currentTarget.id;
+                document.getElementById("logAction").innerHTML = e.type;
             })
         });
     </script>
@@ -25,6 +42,17 @@
         <button class="simpleButtons" id="thirdButton">Third Button</button>
     </div>
 
-    <p id="log"></p>
+    <select id="comboBox">
+        <option>Milk</option>
+        <option>Coffee</option>
+        <option>Tea</option>
+    </select>
+
+    <input type="checkbox" id="checkBox" />
+
+    <div id="log">
+        <p id="logId" />
+        <p id="logAction" />
+    </div>
 </body>
 </html>

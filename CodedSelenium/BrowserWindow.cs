@@ -3,23 +3,27 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
+using OpenQA.Selenium.Support.Events;
+using OpenQA.Selenium.Support.Extensions;
 using System;
+using System.Drawing.Imaging;
 
 namespace CodedSelenium
 {
     public class BrowserWindow : UITestControl, IDisposable
     {
-        private IWebDriver driver;
         private bool disposed = false;
 
         public BrowserWindow()
         {
         }
 
-        public BrowserWindow(IWebDriver driver)
+        public BrowserWindow(EventFiringWebDriver driver)
         {
             this.Parent = driver;
-            this.driver = driver;
+            this.Driver = driver;
+
+            this.Driver.ExceptionThrown += TakeScreenshotOnException;
         }
 
         ~BrowserWindow()
@@ -29,6 +33,14 @@ namespace CodedSelenium
 
         public static string CurrentBrowser { get; set; }
 
+        public virtual Uri Uri
+        {
+            get
+            {
+                return new Uri(this.Driver.Url);
+            }
+        }
+
         protected override IWebElement WebElement
         {
             get
@@ -37,22 +49,30 @@ namespace CodedSelenium
             }
         }
 
+        public EventFiringWebDriver Driver { get; private set; }
+
+        private void TakeScreenshotOnException(object sender, WebDriverExceptionEventArgs e)
+        {
+            string timestamp = DateTime.Now.ToString("yyyy-MM-dd-hhmm-ss");
+            this.Driver.TakeScreenshot().SaveAsFile("Exception-" + timestamp + ".png", ImageFormat.Png);
+        }
+
         public static BrowserWindow Launch(string uri)
         {
-            IWebDriver driver = null;
+            EventFiringWebDriver driver = null;
 
             switch (CurrentBrowser)
             {
                 case "Firefox":
-                    driver = new FirefoxDriver();
+                    driver = new EventFiringWebDriver(new FirefoxDriver());
                     break;
 
                 case "IE":
-                    driver = new InternetExplorerDriver();
+                    driver = new EventFiringWebDriver(new InternetExplorerDriver());
                     break;
 
                 default:
-                    driver = new ChromeDriver();
+                    driver = new EventFiringWebDriver(new ChromeDriver());
                     break;
             }
 
@@ -62,14 +82,35 @@ namespace CodedSelenium
             return browserWindow;
         }
 
+        public static void ClearCache()
+        {
+            throw new NotImplementedException("Please see non static analogue");
+        }
+
+        public static void ClearCookies()
+        {
+            throw new NotImplementedException("Please see non static analogue");
+        }
+
         public static BrowserWindow Launch(Uri uri)
         {
             return BrowserWindow.Launch(uri.ToString());
         }
 
+        public virtual object ExecuteScript(string script, params object[] args)
+        {
+            IJavaScriptExecutor js = this.Driver as IJavaScriptExecutor;
+            return (string)js.ExecuteScript(string.Format(script, args));
+        }
+
+        public void ClearCoockies()
+        {
+            this.Driver.Manage().Cookies.DeleteAllCookies();
+        }
+
         public void NavigateToUrl(string uri)
         {
-            this.driver.Navigate().GoToUrl(uri);
+            this.Driver.Navigate().GoToUrl(uri);
         }
 
         public void NavigateToUrl(Uri uri)
@@ -85,17 +126,27 @@ namespace CodedSelenium
 
         public void Close()
         {
-            this.driver.Quit();
+            this.Driver.Quit();
         }
 
         public void Refresh()
         {
-            this.driver.Navigate().Refresh();
+            this.Driver.Navigate().Refresh();
+        }
+
+        public virtual void Forward()
+        {
+            this.Driver.Navigate().Forward();
+        }
+
+        public virtual void Back()
+        {
+            this.Driver.Navigate().Back();
         }
 
         public virtual void PerformDialogAction(BrowserDialogAction actionType)
         {
-            IAlert alert = this.driver.SwitchTo().Alert();
+            IAlert alert = this.Driver.SwitchTo().Alert();
 
             switch (actionType)
             {
@@ -122,7 +173,7 @@ namespace CodedSelenium
             {
                 if (disposing)
                 {
-                    if (this.driver != null)
+                    if (this.Driver != null)
                     {
                         this.Close();
                     }

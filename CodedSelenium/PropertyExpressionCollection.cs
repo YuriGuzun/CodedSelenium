@@ -85,7 +85,10 @@ namespace CodedSelenium
         public void Add(PropertyExpression propertyExpression)
         {
             if (propertyExpression == null)
+            {
                 throw new ArgumentNullException("propertyExpression");
+            }
+
             this.Remove(propertyExpression);
             this.propertyExpressions.Add(propertyExpression);
         }
@@ -108,7 +111,9 @@ namespace CodedSelenium
         public void AddRange(PropertyExpressionCollection collectionToAdd)
         {
             foreach (PropertyExpression propertyExpression in collectionToAdd)
+            {
                 this.Add(propertyExpression);
+            }
         }
     }
 }

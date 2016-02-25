@@ -78,7 +78,9 @@ namespace CodedSelenium
         public void AddRange(UITestControlCollection collectionToAdd)
         {
             foreach (UITestControl testControl in collectionToAdd)
+            {
                 this.Add(testControl);
+            }
         }
     }
 }

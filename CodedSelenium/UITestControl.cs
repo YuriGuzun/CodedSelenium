@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 
 namespace CodedSelenium
@@ -30,12 +31,12 @@ namespace CodedSelenium
             }
         }
 
-        private UITestControl(ISearchContext parent)
+        public UITestControl(ISearchContext parent)
         {
             this.Parent = parent;
         }
 
-        private UITestControl(IWebElement webElement)
+        public UITestControl(IWebElement webElement)
         {
             this.webElement = webElement;
         }
@@ -45,6 +46,14 @@ namespace CodedSelenium
             get
             {
                 return this.WebElement.Displayed;
+            }
+        }
+
+        public virtual Rectangle BoundingRectangle
+        {
+            get
+            {
+                return new Rectangle(this.WebElement.Location, this.WebElement.Size);
             }
         }
 
@@ -95,6 +104,15 @@ namespace CodedSelenium
             }
         }
 
+        public void DrawHighlight()
+        {
+        }
+
+        public bool TryFind()
+        {
+            return this.WebElement.Displayed;
+        }
+
         public UITestControl GetParent()
         {
             return new UITestControl(this.Parent);
@@ -111,6 +129,10 @@ namespace CodedSelenium
             }
 
             return collection;
+        }
+
+        public void Find()
+        {
         }
 
         public UITestControlCollection FindMatchingControls()
@@ -153,30 +175,42 @@ namespace CodedSelenium
 
         private IEnumerable<IWebElement> GetWebElements(Dictionary<string, string> dictionary)
         {
-            if (dictionary.ContainsKey(PropertyNames.InnerText))
-            {
-                return this.GetWebElementsByInnerText(dictionary);
-            }
-            else
-            {
-                return this.Parent.FindElements(
-                    By.CssSelector(this.GetCssSelector(dictionary)));
-            }
-        }
-
-        private IEnumerable<IWebElement> GetWebElementsByInnerText(Dictionary<string, string> dictionary)
-        {
-            ReadOnlyCollection<IWebElement> matchingElements = this.Parent.FindElements(
+            IEnumerable<IWebElement> webElements = this.Parent.FindElements(
                 By.CssSelector(this.GetCssSelector(dictionary)));
 
-            if (dictionary[PropertyNames.InnerText].Contains(ContainsSufix))
+            if (dictionary.ContainsKey(PropertyNames.InnerText))
             {
-                return matchingElements.Where(item => item.Text.Contains(dictionary[PropertyNames.InnerText]));
+                string expectedInnerText = dictionary[PropertyNames.InnerText];
+                if (expectedInnerText.Contains(ContainsSufix))
+                {
+                    webElements = webElements.Where(item => item.Text.Contains(expectedInnerText));
+                }
+                else
+                {
+                    webElements = webElements.Where(item => item.Text.Equals(expectedInnerText));
+                }
             }
-            else
+            else if (dictionary.ContainsKey(PropertyNames.TagInstance))
             {
-                return matchingElements.Where(item => item.Text.Equals(dictionary[PropertyNames.InnerText]));
+                webElements = this.GetWebElementsByTagInstance(dictionary);
             }
+
+            if (dictionary.ContainsKey(PropertyNames.Instance))
+            {
+                int instance = int.Parse(dictionary[PropertyNames.Instance]);
+                return new List<IWebElement>() { webElements.ElementAt(instance) };
+            }
+
+            return webElements;
+        }
+
+        private IEnumerable<IWebElement> GetWebElementsByTagInstance(Dictionary<string, string> dictionary)
+        {
+            int tagInstance = int.Parse(dictionary[PropertyNames.TagInstance]);
+            ReadOnlyCollection<IWebElement> webElements = this.Parent.FindElements(
+                By.CssSelector(this.GetCssSelector(dictionary) + string.Format(":nth-of-type({0})", tagInstance)));
+
+            return webElements;
         }
 
         private string GetCssSelector(Dictionary<string, string> dictionary)
@@ -211,9 +245,7 @@ namespace CodedSelenium
 
         public abstract class PropertyNames
         {
-            public static readonly string AccessKey = "accesskey";
             public static readonly string Class = "class";
-            public static readonly string ControlDefinition = "controldefinition";
             public static readonly string HelpText = "helptext";
             public static readonly string Id = "id";
             public static readonly string InnerText = "innertext";
@@ -222,30 +254,43 @@ namespace CodedSelenium
             public static readonly string Type = "type";
             public static readonly string ValueAttribute = "value";
             public static readonly string TagName = "tagname";
-
-            [EditorBrowsable(EditorBrowsableState.Never)]
-            public static new bool ReferenceEquals(object objA, object objB)
-            {
-                return true;
-            }
+            public static readonly string Instance = "instance";
 
             [EditorBrowsable(EditorBrowsableState.Never)]
             public static new bool Equals(object objA, object objB)
             {
-                return true;
+                return object.Equals(objA, objB);
             }
 
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public abstract override bool Equals(object obj);
+            public static new bool ReferenceEquals(object objA, object objB)
+            {
+                return object.ReferenceEquals(objA, objB);
+            }
 
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public abstract override int GetHashCode();
+            public override bool Equals(object obj)
+            {
+                return base.Equals(obj);
+            }
 
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public abstract new Type GetType();
+            public override int GetHashCode()
+            {
+                return base.GetHashCode();
+            }
 
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public abstract override string ToString();
+            public override string ToString()
+            {
+                return base.ToString();
+            }
+
+            [EditorBrowsable(EditorBrowsableState.Never)]
+            public new Type GetType()
+            {
+                return base.GetType();
+            }
         }
     }
 }
