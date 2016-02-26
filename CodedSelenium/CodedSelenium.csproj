@@ -68,6 +68,7 @@
     <Compile Include="HtmlControls\HtmlDiv.cs" />
     <Compile Include="HtmlControls\HtmlDocument.cs" />
     <Compile Include="HtmlControls\HtmlEdit.cs" />
+    <Compile Include="HtmlControls\HtmlFileInput.cs" />
     <Compile Include="HtmlControls\HtmlHyperlink.cs" />
     <Compile Include="Mouse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

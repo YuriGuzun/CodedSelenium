@@ -7,6 +7,7 @@ namespace CodedSelenium.Test
 {
     public class BasicTest
     {
+        public const string PageName = "TestPage.html";
         private static BrowserWindow browserWindow;
         private static string pathToPage;
 
@@ -16,7 +17,7 @@ namespace CodedSelenium.Test
             {
                 if (pathToPage == null)
                 {
-                    pathToPage = Directory.GetCurrentDirectory() + "\\TestPages\\TestPage.html";
+                    pathToPage = Directory.GetCurrentDirectory() + "\\TestPages\\" + PageName;
                 }
 
                 return pathToPage;

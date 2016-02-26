@@ -6,7 +6,6 @@
             : base(parent)
         {
             SearchProperties.Add(HtmlButton.PropertyNames.TagName, "input");
-            FilterProperties.Add(HtmlButton.PropertyNames.Type, "text");
         }
 
         public string Text

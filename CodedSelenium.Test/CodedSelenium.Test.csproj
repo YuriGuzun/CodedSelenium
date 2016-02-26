@@ -66,6 +66,7 @@
     <Compile Include="BasicCheck.cs" />
     <Compile Include="BasicTest.cs" />
     <Compile Include="HtmlCheckBoxTest.cs" />
+    <Compile Include="HtmlFileInputTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HtmlComboBoxTest.cs" />
   </ItemGroup>
