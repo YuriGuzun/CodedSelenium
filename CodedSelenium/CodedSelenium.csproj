@@ -60,6 +60,7 @@
     <Compile Include="Extension\BrowserDialogAction.cs" />
     <Compile Include="HtmlControls\HtmlAreaHyperlink.cs" />
     <Compile Include="HtmlControls\HtmlButton.cs" />
+    <Compile Include="HtmlControls\HtmlCell.cs" />
     <Compile Include="HtmlControls\HtmlCheckBox.cs" />
     <Compile Include="HtmlControls\HtmlComboBox.cs" />
     <Compile Include="HtmlControls\HtmlControl.cs" />

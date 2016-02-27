@@ -10,10 +10,12 @@ namespace CodedSelenium
 {
     public class UITestControl
     {
+        protected const string AttributeTemplate = "[{0}=\"{1}\"]";
         private const string ContainsSufix = "*";
         private PropertyExpressionCollection searchProperties;
         private PropertyExpressionCollection filterProperties;
         private IWebElement webElement;
+        private List<string> propertyNamesToIgnore;
 
         public UITestControl()
         {
@@ -84,6 +86,25 @@ namespace CodedSelenium
         }
 
         protected ISearchContext Parent { get; set; }
+
+        protected virtual List<string> PropertyNamesToIgnoreByCssSelector
+        {
+            get
+            {
+                if (this.propertyNamesToIgnore == null)
+                {
+                    this.propertyNamesToIgnore = new List<string>()
+                    {
+                        UITestControl.PropertyNames.InnerText,
+                        UITestControl.PropertyNames.TagName,
+                        UITestControl.PropertyNames.TagInstance,
+                        UITestControl.PropertyNames.Instance,
+                    };
+                }
+
+                return this.propertyNamesToIgnore;
+            }
+        }
 
         protected virtual IWebElement WebElement
         {
@@ -160,6 +181,15 @@ namespace CodedSelenium
             this.WebElement.Click();
         }
 
+        protected virtual string GetCssSelector(Dictionary<string, string> dictionary)
+        {
+            IEnumerable<string> attributes = dictionary
+                .Where(item => !this.PropertyNamesToIgnoreByCssSelector.Contains(item.Key))
+                .Select(item => string.Format(AttributeTemplate, item.Key, item.Value));
+
+            return dictionary[PropertyNames.TagName] + string.Join(string.Empty, attributes);
+        }
+
         private IEnumerable<IWebElement> FindMatchingWebElements()
         {
             Dictionary<string, string> dictionary = this.GetSearchPropertiesDictionary(this.SearchProperties);
@@ -200,7 +230,7 @@ namespace CodedSelenium
             if (dictionary.ContainsKey(PropertyNames.Instance))
             {
                 int instance = int.Parse(dictionary[PropertyNames.Instance]);
-                return new List<IWebElement>() { webElements.ElementAt(instance) };
+                return new List<IWebElement>() { webElements.ElementAt(instance - 1) };
             }
 
             return webElements;
@@ -213,17 +243,6 @@ namespace CodedSelenium
                 By.CssSelector(this.GetCssSelector(dictionary) + string.Format(":nth-of-type({0})", tagInstance)));
 
             return webElements;
-        }
-
-        private string GetCssSelector(Dictionary<string, string> dictionary)
-        {
-            string attributeTemplate = "[{0}=\"{1}\"]";
-            IEnumerable<string> attributes = dictionary
-                .Where(item => item.Key != PropertyNames.TagName)
-                .Where(item => item.Key != PropertyNames.InnerText)
-                .Select(item => string.Format(attributeTemplate, item.Key, item.Value));
-
-            return dictionary[PropertyNames.TagName] + string.Join(string.Empty, attributes);
         }
 
         private Dictionary<string, string> GetSearchPropertiesDictionary(PropertyExpressionCollection searchProperties)
