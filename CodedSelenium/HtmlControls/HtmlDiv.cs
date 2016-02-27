@@ -2,6 +2,10 @@
 {
     public class HtmlDiv : HtmlControl
     {
+        public HtmlDiv()
+        {
+        }
+
         public HtmlDiv(UITestControl parent)
             : base(parent)
         {

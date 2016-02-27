@@ -115,7 +115,7 @@ namespace CodedSelenium
 
         public UITestControl GetParent()
         {
-            return new UITestControl(this.Parent);
+            return new UITestControl(this.WebElement.FindElement(By.XPath("..")));
         }
 
         public virtual UITestControlCollection GetChildren()
@@ -151,6 +151,8 @@ namespace CodedSelenium
         {
             this.Parent = controlToCopy.Parent;
             this.webElement = controlToCopy.webElement;
+            this.searchProperties = controlToCopy.searchProperties;
+            this.filterProperties = controlToCopy.filterProperties;
         }
 
         public virtual void Click()

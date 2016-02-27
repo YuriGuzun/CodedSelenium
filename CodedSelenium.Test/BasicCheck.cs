@@ -69,5 +69,16 @@ namespace CodedSelenium.Test
 
             this.AssertResult("thirdButton", "click");
         }
+
+        [TestMethod]
+        public void BasicCheck_GetParent()
+        {
+            HtmlButton button = new HtmlButton(BrowserWindow);
+            button.SearchProperties.Add(HtmlButton.PropertyNames.Id, "secondButton");
+            HtmlDiv div = new HtmlDiv();
+            UITestControl parent = button.GetParent();
+            div.CopyFrom(parent);
+            div.Id.Should().Be("buttons");
+        }
     }
 }
