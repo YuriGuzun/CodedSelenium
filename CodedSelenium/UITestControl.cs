@@ -11,7 +11,7 @@ namespace CodedSelenium
     public class UITestControl
     {
         protected const string AttributeTemplate = "[{0}=\"{1}\"]";
-        private const string ContainsSufix = "*";
+        private const char ContainsSufix = '*';
         private PropertyExpressionCollection searchProperties;
         private PropertyExpressionCollection filterProperties;
         private IWebElement webElement;
@@ -41,6 +41,14 @@ namespace CodedSelenium
         public UITestControl(IWebElement webElement)
         {
             this.webElement = webElement;
+        }
+
+        public virtual string InnerText
+        {
+            get
+            {
+                return this.WebElement.Text;
+            }
         }
 
         public virtual bool Exists
@@ -184,7 +192,7 @@ namespace CodedSelenium
         protected virtual string GetCssSelector(Dictionary<string, string> dictionary)
         {
             IEnumerable<string> attributes = dictionary
-                .Where(item => !this.PropertyNamesToIgnoreByCssSelector.Contains(item.Key))
+                .Where(item => !this.PropertyNamesToIgnoreByCssSelector.Contains(item.Key.Trim(ContainsSufix)))
                 .Select(item => string.Format(AttributeTemplate, item.Key, item.Value));
 
             return dictionary[PropertyNames.TagName] + string.Join(string.Empty, attributes);
@@ -210,16 +218,17 @@ namespace CodedSelenium
             IEnumerable<IWebElement> webElements = this.Parent.FindElements(
                 By.CssSelector(this.GetCssSelector(dictionary)));
 
-            if (dictionary.ContainsKey(PropertyNames.InnerText))
+            KeyValuePair<string, string> innerTextPair = dictionary.FirstOrDefault(item => item.Key.Contains(PropertyNames.InnerText));
+
+            if (!innerTextPair.Equals(default(KeyValuePair<string, string>)))
             {
-                string expectedInnerText = dictionary[PropertyNames.InnerText];
-                if (expectedInnerText.Contains(ContainsSufix))
+                if (innerTextPair.Key.Contains(ContainsSufix))
                 {
-                    webElements = webElements.Where(item => item.Text.Contains(expectedInnerText));
+                    webElements = webElements.Where(item => item.Text.Contains(innerTextPair.Value));
                 }
                 else
                 {
-                    webElements = webElements.Where(item => item.Text.Equals(expectedInnerText));
+                    webElements = webElements.Where(item => item.Text.Equals(innerTextPair.Value));
                 }
             }
             else if (dictionary.ContainsKey(PropertyNames.TagInstance))

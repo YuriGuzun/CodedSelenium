@@ -5,13 +5,13 @@ namespace CodedSelenium
 {
     public class UITestControlCollection : ICollection<UITestControl>, IEnumerable<UITestControl>, IEnumerable
     {
-        private List<UITestControl> testConrols = new List<UITestControl>();
+        private List<UITestControl> testControls = new List<UITestControl>();
 
         public int Count
         {
             get
             {
-                return this.testConrols.Count;
+                return this.testControls.Count;
             }
         }
 
@@ -27,18 +27,29 @@ namespace CodedSelenium
         {
             get
             {
-                return this.testConrols[index];
+                return this.testControls[index];
             }
 
             set
             {
-                this.testConrols[index] = value;
+                this.testControls[index] = value;
             }
+        }
+
+        public string[] GetValuesOfControls()
+        {
+            List<string> values = new List<string>();
+            foreach (UITestControl control in this.testControls)
+            {
+                values.Add(control.InnerText);
+            }
+
+            return values.ToArray();
         }
 
         public IEnumerator<UITestControl> GetEnumerator()
         {
-            return this.testConrols.GetEnumerator();
+            return this.testControls.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -48,27 +59,27 @@ namespace CodedSelenium
 
         public void Clear()
         {
-            this.testConrols.Clear();
+            this.testControls.Clear();
         }
 
         public bool Contains(UITestControl testControl)
         {
-            return this.testConrols.Contains(testControl);
+            return this.testControls.Contains(testControl);
         }
 
         public void CopyTo(UITestControl[] array, int arrayIndex)
         {
-            this.testConrols.CopyTo(array, arrayIndex);
+            this.testControls.CopyTo(array, arrayIndex);
         }
 
         public bool Remove(UITestControl item)
         {
-            return this.testConrols.Remove(item);
+            return this.testControls.Remove(item);
         }
 
         public void Add(UITestControl item)
         {
-            this.testConrols.Add(item);
+            this.testControls.Add(item);
         }
 
         public void AddRange(UITestControlCollection collectionToAdd)

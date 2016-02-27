@@ -35,14 +35,6 @@
             }
         }
 
-        public virtual string InnerText
-        {
-            get
-            {
-                return WebElement.Text;
-            }
-        }
-
         public virtual string TagName
         {
             get

@@ -10,65 +10,65 @@ namespace CodedSelenium.Test
         [TestMethod]
         public void HtmlCellTest_ById()
         {
-            HtmlCell checkBox = new HtmlCell(BrowserWindow);
-            checkBox.SearchProperties.Add(HtmlCell.PropertyNames.Id, "cellWithId");
+            HtmlCell cell = new HtmlCell(BrowserWindow);
+            cell.SearchProperties.Add(HtmlCell.PropertyNames.Id, "cellWithId");
 
-            checkBox.InnerText.Should().Be("Item 113");
+            cell.InnerText.Should().Be("Item 113");
         }
 
         [TestMethod]
         public void HtmlCellTest_ByInnerText()
         {
-            HtmlCell checkBox = new HtmlCell(BrowserWindow);
-            checkBox.SearchProperties.Add(HtmlCell.PropertyNames.InnerText, "Item 113");
+            HtmlCell cell = new HtmlCell(BrowserWindow);
+            cell.SearchProperties.Add(HtmlCell.PropertyNames.InnerText, "113", PropertyExpressionOperator.Contains);
 
-            checkBox.Id.Should().Be("cellWithId");
+            cell.Id.Should().Be("cellWithId");
         }
 
         [TestMethod]
         public void HtmlCellTest_ByColumnIndex()
         {
-            HtmlCell checkBox = new HtmlCell(BrowserWindow);
-            checkBox.SearchProperties.Add(HtmlCell.PropertyNames.ColumnIndex, "2");
+            HtmlCell cell = new HtmlCell(BrowserWindow);
+            cell.SearchProperties.Add(HtmlCell.PropertyNames.ColumnIndex, "2");
 
-            checkBox.InnerText.Should().Be("Item 011");
+            cell.InnerText.Should().Be("Item 011");
         }
 
         [TestMethod]
         public void HtmlCellTest_ByRowIndex()
         {
-            HtmlCell checkBox = new HtmlCell(BrowserWindow);
-            checkBox.SearchProperties.Add(HtmlCell.PropertyNames.RowIndex, "2");
+            HtmlCell cell = new HtmlCell(BrowserWindow);
+            cell.SearchProperties.Add(HtmlCell.PropertyNames.RowIndex, "2");
 
-            checkBox.InnerText.Should().Be("Item 002");
+            cell.InnerText.Should().Be("Item 002");
         }
 
         [TestMethod]
         public void HtmlCellTest_ByRowAndColumnIndex()
         {
-            HtmlCell checkBox = new HtmlCell(BrowserWindow);
-            checkBox.SearchProperties.Add(HtmlCell.PropertyNames.ColumnIndex, "2");
-            checkBox.SearchProperties.Add(HtmlCell.PropertyNames.RowIndex, "2");
+            HtmlCell cell = new HtmlCell(BrowserWindow);
+            cell.SearchProperties.Add(HtmlCell.PropertyNames.ColumnIndex, "2");
+            cell.SearchProperties.Add(HtmlCell.PropertyNames.RowIndex, "2");
 
-            checkBox.InnerText.Should().Be("Item 012");
+            cell.InnerText.Should().Be("Item 012");
         }
 
         [TestMethod]
         public void HtmlCellTest_ByInstance()
         {
-            HtmlCell checkBox = new HtmlCell(BrowserWindow);
-            checkBox.SearchProperties.Add(HtmlCell.PropertyNames.Instance, "4");
+            HtmlCell cell = new HtmlCell(BrowserWindow);
+            cell.SearchProperties.Add(HtmlCell.PropertyNames.Instance, "4");
 
-            checkBox.InnerText.Should().Be("Item 012");
+            cell.InnerText.Should().Be("Item 012");
         }
 
         [TestMethod]
         public void HtmlCellTest_ByTagInstance()
         {
-            HtmlCell checkBox = new HtmlCell(BrowserWindow);
-            checkBox.SearchProperties.Add(HtmlCell.PropertyNames.Instance, "4");
+            HtmlCell cell = new HtmlCell(BrowserWindow);
+            cell.SearchProperties.Add(HtmlCell.PropertyNames.Instance, "4");
 
-            checkBox.InnerText.Should().Be("Item 012");
+            cell.InnerText.Should().Be("Item 012");
         }
     }
 }

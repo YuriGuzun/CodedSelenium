@@ -34,7 +34,7 @@ namespace CodedSelenium
 
             set
             {
-                this.propertyExpressions.FirstOrDefault(item => item.PropertyName == propertyName).PropertyValue = value;
+                this.Add(new PropertyExpression(propertyName, value));
             }
         }
 
@@ -95,25 +95,25 @@ namespace CodedSelenium
 
         public void Add(string propertyName, string propertyValue)
         {
-            this.propertyExpressions.Add(new PropertyExpression(propertyName, propertyValue));
+            this.Add(new PropertyExpression(propertyName, propertyValue));
         }
 
         public void Add(string propertyName, string propertyValue, PropertyExpressionOperator conditionOperator)
         {
-            this.propertyExpressions.Add(new PropertyExpression(propertyName, propertyValue, conditionOperator));
+            this.Add(new PropertyExpression(propertyName, propertyValue, conditionOperator));
         }
 
         public void AddRange(params PropertyExpression[] propertyExpressions)
         {
-            this.propertyExpressions.AddRange(propertyExpressions);
+            foreach (PropertyExpression propertyExpression in propertyExpressions)
+            {
+                this.Add(propertyExpression);
+            }
         }
 
         public void AddRange(PropertyExpressionCollection collectionToAdd)
         {
-            foreach (PropertyExpression propertyExpression in collectionToAdd)
-            {
-                this.Add(propertyExpression);
-            }
+            this.AddRange(collectionToAdd.ToArray());
         }
     }
 }
