@@ -63,7 +63,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="BasicCheck.cs" />
+    <Compile Include="BasicCheck.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="BasicTest.cs" />
     <Compile Include="HtmlCheckBoxTest.cs" />
     <Compile Include="HtmlFileInputTest.cs" />

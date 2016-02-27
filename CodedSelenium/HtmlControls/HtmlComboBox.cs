@@ -1,16 +1,17 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CodedSelenium.HtmlControls
 {
     public class HtmlComboBox : HtmlControl
     {
         private SelectElement selector;
+
+        public HtmlComboBox()
+        {
+        }
 
         public HtmlComboBox(UITestControl parent)
           : base(parent)
@@ -100,7 +101,7 @@ namespace CodedSelenium.HtmlControls
             return this.Selector.Options.Select(item => item.Text).ToArray();
         }
 
-        public abstract class PropertyNames : HtmlControl.PropertyNames
+        public abstract new class PropertyNames : HtmlControl.PropertyNames
         {
             public static readonly string ItemCount = "itemcount";
             public static readonly string Items = "items";

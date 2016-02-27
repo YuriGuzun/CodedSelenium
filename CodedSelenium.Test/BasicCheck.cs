@@ -1,8 +1,6 @@
 ﻿using CodedSelenium.HtmlControls;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.IO;
 
 namespace CodedSelenium.Test
 {

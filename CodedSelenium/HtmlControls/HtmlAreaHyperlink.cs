@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CodedSelenium.HtmlControls
+﻿namespace CodedSelenium.HtmlControls
 {
     public class HtmlAreaHyperlink : HtmlControl
     {
+        public HtmlAreaHyperlink()
+        {
+        }
+
         public HtmlAreaHyperlink(UITestControl parent)
           : base(parent)
         {
@@ -46,7 +44,7 @@ namespace CodedSelenium.HtmlControls
             }
         }
 
-        public abstract class PropertyNames : HtmlControl.PropertyNames
+        public abstract new class PropertyNames : HtmlControl.PropertyNames
         {
             public static readonly string AbsolutePath = "absolutepath";
             public static readonly string Alt = "alt";

@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CodedSelenium.HtmlControls
+﻿namespace CodedSelenium.HtmlControls
 {
     public class HtmlFileInput : HtmlControl
     {
+        public HtmlFileInput()
+        {
+        }
+
         public HtmlFileInput(UITestControl parent)
           : base(parent)
         {
@@ -44,7 +42,7 @@ namespace CodedSelenium.HtmlControls
             }
         }
 
-        public abstract class PropertyNames : HtmlControl.PropertyNames
+        public abstract new class PropertyNames : HtmlControl.PropertyNames
         {
             public static readonly string FileName = "value";
             public static readonly string LabeledBy = "labeledby";

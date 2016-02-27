@@ -12,13 +12,13 @@ namespace CodedSelenium.Test
         {
             HtmlComboBox comboBox = new HtmlComboBox(BrowserWindow);
             string coffee = "Coffee";
-            string Tea = "Tea";
+            string tea = "Tea";
             comboBox.SelectedItem = coffee;
             comboBox.SelectedItem.Should().Be(coffee);
             this.AssertResult("comboBox", "click");
 
-            comboBox.SelectedItem = Tea;
-            comboBox.SelectedItem.Should().Be(Tea);
+            comboBox.SelectedItem = tea;
+            comboBox.SelectedItem.Should().Be(tea);
             this.AssertResult("comboBox", "click");
         }
 

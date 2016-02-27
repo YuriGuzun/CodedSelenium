@@ -2,6 +2,10 @@
 {
     public class HtmlButton : HtmlControl
     {
+        public HtmlButton()
+        {
+        }
+
         public HtmlButton(UITestControl parent)
             : base(parent)
         {

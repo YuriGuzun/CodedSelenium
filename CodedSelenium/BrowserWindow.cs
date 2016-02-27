@@ -23,7 +23,7 @@ namespace CodedSelenium
             this.Parent = driver;
             this.Driver = driver;
 
-            this.Driver.ExceptionThrown += TakeScreenshotOnException;
+            this.Driver.ExceptionThrown += this.TakeScreenshotOnException;
         }
 
         ~BrowserWindow()
@@ -32,6 +32,8 @@ namespace CodedSelenium
         }
 
         public static string CurrentBrowser { get; set; }
+
+        public EventFiringWebDriver Driver { get; private set; }
 
         public virtual Uri Uri
         {
@@ -47,14 +49,6 @@ namespace CodedSelenium
             {
                 return null;
             }
-        }
-
-        public EventFiringWebDriver Driver { get; private set; }
-
-        private void TakeScreenshotOnException(object sender, WebDriverExceptionEventArgs e)
-        {
-            string timestamp = DateTime.Now.ToString("yyyy-MM-dd-hhmm-ss");
-            this.Driver.TakeScreenshot().SaveAsFile("Exception-" + timestamp + ".png", ImageFormat.Png);
         }
 
         public static BrowserWindow Launch(string uri)
@@ -181,6 +175,12 @@ namespace CodedSelenium
                     this.disposed = true;
                 }
             }
+        }
+
+        private void TakeScreenshotOnException(object sender, WebDriverExceptionEventArgs e)
+        {
+            string timestamp = DateTime.Now.ToString("yyyy-MM-dd-hhmm-ss");
+            this.Driver.TakeScreenshot().SaveAsFile("Exception-" + timestamp + ".png", ImageFormat.Png);
         }
     }
 }

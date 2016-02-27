@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CodedSelenium.HtmlControls
+﻿namespace CodedSelenium.HtmlControls
 {
     public class HtmlCheckBox : HtmlControl
     {
+        public HtmlCheckBox()
+        {
+        }
+
         public HtmlCheckBox(UITestControl parent)
           : base(parent)
         {
@@ -47,7 +45,7 @@ namespace CodedSelenium.HtmlControls
             }
         }
 
-        public abstract class PropertyNames : HtmlControl.PropertyNames
+        public abstract new class PropertyNames : HtmlControl.PropertyNames
         {
             public static readonly string Checked = "checked";
             public static readonly string LabeledBy = "labeledby";

@@ -37,6 +37,14 @@ namespace CodedSelenium.Test
             }
         }
 
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            BrowserWindow.ExecuteScript("document.getElementById(\"logId\").innerHTML = ''");
+            BrowserWindow.ExecuteScript("document.getElementById(\"logAction\").innerHTML = ''");
+            this.AssertResult(string.Empty, string.Empty);
+        }
+
         protected void AssertResult(string elementId, string action)
         {
             HtmlDiv parent = new HtmlDiv(BrowserWindow);
@@ -52,14 +60,6 @@ namespace CodedSelenium.Test
 
             idControl.InnerText.Should().Be(elementId, "Because unexpected elementId {0}-ed", action);
             actionControl.InnerText.Should().Be(action, "Because unexpected action");
-        }
-
-        [TestCleanup]
-        public void TestCleanup()
-        {
-            BrowserWindow.ExecuteScript("document.getElementById(\"logId\").innerHTML = ''");
-            BrowserWindow.ExecuteScript("document.getElementById(\"logAction\").innerHTML = ''");
-            this.AssertResult(string.Empty, string.Empty);
         }
     }
 }

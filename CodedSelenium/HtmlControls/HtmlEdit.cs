@@ -2,6 +2,10 @@
 {
     public class HtmlEdit : HtmlControl
     {
+        public HtmlEdit()
+        {
+        }
+
         public HtmlEdit(UITestControl parent)
             : base(parent)
         {
@@ -70,7 +74,7 @@
             }
         }
 
-        public abstract class PropertyNames : HtmlControl.PropertyNames
+        public abstract new class PropertyNames : HtmlControl.PropertyNames
         {
             public static readonly string Text = "text";
             public static readonly string IsPassword = "ispassword";
