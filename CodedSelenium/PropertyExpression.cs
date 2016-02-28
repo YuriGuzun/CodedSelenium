@@ -6,6 +6,7 @@
         {
             this.PropertyName = propertyName;
             this.PropertyValue = propertyValue;
+            this.PropertyOperator = PropertyExpressionOperator.EqualTo;
         }
 
         public PropertyExpression(string propertyName, string propertyValue, PropertyExpressionOperator propertyOperator)
@@ -16,9 +17,9 @@
 
         public string PropertyName { get; set; }
 
-        public PropertyExpressionOperator PropertyOperator { get; set; }
-
         public string PropertyValue { get; set; }
+
+        public PropertyExpressionOperator PropertyOperator { get; set; }
 
         public object Clone()
         {

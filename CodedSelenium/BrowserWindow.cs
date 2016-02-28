@@ -140,20 +140,18 @@ namespace CodedSelenium
 
         public virtual void PerformDialogAction(BrowserDialogAction actionType)
         {
-            IAlert alert = this.Driver.SwitchTo().Alert();
-
             switch (actionType)
             {
                 case BrowserDialogAction.Ok:
                 case BrowserDialogAction.Yes:
-                    alert.Accept();
+                    this.Driver.SwitchTo().Alert().Accept();
                     break;
 
                 case BrowserDialogAction.Cancel:
                 case BrowserDialogAction.Ignore:
                 case BrowserDialogAction.Close:
                 case BrowserDialogAction.No:
-                    alert.Dismiss();
+                    this.Driver.SwitchTo().Alert().Dismiss();
                     break;
 
                 default:

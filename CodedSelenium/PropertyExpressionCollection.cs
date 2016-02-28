@@ -63,9 +63,11 @@ namespace CodedSelenium
             this.propertyExpressions.CopyTo(array, arrayIndex);
         }
 
-        public bool Remove(PropertyExpression item)
+        public bool Remove(PropertyExpression propertyExpression)
         {
-            return this.propertyExpressions.Remove(item);
+            PropertyExpression existingItem = this.propertyExpressions
+                .Find(item => item.PropertyName.Equals(propertyExpression.PropertyName));
+            return this.propertyExpressions.Remove(existingItem);
         }
 
         public void Add(params string[] nameValuePairs)
@@ -73,7 +75,7 @@ namespace CodedSelenium
             int count = nameValuePairs.Count();
             if ((count % 2) != 0)
             {
-                throw new Exception("Incomplete pair. Number of items passed - " + count);
+                throw new ArgumentOutOfRangeException("nameValuePairs");
             }
 
             for (int i = 0; i < count; i += 2)

@@ -67,6 +67,8 @@
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="BasicTest.cs" />
+    <Compile Include="PropertyExpressionCollectionTest.cs" />
+    <Compile Include="BrowserWindowTest.cs" />
     <Compile Include="HtmlCellTest.cs" />
     <Compile Include="HtmlCheckBoxTest.cs" />
     <Compile Include="HtmlFileInputTest.cs" />

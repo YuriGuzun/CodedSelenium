@@ -31,6 +31,16 @@
                 document.getElementById("logAction").innerHTML = e.type;
             })
         });
+
+        function confirmFunction() {
+            var x;
+            if (confirm("Press a button!") == true) {
+                x = "OK!";
+            } else {
+                x = "Cancel!";
+            }
+            document.getElementById("logDetails").innerHTML = x;
+        }
     </script>
 
     <div id="loginFields">
@@ -72,9 +82,13 @@
             <tr><td>Item 106</td><td>Item 116</td></tr>
         </tbody>
     </table>
+
+    <button id="buttonWithAlert" onclick="confirmFunction()">Confirm</button>
+
     <div id="log">
         <p id="logId" />
         <p id="logAction" />
+        <p id="logDetails" />
     </div>
 </body>
 </html>
