@@ -24,5 +24,11 @@
         {
             return (object)new PropertyExpression(this.PropertyName, this.PropertyValue, this.PropertyOperator);
         }
+
+        public override string ToString()
+        {
+            string template = "{0}.{1}({2})";
+            return string.Format(template, this.PropertyName, this.PropertyOperator, this.PropertyValue);
+        }
     }
 }

@@ -14,7 +14,7 @@ namespace CodedSelenium
         private const char ContainsSufix = '*';
         private PropertyExpressionCollection searchProperties;
         private PropertyExpressionCollection filterProperties;
-        private IWebElement webElement;
+        private IWebElement privateWebElement;
         private List<string> propertyNamesToIgnore;
 
         public UITestControl()
@@ -40,7 +40,7 @@ namespace CodedSelenium
 
         public UITestControl(IWebElement webElement)
         {
-            this.webElement = webElement;
+            this.privateWebElement = webElement;
         }
 
         public virtual string InnerText
@@ -55,7 +55,7 @@ namespace CodedSelenium
         {
             get
             {
-                return this.WebElement.Displayed;
+                return this.InternalWebElement != null;
             }
         }
 
@@ -118,18 +118,40 @@ namespace CodedSelenium
         {
             get
             {
-                if (this.webElement != null)
+                if (this.InternalWebElement == null)
                 {
-                    return this.webElement;
+                    string message =
+                        "Unable to find ui control control matching search criteria:\r\n" +
+                        "\tSearchProperties: " + this.SearchProperties.ToString();
+
+                    if (this.filterProperties != null && this.FilterProperties.Count != 0)
+                    {
+                        message += "\tFilterProperties: " + this.FilterProperties.ToString();
+                    }
+
+                    throw new UITestControlNotFoundException(message);
+                }
+
+                return this.InternalWebElement;
+            }
+        }
+
+        private IWebElement InternalWebElement
+        {
+            get
+            {
+                if (this.privateWebElement != null)
+                {
+                    return this.privateWebElement;
                 }
 
                 IEnumerable<IWebElement> webElements = this.FindMatchingWebElements();
                 return webElements.FirstOrDefault();
             }
 
-            private set
+            set
             {
-                this.webElement = this.WebElement;
+                this.privateWebElement = this.WebElement;
             }
         }
 
@@ -179,7 +201,7 @@ namespace CodedSelenium
         public virtual void CopyFrom(UITestControl controlToCopy)
         {
             this.Parent = controlToCopy.Parent;
-            this.webElement = controlToCopy.webElement;
+            this.privateWebElement = controlToCopy.privateWebElement;
             this.searchProperties = controlToCopy.searchProperties;
             this.filterProperties = controlToCopy.filterProperties;
         }

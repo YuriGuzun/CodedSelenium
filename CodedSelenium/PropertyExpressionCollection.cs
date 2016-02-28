@@ -115,5 +115,10 @@ namespace CodedSelenium
         {
             this.AddRange(collectionToAdd.ToArray());
         }
+
+        public override string ToString()
+        {
+            return string.Join(" and ", this.propertyExpressions.Select(item => item.ToString()));
+        }
     }
 }
