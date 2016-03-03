@@ -211,102 +211,89 @@ namespace CodedSelenium
             this.WebElement.Click();
         }
 
-        protected virtual string GetCssSelector(Dictionary<string, string> dictionary)
+        protected virtual string GetSelector(PropertyExpressionCollection propertyExpressionCollection)
         {
-            IEnumerable<string> attributes = dictionary
-                .Where(item => !this.PropertyNamesToIgnoreByCssSelector.Contains(item.Key.Trim(ContainsSufix)))
-                .Select(item => string.Format(AttributeTemplate, item.Key, item.Value));
+            string tagName = string.Empty;
+            List<string> contentFilters = new List<string>();
+            List<string> functionFilters = new List<string>();
+            List<string> attributes = new List<string>();
 
-            return dictionary[PropertyNames.TagName] + string.Join(string.Empty, attributes);
+            foreach (PropertyExpression p in propertyExpressionCollection)
+            {
+                switch (p.PropertyName)
+                {
+                    case UITestControl.PropertyNames.TagName:
+                        tagName = p.PropertyValue;
+                        break;
+
+                    case UITestControl.PropertyNames.InnerText:
+                        if (p.PropertyOperator == PropertyExpressionOperator.Contains)
+                        {
+                            contentFilters.Add(string.Format(":contains({0})", p.PropertyValue));
+                        }
+                        else
+                        {
+                            functionFilters.Add(string.Format("($(this).text() === \"{0}\")", p.PropertyValue));
+                        }
+                        break;
+
+                    case UITestControl.PropertyNames.TagInstance:
+                        contentFilters.Add(string.Format(":nth-child({0})", p.PropertyValue));
+                        break;
+
+                    case UITestControl.PropertyNames.Instance:
+                        contentFilters.Add(string.Format(":eq({0})", p.PropertyValue));
+                        break;
+
+                    default:
+                        string containsSign = p.PropertyOperator == PropertyExpressionOperator.Contains ? "*" : string.Empty;
+                        attributes.Add(string.Format("[{0}=\"{1}\"]", p.PropertyName, containsSign, p.PropertyValue));
+                        break;
+                }
+            }
+
+            string selector = string.Format(
+                "jQuery({0}{1}{2})",
+                tagName,
+                string.Join(string.Empty, attributes),
+                string.Join(string.Empty, contentFilters));
+
+            if (functionFilters.Count != 0)
+            {
+                string functionTemplate = ".filter(function() { return {0};})";
+                selector += string.Format(functionTemplate, string.Join(" && ", functionFilters));
+            }
+
+            return selector;
         }
 
         private IEnumerable<IWebElement> FindMatchingWebElements()
         {
-            Dictionary<string, string> dictionary = this.GetSearchPropertiesDictionary(this.SearchProperties);
-            IEnumerable<IWebElement> webElements = this.GetWebElements(dictionary);
+            string searchPropertySelector = this.GetSelector(this.SearchProperties);
+            string filterPropertySelector = string.Empty;
 
-            if (webElements.Count() > 1 && (this.filterProperties != null || this.FilterProperties.Count != 0))
+            if (FilterProperties.Count > 0)
             {
                 PropertyExpressionCollection searchAndFilterProperties = this.SearchProperties;
                 searchAndFilterProperties.AddRange(this.FilterProperties);
-                webElements = this.GetWebElements(this.GetSearchPropertiesDictionary(searchAndFilterProperties));
+                filterPropertySelector = this.GetSelector(searchAndFilterProperties);
             }
 
             return webElements;
-        }
-
-        private IEnumerable<IWebElement> GetWebElements(Dictionary<string, string> dictionary)
-        {
-            IEnumerable<IWebElement> webElements = this.Parent.FindElements(
-                By.CssSelector(this.GetCssSelector(dictionary)));
-
-            KeyValuePair<string, string> innerTextPair = dictionary.FirstOrDefault(item => item.Key.Contains(PropertyNames.InnerText));
-
-            if (!innerTextPair.Equals(default(KeyValuePair<string, string>)))
-            {
-                if (innerTextPair.Key.Contains(ContainsSufix))
-                {
-                    webElements = webElements.Where(item => item.Text.Contains(innerTextPair.Value));
-                }
-                else
-                {
-                    webElements = webElements.Where(item => item.Text.Equals(innerTextPair.Value));
-                }
-            }
-            else if (dictionary.ContainsKey(PropertyNames.TagInstance))
-            {
-                webElements = this.GetWebElementsByTagInstance(dictionary);
-            }
-
-            if (dictionary.ContainsKey(PropertyNames.Instance))
-            {
-                int instance = int.Parse(dictionary[PropertyNames.Instance]);
-                return new List<IWebElement>() { webElements.ElementAt(instance - 1) };
-            }
-
-            return webElements;
-        }
-
-        private IEnumerable<IWebElement> GetWebElementsByTagInstance(Dictionary<string, string> dictionary)
-        {
-            int tagInstance = int.Parse(dictionary[PropertyNames.TagInstance]);
-            ReadOnlyCollection<IWebElement> webElements = this.Parent.FindElements(
-                By.CssSelector(this.GetCssSelector(dictionary) + string.Format(":nth-of-type({0})", tagInstance)));
-
-            return webElements;
-        }
-
-        private Dictionary<string, string> GetSearchPropertiesDictionary(PropertyExpressionCollection searchProperties)
-        {
-            Dictionary<string, string> dictionary = new Dictionary<string, string>();
-
-            foreach (PropertyExpression searchProperty in searchProperties)
-            {
-                string key = searchProperty.PropertyName.ToLowerInvariant();
-
-                if (searchProperty.PropertyOperator == PropertyExpressionOperator.Contains)
-                {
-                    key += ContainsSufix;
-                }
-
-                dictionary.Add(key, searchProperty.PropertyValue);
-            }
-
-            return dictionary;
         }
 
         public abstract class PropertyNames
         {
-            public static readonly string Class = "class";
-            public static readonly string HelpText = "helptext";
-            public static readonly string Id = "id";
-            public static readonly string InnerText = "innertext";
-            public static readonly string TagInstance = "taginstance";
-            public static readonly string Title = "title";
-            public static readonly string Type = "type";
-            public static readonly string ValueAttribute = "value";
-            public static readonly string TagName = "tagname";
-            public static readonly string Instance = "instance";
+            public const string Class = "class";
+            public const string HelpText = "helptext";
+            public const string Id = "id";
+            public const string InnerText = "innertext";
+            public const string TagInstance = "taginstance";
+            public const string Title = "title";
+            public const string Type = "type";
+            public const string ValueAttribute = "value";
+            public const string TagName = "tagname";
+            public const string Instance = "instance";
 
             [EditorBrowsable(EditorBrowsableState.Never)]
             public static new bool Equals(object objA, object objB)
