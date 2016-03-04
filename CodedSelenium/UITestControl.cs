@@ -3,15 +3,17 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 
 namespace CodedSelenium
 {
-    public class UITestControl
+    /// <summary>
+    /// Coded UI content
+    /// </summary>
+    public partial class UITestControl
     {
-        protected const string AttributeTemplate = "[{0}=\"{1}\"]";
-        private const char ContainsSufix = '*';
         private PropertyExpressionCollection searchProperties;
         private PropertyExpressionCollection filterProperties;
         private IWebElement privateWebElement;
@@ -23,19 +25,21 @@ namespace CodedSelenium
 
         public UITestControl(UITestControl parent)
         {
+            this.ParentTestControl = parent;
+
             if (parent.WebElement == null)
             {
-                this.Parent = parent.Parent;
+                this.ParentSearchContext = parent.ParentSearchContext;
             }
             else
             {
-                this.Parent = parent.WebElement;
+                this.ParentSearchContext = parent.WebElement;
             }
         }
 
         public UITestControl(ISearchContext parent)
         {
-            this.Parent = parent;
+            this.ParentSearchContext = parent;
         }
 
         public UITestControl(IWebElement webElement)
@@ -93,68 +97,6 @@ namespace CodedSelenium
             }
         }
 
-        protected ISearchContext Parent { get; set; }
-
-        protected virtual List<string> PropertyNamesToIgnoreByCssSelector
-        {
-            get
-            {
-                if (this.propertyNamesToIgnore == null)
-                {
-                    this.propertyNamesToIgnore = new List<string>()
-                    {
-                        UITestControl.PropertyNames.InnerText,
-                        UITestControl.PropertyNames.TagName,
-                        UITestControl.PropertyNames.TagInstance,
-                        UITestControl.PropertyNames.Instance,
-                    };
-                }
-
-                return this.propertyNamesToIgnore;
-            }
-        }
-
-        protected virtual IWebElement WebElement
-        {
-            get
-            {
-                if (this.InternalWebElement == null)
-                {
-                    string message =
-                        "Unable to find ui control control matching search criteria:\r\n" +
-                        "\tSearchProperties: " + this.SearchProperties.ToString();
-
-                    if (this.filterProperties != null && this.FilterProperties.Count != 0)
-                    {
-                        message += "\tFilterProperties: " + this.FilterProperties.ToString();
-                    }
-
-                    throw new UITestControlNotFoundException(message);
-                }
-
-                return this.InternalWebElement;
-            }
-        }
-
-        private IWebElement InternalWebElement
-        {
-            get
-            {
-                if (this.privateWebElement != null)
-                {
-                    return this.privateWebElement;
-                }
-
-                IEnumerable<IWebElement> webElements = this.FindMatchingWebElements();
-                return webElements.FirstOrDefault();
-            }
-
-            set
-            {
-                this.privateWebElement = this.WebElement;
-            }
-        }
-
         public void DrawHighlight()
         {
         }
@@ -189,10 +131,14 @@ namespace CodedSelenium
         public UITestControlCollection FindMatchingControls()
         {
             UITestControlCollection collection = new UITestControlCollection();
+            ReadOnlyCollection<IWebElement> matchingElements = this.FindMatchingWebElements();
 
-            foreach (IWebElement webElement in this.FindMatchingWebElements())
+            if (matchingElements != null)
             {
-                collection.Add(new UITestControl(webElement));
+                foreach (IWebElement webElement in matchingElements)
+                {
+                    collection.Add(new UITestControl(webElement));
+                }
             }
 
             return collection;
@@ -200,100 +146,24 @@ namespace CodedSelenium
 
         public virtual void CopyFrom(UITestControl controlToCopy)
         {
-            this.Parent = controlToCopy.Parent;
+            this.ParentSearchContext = controlToCopy.ParentSearchContext;
             this.privateWebElement = controlToCopy.privateWebElement;
             this.searchProperties = controlToCopy.searchProperties;
             this.filterProperties = controlToCopy.filterProperties;
         }
 
-        public virtual void Click()
-        {
-            this.WebElement.Click();
-        }
-
-        protected virtual string GetSelector(PropertyExpressionCollection propertyExpressionCollection)
-        {
-            string tagName = string.Empty;
-            List<string> contentFilters = new List<string>();
-            List<string> functionFilters = new List<string>();
-            List<string> attributes = new List<string>();
-
-            foreach (PropertyExpression p in propertyExpressionCollection)
-            {
-                switch (p.PropertyName)
-                {
-                    case UITestControl.PropertyNames.TagName:
-                        tagName = p.PropertyValue;
-                        break;
-
-                    case UITestControl.PropertyNames.InnerText:
-                        if (p.PropertyOperator == PropertyExpressionOperator.Contains)
-                        {
-                            contentFilters.Add(string.Format(":contains({0})", p.PropertyValue));
-                        }
-                        else
-                        {
-                            functionFilters.Add(string.Format("($(this).text() === \"{0}\")", p.PropertyValue));
-                        }
-                        break;
-
-                    case UITestControl.PropertyNames.TagInstance:
-                        contentFilters.Add(string.Format(":nth-child({0})", p.PropertyValue));
-                        break;
-
-                    case UITestControl.PropertyNames.Instance:
-                        contentFilters.Add(string.Format(":eq({0})", p.PropertyValue));
-                        break;
-
-                    default:
-                        string containsSign = p.PropertyOperator == PropertyExpressionOperator.Contains ? "*" : string.Empty;
-                        attributes.Add(string.Format("[{0}=\"{1}\"]", p.PropertyName, containsSign, p.PropertyValue));
-                        break;
-                }
-            }
-
-            string selector = string.Format(
-                "jQuery({0}{1}{2})",
-                tagName,
-                string.Join(string.Empty, attributes),
-                string.Join(string.Empty, contentFilters));
-
-            if (functionFilters.Count != 0)
-            {
-                string functionTemplate = ".filter(function() { return {0};})";
-                selector += string.Format(functionTemplate, string.Join(" && ", functionFilters));
-            }
-
-            return selector;
-        }
-
-        private IEnumerable<IWebElement> FindMatchingWebElements()
-        {
-            string searchPropertySelector = this.GetSelector(this.SearchProperties);
-            string filterPropertySelector = string.Empty;
-
-            if (FilterProperties.Count > 0)
-            {
-                PropertyExpressionCollection searchAndFilterProperties = this.SearchProperties;
-                searchAndFilterProperties.AddRange(this.FilterProperties);
-                filterPropertySelector = this.GetSelector(searchAndFilterProperties);
-            }
-
-            return webElements;
-        }
-
         public abstract class PropertyNames
         {
-            public const string Class = "class";
-            public const string HelpText = "helptext";
-            public const string Id = "id";
-            public const string InnerText = "innertext";
-            public const string TagInstance = "taginstance";
-            public const string Title = "title";
-            public const string Type = "type";
+            public const string Class = "Class";
+            public const string HelpText = "HelpText";
+            public const string Id = "Id";
+            public const string InnerText = "InnerText";
+            public const string TagInstance = "TagInstance";
+            public const string Title = "Title";
+            public const string Type = "Type";
             public const string ValueAttribute = "value";
-            public const string TagName = "tagname";
-            public const string Instance = "instance";
+            public const string TagName = "TagName";
+            public const string Instance = "Instance";
 
             [EditorBrowsable(EditorBrowsableState.Never)]
             public static new bool Equals(object objA, object objB)

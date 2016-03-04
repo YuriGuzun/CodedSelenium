@@ -47,37 +47,20 @@ namespace CodedSelenium.HtmlControls
             }
         }
 
-        protected override List<string> PropertyNamesToIgnoreByCssSelector
+        protected override List<string> PropertyNamesToIgnoreBy
         {
             get
             {
                 foreach (string propertyName in new string[] { HtmlTextArea.PropertyNames.LabeledBy })
                 {
-                    if (!base.PropertyNamesToIgnoreByCssSelector.Contains(propertyName))
+                    if (!base.PropertyNamesToIgnoreBy.Contains(propertyName))
                     {
-                        base.PropertyNamesToIgnoreByCssSelector.Add(propertyName);
+                        base.PropertyNamesToIgnoreBy.Add(propertyName);
                     }
                 }
 
-                return base.PropertyNamesToIgnoreByCssSelector;
+                return base.PropertyNamesToIgnoreBy;
             }
-        }
-
-        protected override string GetCssSelector(Dictionary<string, string> dictionary)
-        {
-            string cssSelector = base.GetCssSelector(dictionary);
-
-            if (dictionary.ContainsKey(HtmlTextArea.PropertyNames.LabeledBy))
-            {
-                PropertyExpression labledByProperty = this.SearchProperties.FirstOrDefault(
-                    item => item.PropertyName.Equals(HtmlTextArea.PropertyNames.LabeledBy));
-                UITestControl label = new UITestControl(this.Parent);
-                label.SearchProperties.Add(
-                    UITestControl.PropertyNames.InnerText, labledByProperty.PropertyValue, labledByProperty.PropertyOperator);
-                label.SearchProperties.Add(UITestControl.PropertyNames.TagName, "label");
-            }
-
-            return cssSelector;
         }
 
         public abstract new class PropertyNames : HtmlControl.PropertyNames

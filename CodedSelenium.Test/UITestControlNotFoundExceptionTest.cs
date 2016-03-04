@@ -19,8 +19,8 @@ namespace CodedSelenium.Test
 
             string expectedMessage =
                 "Unable to find ui control control matching search criteria:\r\n" +
-                "\tSearchProperties: TagName.EqualTo(tr) and id.EqualTo(invalidId) and InnerText.EqualTo(invalidInnerText)" +
-                "\tFilterProperties: Class.Contains(invalidClass)";
+                "\tSearchProperties: tagname.EqualTo(tr) and id.EqualTo(invalidId) and innertext.EqualTo(invalidInnerText)" +
+                "\tFilterProperties: class.Contains(invalidClass)";
 
             Action action = () => row.InnerText.ToString();
 

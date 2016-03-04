@@ -60,41 +60,20 @@ namespace CodedSelenium.HtmlControls
             }
         }
 
-        protected override List<string> PropertyNamesToIgnoreByCssSelector
+        protected override List<string> PropertyNamesToIgnoreBy
         {
             get
             {
                 foreach (string propertyName in new string[] { HtmlCell.PropertyNames.ColumnIndex, HtmlCell.PropertyNames.RowIndex })
                 {
-                    if (!base.PropertyNamesToIgnoreByCssSelector.Contains(propertyName))
+                    if (!base.PropertyNamesToIgnoreBy.Contains(propertyName))
                     {
-                        base.PropertyNamesToIgnoreByCssSelector.Add(propertyName);
+                        base.PropertyNamesToIgnoreBy.Add(propertyName);
                     }
                 }
 
-                return base.PropertyNamesToIgnoreByCssSelector;
+                return base.PropertyNamesToIgnoreBy;
             }
-        }
-
-        protected override string GetCssSelector(Dictionary<string, string> dictionary)
-        {
-            string cssSelector = string.Empty;
-
-            if (dictionary.ContainsKey(HtmlCell.PropertyNames.RowIndex))
-            {
-                string rowIndex = dictionary[HtmlCell.PropertyNames.RowIndex];
-                cssSelector += string.Format("tr:nth-of-type({0}) ", rowIndex);
-            }
-
-            cssSelector += base.GetCssSelector(dictionary);
-
-            if (dictionary.ContainsKey(HtmlCell.PropertyNames.ColumnIndex))
-            {
-                string columnIndex = dictionary[HtmlCell.PropertyNames.ColumnIndex];
-                cssSelector += string.Format(":nth-of-type({0}) ", columnIndex);
-            }
-
-            return cssSelector;
         }
 
         public abstract new class PropertyNames : HtmlControl.PropertyNames
