@@ -18,7 +18,7 @@ namespace CodedSelenium.Test
             textArea.Text = "banana";
             textArea.Text.Should().Be("banana");
 
-            this.AssertResult("anotherTextArea", "keypress");
+            AssertResult("anotherTextArea", "keypress");
         }
 
         [Test]
@@ -32,7 +32,7 @@ namespace CodedSelenium.Test
             textArea.Text = "banana";
             textArea.Text.Should().Be("banana");
 
-            this.AssertResult("anotherTextArea", "keypress");
+            AssertResult("anotherTextArea", "keypress");
         }
     }
 }

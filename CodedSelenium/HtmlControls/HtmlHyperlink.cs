@@ -9,14 +9,14 @@
         public HtmlHyperlink(UITestControl parent)
           : base(parent)
         {
-            this.SearchProperties.Add(HtmlControl.PropertyNames.TagName, "a");
+            SearchProperties.Add(HtmlControl.PropertyNames.TagName, "a");
         }
 
         public virtual string AbsolutePath
         {
             get
             {
-                return this.WebElement.GetAttribute(HtmlHyperlink.PropertyNames.AbsolutePath);
+                return WebElement.GetAttribute(HtmlHyperlink.PropertyNames.AbsolutePath);
             }
         }
 
@@ -24,7 +24,7 @@
         {
             get
             {
-                return this.WebElement.GetAttribute(HtmlHyperlink.PropertyNames.Alt);
+                return WebElement.GetAttribute(HtmlHyperlink.PropertyNames.Alt);
             }
         }
 
@@ -32,7 +32,7 @@
         {
             get
             {
-                return this.WebElement.GetAttribute(HtmlHyperlink.PropertyNames.Href);
+                return WebElement.GetAttribute(HtmlHyperlink.PropertyNames.Href);
             }
         }
 
@@ -40,7 +40,7 @@
         {
             get
             {
-                return this.WebElement.GetAttribute(HtmlHyperlink.PropertyNames.Target);
+                return WebElement.GetAttribute(HtmlHyperlink.PropertyNames.Target);
             }
         }
 

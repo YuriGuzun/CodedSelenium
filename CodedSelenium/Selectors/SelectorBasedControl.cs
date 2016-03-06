@@ -15,17 +15,17 @@ namespace CodedSelenium.Selectors
         {
             get
             {
-                if (this.rulesDictionary == null)
+                if (rulesDictionary == null)
                 {
-                    this.rulesDictionary = new Dictionary<string, Func<PropertyExpression, SelectorPart>>()
+                    rulesDictionary = new Dictionary<string, Func<PropertyExpression, SelectorPart>>()
                     {
-                        { UITestControl.PropertyNames.Instance, this.ByInstance },
-                        { UITestControl.PropertyNames.TagInstance, this.ByTagInstance },
-                        { UITestControl.PropertyNames.InnerText, this.ByInnerText }
+                        { UITestControl.PropertyNames.Instance, ByInstance },
+                        { UITestControl.PropertyNames.TagInstance, ByTagInstance },
+                        { UITestControl.PropertyNames.InnerText, ByInnerText }
                     };
                 }
 
-                return this.rulesDictionary;
+                return rulesDictionary;
             }
         }
 
@@ -46,9 +46,9 @@ namespace CodedSelenium.Selectors
                     continue;
                 }
 
-                if (this.RulesDictionary.ContainsKey(propertyExpression.PropertyName))
+                if (RulesDictionary.ContainsKey(propertyExpression.PropertyName))
                 {
-                    SelectorPart selectorPart = this.RulesDictionary[propertyExpression.PropertyName].Invoke(propertyExpression);
+                    SelectorPart selectorPart = RulesDictionary[propertyExpression.PropertyName].Invoke(propertyExpression);
 
                     switch (selectorPart.Filter)
                     {

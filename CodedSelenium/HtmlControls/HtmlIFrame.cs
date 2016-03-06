@@ -15,14 +15,14 @@ namespace CodedSelenium.HtmlControls
         public HtmlIFrame(UITestControl parent)
           : base(parent)
         {
-            this.SearchProperties.Add(HtmlControl.PropertyNames.TagName, "iframe");
+            SearchProperties.Add(HtmlControl.PropertyNames.TagName, "iframe");
         }
 
         public virtual string PageUrl
         {
             get
             {
-                return this.WebElement.GetAttribute(HtmlIFrame.PropertyNames.PageUrl);
+                return WebElement.GetAttribute(HtmlIFrame.PropertyNames.PageUrl);
             }
         }
 
@@ -30,7 +30,7 @@ namespace CodedSelenium.HtmlControls
         {
             get
             {
-                return this.WebElement.GetAttribute(HtmlIFrame.PropertyNames.AbsolutePath);
+                return WebElement.GetAttribute(HtmlIFrame.PropertyNames.AbsolutePath);
             }
         }
 
@@ -38,7 +38,7 @@ namespace CodedSelenium.HtmlControls
         {
             get
             {
-                string scrolingValue = this.WebElement.GetAttribute(HtmlIFrame.PropertyNames.Scrollable);
+                string scrolingValue = WebElement.GetAttribute(HtmlIFrame.PropertyNames.Scrollable);
 
                 if (string.IsNullOrEmpty(scrolingValue) || !scrolingValue.Contains("no"))
                 {

@@ -13,7 +13,7 @@ namespace CodedSelenium.Test
             HtmlFileInput fileInput = new HtmlFileInput(BrowserWindow);
             fileInput.FileName = HtmlFileInputTest.PathToPage;
             fileInput.FileName.Should().EndWith(HtmlFileInputTest.PageName);
-            this.AssertResult("uploadHere", "change");
+            AssertResult("uploadHere", "change");
         }
     }
 }

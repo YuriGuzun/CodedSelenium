@@ -44,7 +44,7 @@ namespace CodedSelenium.Test
             BrowserWindow.ExecuteScript("document.getElementById(\"logId\").innerHTML = ''");
             BrowserWindow.ExecuteScript("document.getElementById(\"logAction\").innerHTML = ''");
             BrowserWindow.ExecuteScript("document.getElementById(\"logDetails\").innerHTML = ''");
-            this.AssertResult(string.Empty, string.Empty);
+            AssertResult(string.Empty, string.Empty);
         }
 
         protected void AssertResult(string elementId, string action, string details = "")

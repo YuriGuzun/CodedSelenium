@@ -16,14 +16,14 @@ namespace CodedSelenium.HtmlControls
         public HtmlComboBox(UITestControl parent)
           : base(parent)
         {
-            this.SearchProperties.Add(HtmlControl.PropertyNames.TagName, "select");
+            SearchProperties.Add(HtmlControl.PropertyNames.TagName, "select");
         }
 
         public virtual int ItemCount
         {
             get
             {
-                return this.Items.Count;
+                return Items.Count;
             }
         }
 
@@ -32,7 +32,7 @@ namespace CodedSelenium.HtmlControls
             get
             {
                 UITestControlCollection collection = new UITestControlCollection();
-                foreach (IWebElement option in this.Selector.Options)
+                foreach (IWebElement option in Selector.Options)
                 {
                     collection.Add(new UITestControl(option));
                 }
@@ -45,12 +45,12 @@ namespace CodedSelenium.HtmlControls
         {
             get
             {
-                return this.Selector.SelectedOption.Text;
+                return Selector.SelectedOption.Text;
             }
 
             set
             {
-                this.Selector.SelectByText(value);
+                Selector.SelectByText(value);
             }
         }
 
@@ -58,12 +58,12 @@ namespace CodedSelenium.HtmlControls
         {
             get
             {
-                return Array.IndexOf(this.GetContent(), this.SelectedItem);
+                return Array.IndexOf(GetContent(), SelectedItem);
             }
 
             set
             {
-                this.Selector.SelectByIndex(value);
+                Selector.SelectByIndex(value);
             }
         }
 
@@ -71,7 +71,7 @@ namespace CodedSelenium.HtmlControls
         {
             get
             {
-                return this.WebElement.GetAttribute(HtmlComboBox.PropertyNames.LabeledBy);
+                return WebElement.GetAttribute(HtmlComboBox.PropertyNames.LabeledBy);
             }
         }
 
@@ -79,7 +79,7 @@ namespace CodedSelenium.HtmlControls
         {
             get
             {
-                return this.Items.Count;
+                return Items.Count;
             }
         }
 
@@ -87,18 +87,18 @@ namespace CodedSelenium.HtmlControls
         {
             get
             {
-                if (this.selector == null)
+                if (selector == null)
                 {
-                    this.selector = new SelectElement(this.WebElement);
+                    selector = new SelectElement(WebElement);
                 }
 
-                return this.selector;
+                return selector;
             }
         }
 
         public string[] GetContent()
         {
-            return this.Selector.Options.Select(item => item.Text).ToArray();
+            return Selector.Options.Select(item => item.Text).ToArray();
         }
 
         public abstract new class PropertyNames : HtmlControl.PropertyNames

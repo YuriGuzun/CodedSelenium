@@ -60,6 +60,7 @@
     <Compile Include="HtmlControls\HtmlAreaHyperlink.cs" />
     <Compile Include="HtmlControls\HtmlButton.cs" />
     <Compile Include="HtmlControls\HtmlCell.cs" />
+    <Compile Include="HtmlControls\HtmlCellBase.cs" />
     <Compile Include="HtmlControls\HtmlCheckBox.cs" />
     <Compile Include="HtmlControls\HtmlComboBox.cs" />
     <Compile Include="HtmlControls\HtmlControl.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="HtmlControls\HtmlDocument.cs" />
     <Compile Include="HtmlControls\HtmlEdit.cs" />
     <Compile Include="HtmlControls\HtmlFileInput.cs" />
+    <Compile Include="HtmlControls\HtmlHeaderCell.cs" />
     <Compile Include="HtmlControls\HtmlHyperlink.cs" />
     <Compile Include="HtmlControls\HtmlIFrame.cs" />
     <Compile Include="HtmlControls\HtmlImage.cs" />
@@ -76,6 +78,7 @@
     <Compile Include="HtmlControls\HtmlRadioButton.cs" />
     <Compile Include="HtmlControls\HtmlRow.cs" />
     <Compile Include="HtmlControls\HtmlSpan.cs" />
+    <Compile Include="HtmlControls\HtmlTable.cs" />
     <Compile Include="HtmlControls\HtmlTextArea.cs" />
     <Compile Include="HtmlControls\HtmlTextControl.cs" />
     <Compile Include="Mouse.cs" />

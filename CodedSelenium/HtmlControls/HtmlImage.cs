@@ -9,14 +9,14 @@
         public HtmlImage(UITestControl parent)
           : base(parent)
         {
-            this.SearchProperties.Add(HtmlControl.PropertyNames.TagName, "img");
+            SearchProperties.Add(HtmlControl.PropertyNames.TagName, "img");
         }
 
         public virtual string Alt
         {
             get
             {
-                return this.WebElement.GetAttribute(HtmlImage.PropertyNames.Alt);
+                return WebElement.GetAttribute(HtmlImage.PropertyNames.Alt);
             }
         }
 
@@ -24,7 +24,7 @@
         {
             get
             {
-                return this.WebElement.GetAttribute(HtmlImage.PropertyNames.Src);
+                return WebElement.GetAttribute(HtmlImage.PropertyNames.Src);
             }
         }
 
@@ -32,7 +32,7 @@
         {
             get
             {
-                return this.WebElement.GetAttribute(HtmlImage.PropertyNames.AbsolutePath);
+                return WebElement.GetAttribute(HtmlImage.PropertyNames.AbsolutePath);
             }
         }
 
@@ -40,7 +40,7 @@
         {
             get
             {
-                return this.WebElement.GetAttribute(HtmlImage.PropertyNames.LinkAbsolutePath);
+                return WebElement.GetAttribute(HtmlImage.PropertyNames.LinkAbsolutePath);
             }
         }
 
@@ -48,7 +48,7 @@
         {
             get
             {
-                return this.WebElement.GetAttribute(HtmlImage.PropertyNames.Href);
+                return WebElement.GetAttribute(HtmlImage.PropertyNames.Href);
             }
         }
 

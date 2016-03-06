@@ -17,7 +17,7 @@ namespace CodedSelenium.Test
             button.SearchProperties.Add(HtmlButton.PropertyNames.Id, "secondButton");
             button.Click();
 
-            this.AssertResult("secondButton", "click");
+            AssertResult("secondButton", "click");
         }
 
         [Test]
@@ -29,7 +29,7 @@ namespace CodedSelenium.Test
             secondButton.SearchProperties.AddRange(button.SearchProperties);
             secondButton.Click();
 
-            this.AssertResult("secondButton", "click");
+            AssertResult("secondButton", "click");
         }
 
         [Test]
@@ -39,7 +39,7 @@ namespace CodedSelenium.Test
             button.SearchProperties.Add(HtmlButton.PropertyNames.Id, "secondButton", HtmlButton.PropertyNames.Class, "simpleButtons");
             button.Click();
 
-            this.AssertResult("secondButton", "click");
+            AssertResult("secondButton", "click");
         }
 
         [Test]
@@ -73,7 +73,7 @@ namespace CodedSelenium.Test
             button.FilterProperties.Add(HtmlButton.PropertyNames.Id, "second", PropertyExpressionOperator.Contains);
             button.Click();
 
-            this.AssertResult("secondButton", "click");
+            AssertResult("secondButton", "click");
         }
 
         [Test]
@@ -84,7 +84,7 @@ namespace CodedSelenium.Test
             button.FilterProperties.Add(HtmlButton.PropertyNames.InnerText, "Second", PropertyExpressionOperator.Contains);
             button.Click();
 
-            this.AssertResult("secondButton", "click");
+            AssertResult("secondButton", "click");
         }
     }
 }

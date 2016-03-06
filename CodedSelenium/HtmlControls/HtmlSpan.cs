@@ -15,14 +15,14 @@ namespace CodedSelenium.HtmlControls
         public HtmlSpan(UITestControl parent)
           : base(parent)
         {
-            this.SearchProperties.Add(HtmlControl.PropertyNames.TagName, "span");
+            SearchProperties.Add(HtmlControl.PropertyNames.TagName, "span");
         }
 
         public virtual string DisplayText
         {
             get
             {
-                return this.WebElement.GetAttribute(HtmlSpan.PropertyNames.DisplayText);
+                return WebElement.GetAttribute(HtmlSpan.PropertyNames.DisplayText);
             }
         }
 

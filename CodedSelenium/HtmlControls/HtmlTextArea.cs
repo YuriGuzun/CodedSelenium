@@ -16,7 +16,7 @@ namespace CodedSelenium.HtmlControls
         public HtmlTextArea(UITestControl parent)
           : base(parent)
         {
-            this.SearchProperties.Add(HtmlTextArea.PropertyNames.TagName, "textarea");
+            SearchProperties.Add(HtmlTextArea.PropertyNames.TagName, "textarea");
         }
     }
 }

@@ -20,15 +20,15 @@ namespace CodedSelenium
 
         public BrowserWindow(EventFiringWebDriver driver)
         {
-            this.ParentSearchContext = driver;
-            this.Driver = driver;
+            ParentSearchContext = driver;
+            Driver = driver;
 
-            this.Driver.ExceptionThrown += this.TakeScreenshotOnException;
+            Driver.ExceptionThrown += TakeScreenshotOnException;
         }
 
         ~BrowserWindow()
         {
-            this.Dispose(true);
+            Dispose(true);
         }
 
         public static string CurrentBrowser { get; set; }
@@ -39,7 +39,7 @@ namespace CodedSelenium
         {
             get
             {
-                return new Uri(this.Driver.Url);
+                return new Uri(Driver.Url);
             }
         }
 
@@ -93,49 +93,49 @@ namespace CodedSelenium
 
         public virtual object ExecuteScript(string script, params object[] args)
         {
-            IJavaScriptExecutor js = this.Driver as IJavaScriptExecutor;
+            IJavaScriptExecutor js = Driver as IJavaScriptExecutor;
             return (string)js.ExecuteScript(string.Format(script, args));
         }
 
         public void ClearCoockies()
         {
-            this.Driver.Manage().Cookies.DeleteAllCookies();
+            Driver.Manage().Cookies.DeleteAllCookies();
         }
 
         public void NavigateToUrl(string uri)
         {
-            this.Driver.Navigate().GoToUrl(uri);
+            Driver.Navigate().GoToUrl(uri);
         }
 
         public void NavigateToUrl(Uri uri)
         {
-            this.NavigateToUrl(uri.ToString());
+            NavigateToUrl(uri.ToString());
         }
 
         public void Dispose()
         {
-            this.Dispose(true);
+            Dispose(true);
             GC.SuppressFinalize(this);
         }
 
         public void Close()
         {
-            this.Driver.Quit();
+            Driver.Quit();
         }
 
         public void Refresh()
         {
-            this.Driver.Navigate().Refresh();
+            Driver.Navigate().Refresh();
         }
 
         public virtual void Forward()
         {
-            this.Driver.Navigate().Forward();
+            Driver.Navigate().Forward();
         }
 
         public virtual void Back()
         {
-            this.Driver.Navigate().Back();
+            Driver.Navigate().Back();
         }
 
         public virtual void PerformDialogAction(BrowserDialogAction actionType)
@@ -144,14 +144,14 @@ namespace CodedSelenium
             {
                 case BrowserDialogAction.Ok:
                 case BrowserDialogAction.Yes:
-                    this.Driver.SwitchTo().Alert().Accept();
+                    Driver.SwitchTo().Alert().Accept();
                     break;
 
                 case BrowserDialogAction.Cancel:
                 case BrowserDialogAction.Ignore:
                 case BrowserDialogAction.Close:
                 case BrowserDialogAction.No:
-                    this.Driver.SwitchTo().Alert().Dismiss();
+                    Driver.SwitchTo().Alert().Dismiss();
                     break;
 
                 default:
@@ -161,16 +161,16 @@ namespace CodedSelenium
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
-                    if (this.Driver != null)
+                    if (Driver != null)
                     {
-                        this.Close();
+                        Close();
                     }
 
-                    this.disposed = true;
+                    disposed = true;
                 }
             }
         }
@@ -178,7 +178,7 @@ namespace CodedSelenium
         private void TakeScreenshotOnException(object sender, WebDriverExceptionEventArgs e)
         {
             string timestamp = DateTime.Now.ToString("yyyy-MM-dd-hhmm-ss");
-            this.Driver.TakeScreenshot().SaveAsFile("Exception-" + timestamp + ".png", ImageFormat.Png);
+            Driver.TakeScreenshot().SaveAsFile("Exception-" + timestamp + ".png", ImageFormat.Png);
         }
     }
 }

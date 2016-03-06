@@ -10,8 +10,8 @@ namespace CodedSelenium.Selectors
     {
         public SelectorPart(string selector, FilterType filter)
         {
-            this.Value = selector;
-            this.Filter = filter;
+            Value = selector;
+            Filter = filter;
         }
 
         public enum FilterType

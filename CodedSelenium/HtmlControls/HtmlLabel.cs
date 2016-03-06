@@ -9,14 +9,14 @@
         public HtmlLabel(UITestControl parent)
           : base(parent)
         {
-            this.SearchProperties.Add(HtmlControl.PropertyNames.TagName, "label");
+            SearchProperties.Add(HtmlControl.PropertyNames.TagName, "label");
         }
 
         public virtual string DisplayText
         {
             get
             {
-                return this.WebElement.GetAttribute(HtmlLabel.PropertyNames.DisplayText);
+                return WebElement.GetAttribute(HtmlLabel.PropertyNames.DisplayText);
             }
         }
 
@@ -24,7 +24,7 @@
         {
             get
             {
-                return this.WebElement.GetAttribute(HtmlLabel.PropertyNames.LabelFor);
+                return WebElement.GetAttribute(HtmlLabel.PropertyNames.LabelFor);
             }
         }
 

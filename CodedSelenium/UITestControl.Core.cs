@@ -23,16 +23,16 @@ namespace CodedSelenium
         {
             get
             {
-                IWebElement webElement = this.InternalWebElement;
+                IWebElement webElement = InternalWebElement;
                 if (webElement == null)
                 {
                     string message =
                         "Unable to find ui control control matching search criteria:\r\n" +
-                        "\tSearchProperties: " + this.SearchProperties.ToString();
+                        "\tSearchProperties: " + SearchProperties.ToString();
 
-                    if (this.filterProperties != null && this.FilterProperties.Count != 0)
+                    if (filterProperties != null && FilterProperties.Count != 0)
                     {
-                        message += "\tFilterProperties: " + this.FilterProperties.ToString();
+                        message += "\tFilterProperties: " + FilterProperties.ToString();
                     }
 
                     throw new UITestControlNotFoundException(message);
@@ -46,12 +46,12 @@ namespace CodedSelenium
         {
             get
             {
-                if (this.privateWebElement != null)
+                if (privateWebElement != null)
                 {
-                    return this.privateWebElement;
+                    return privateWebElement;
                 }
 
-                IEnumerable<IWebElement> webElements = this.FindMatchingWebElements();
+                IEnumerable<IWebElement> webElements = FindMatchingWebElements();
                 if (webElements == null)
                 {
                     return null;
@@ -62,26 +62,26 @@ namespace CodedSelenium
 
             set
             {
-                this.privateWebElement = this.WebElement;
+                privateWebElement = WebElement;
             }
         }
 
         public virtual void Click()
         {
-            this.WebElement.Click();
+            WebElement.Click();
         }
 
         protected virtual string GetSelector()
         {
-            string thisElementSelector = this.BuildSelector(this.SearchProperties);
+            string thisElementSelector = BuildSelector(SearchProperties);
 
-            if (this.FilterProperties.Count > 0)
+            if (FilterProperties.Count > 0)
             {
                 PropertyExpressionCollection searchAndFilterProperties = new PropertyExpressionCollection();
-                searchAndFilterProperties.AddRange(this.SearchProperties);
-                searchAndFilterProperties.AddRange(this.FilterProperties);
+                searchAndFilterProperties.AddRange(SearchProperties);
+                searchAndFilterProperties.AddRange(FilterProperties);
                 thisElementSelector = string.Format(
-                    "{0}.length > 1 ? {1} : {0}", thisElementSelector, this.BuildSelector(searchAndFilterProperties));
+                    "{0}.length > 1 ? {1} : {0}", thisElementSelector, BuildSelector(searchAndFilterProperties));
             }
 
             return thisElementSelector;
@@ -89,10 +89,10 @@ namespace CodedSelenium
 
         private ReadOnlyCollection<IWebElement> FindMatchingWebElements()
         {
-            string thisElementSelector = this.GetSelector();
+            string thisElementSelector = GetSelector();
 
-            UITestControl parentControl = this.ParentTestControl;
-            ISearchContext searchContext = this.ParentSearchContext;
+            UITestControl parentControl = ParentTestControl;
+            ISearchContext searchContext = ParentSearchContext;
             while (!(searchContext is IWebDriver))
             {
                 thisElementSelector = thisElementSelector.Replace("%parent%", ", " + parentControl.GetSelector());

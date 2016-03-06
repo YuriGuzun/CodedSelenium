@@ -9,8 +9,8 @@
         public HtmlInputButton(UITestControl parent)
           : base(parent)
         {
-            this.SearchProperties.Add(HtmlControl.PropertyNames.Type, "button");
-            this.SearchProperties.Add(HtmlControl.PropertyNames.TagName, "input");
+            SearchProperties.Add(HtmlControl.PropertyNames.Type, "button");
+            SearchProperties.Add(HtmlControl.PropertyNames.TagName, "input");
         }
     }
 }

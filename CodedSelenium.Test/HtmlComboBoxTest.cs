@@ -15,11 +15,11 @@ namespace CodedSelenium.Test
             string tea = "Tea";
             comboBox.SelectedItem = coffee;
             comboBox.SelectedItem.Should().Be(coffee);
-            this.AssertResult("comboBox", "click");
+            AssertResult("comboBox", "click");
 
             comboBox.SelectedItem = tea;
             comboBox.SelectedItem.Should().Be(tea);
-            this.AssertResult("comboBox", "click");
+            AssertResult("comboBox", "click");
         }
 
         [Test]
@@ -30,13 +30,13 @@ namespace CodedSelenium.Test
             comboBox.SelectedIndex = expectedValue;
             comboBox.SelectedIndex.Should().Be(expectedValue);
             comboBox.SelectedItem.Should().Be("Coffee");
-            this.AssertResult("comboBox", "click");
+            AssertResult("comboBox", "click");
 
             expectedValue = 2;
             comboBox.SelectedIndex = expectedValue;
             comboBox.SelectedIndex.Should().Be(expectedValue);
             comboBox.SelectedItem.Should().Be("Tea");
-            this.AssertResult("comboBox", "click");
+            AssertResult("comboBox", "click");
         }
     }
 }

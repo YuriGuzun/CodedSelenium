@@ -9,20 +9,20 @@
         public HtmlFileInput(UITestControl parent)
           : base(parent)
         {
-            this.SearchProperties.Add(HtmlControl.PropertyNames.TagName, "input");
-            this.SearchProperties.Add(HtmlControl.PropertyNames.Type, "file");
+            SearchProperties.Add(HtmlControl.PropertyNames.TagName, "input");
+            SearchProperties.Add(HtmlControl.PropertyNames.Type, "file");
         }
 
         public virtual string FileName
         {
             get
             {
-                return this.WebElement.GetAttribute(HtmlFileInput.PropertyNames.FileName);
+                return WebElement.GetAttribute(HtmlFileInput.PropertyNames.FileName);
             }
 
             set
             {
-                this.WebElement.SendKeys(value);
+                WebElement.SendKeys(value);
             }
         }
 
@@ -30,7 +30,7 @@
         {
             get
             {
-                return this.WebElement.GetAttribute(HtmlFileInput.PropertyNames.LabeledBy);
+                return WebElement.GetAttribute(HtmlFileInput.PropertyNames.LabeledBy);
             }
         }
 
@@ -38,7 +38,7 @@
         {
             get
             {
-                return bool.Parse(this.WebElement.GetAttribute(HtmlFileInput.PropertyNames.ReadOnly));
+                return bool.Parse(WebElement.GetAttribute(HtmlFileInput.PropertyNames.ReadOnly));
             }
         }
 

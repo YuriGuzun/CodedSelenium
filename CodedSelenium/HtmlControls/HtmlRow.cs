@@ -14,16 +14,16 @@ namespace CodedSelenium.HtmlControls
         public HtmlRow(UITestControl parent)
           : base(parent)
         {
-            this.SearchProperties.Add(HtmlRow.PropertyNames.TagName, "tr");
+            SearchProperties.Add(HtmlRow.PropertyNames.TagName, "tr");
 
-            this.RulesDictionary.Add(HtmlRow.PropertyNames.RowIndex, this.ByRowIndex);
+            RulesDictionary.Add(HtmlRow.PropertyNames.RowIndex, ByRowIndex);
         }
 
         public virtual UITestControlCollection Cells
         {
             get
             {
-                return this.GetChildren();
+                return GetChildren();
             }
         }
 
@@ -49,13 +49,13 @@ namespace CodedSelenium.HtmlControls
         {
             get
             {
-                return this.Cells.Count;
+                return Cells.Count;
             }
         }
 
         public string[] GetContent()
         {
-            UITestControlCollection cells = this.Cells;
+            UITestControlCollection cells = Cells;
             if (cells != null)
             {
                 return cells.GetValuesOfControls();

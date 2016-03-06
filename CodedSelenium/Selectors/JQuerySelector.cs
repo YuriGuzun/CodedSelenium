@@ -20,10 +20,10 @@ namespace CodedSelenium.Selectors
         /// <param name="attributes">jQuery like attributes key value pairs. Example: [id*=customId]</param>
         public JQuerySelector(string tagName, List<string> contentFilters, List<string> functionFilters, List<string> attributes)
         {
-            this.TagName = tagName;
-            this.ContentFilters = contentFilters;
-            this.FunctionFilters = functionFilters;
-            this.Attributes = attributes;
+            TagName = tagName;
+            ContentFilters = contentFilters;
+            FunctionFilters = functionFilters;
+            Attributes = attributes;
         }
 
         /// <summary>
@@ -65,17 +65,17 @@ namespace CodedSelenium.Selectors
         public string ToString(JQuerySelector parent)
         {
             string filter = string.Empty;
-            if (this.FunctionFilters.Count != 0)
+            if (FunctionFilters.Count != 0)
             {
                 string functionTemplate = ".filter(function() { return %scriptStatements%;})";
-                filter = functionTemplate.Replace("%scriptStatements%", string.Join(" && ", this.FunctionFilters));
+                filter = functionTemplate.Replace("%scriptStatements%", string.Join(" && ", FunctionFilters));
             }
 
             string selector = string.Format(
                 "jQuery(\"{0}{1}{2}\"%parent%){3}",
-                this.TagName,
-                string.Join(string.Empty, this.Attributes),
-                string.Join(string.Empty, this.ContentFilters),
+                TagName,
+                string.Join(string.Empty, Attributes),
+                string.Join(string.Empty, ContentFilters),
                 filter);
 
             return selector.Replace("%parent%", parent != null ? ", " + parent.ToString() : string.Empty);
@@ -87,7 +87,7 @@ namespace CodedSelenium.Selectors
         /// <returns>jQuery selector string</returns>
         public override string ToString()
         {
-            return this.ToString(null);
+            return ToString(null);
         }
     }
 }

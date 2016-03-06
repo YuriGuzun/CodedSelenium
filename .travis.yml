@@ -1,4 +1,1 @@
-language: csharp
-solution: CodedSelenium.sln
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
+.\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:".\packages\NUnit.ConsoleRunner.3.2.0\tools\nunit3-console.exe" -targetargs:".\CodedSelenium.Test\bin\Debug\CodedSelenium.Test.dll" -filter:"+[CodedSelenium]" -excludebyattribute:*.ExcludeFromCodeCoverage* -hideskipped:All -output:.\MyProject_coverage.xml

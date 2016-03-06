@@ -9,7 +9,7 @@
         public HtmlCustom(UITestControl parent)
           : base(parent)
         {
-            this.SearchProperties.Add(UITestControl.PropertyNames.TagName, "*");
+            SearchProperties.Add(UITestControl.PropertyNames.TagName, "*");
         }
     }
 }

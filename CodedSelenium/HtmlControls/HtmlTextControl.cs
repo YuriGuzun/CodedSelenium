@@ -11,7 +11,7 @@ namespace CodedSelenium.HtmlControls
         public HtmlTextControl(UITestControl parent)
           : base(parent)
         {
-            this.RulesDictionary.Add(HtmlTextArea.PropertyNames.LabeledBy, this.ByLabeledBy);
+            RulesDictionary.Add(HtmlTextArea.PropertyNames.LabeledBy, ByLabeledBy);
         }
 
         public string Text
@@ -32,7 +32,7 @@ namespace CodedSelenium.HtmlControls
         {
             get
             {
-                return this.WebElement.GetAttribute(HtmlTextArea.PropertyNames.LabeledBy);
+                return WebElement.GetAttribute(HtmlTextArea.PropertyNames.LabeledBy);
             }
         }
 
@@ -40,7 +40,7 @@ namespace CodedSelenium.HtmlControls
         {
             get
             {
-                return this.WebElement.GetAttribute(HtmlTextArea.PropertyNames.ReadOnly).Equals(HtmlTextArea.PropertyNames.ReadOnly);
+                return WebElement.GetAttribute(HtmlTextArea.PropertyNames.ReadOnly).Equals(HtmlTextArea.PropertyNames.ReadOnly);
             }
         }
 

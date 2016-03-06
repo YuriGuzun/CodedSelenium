@@ -11,7 +11,7 @@ namespace CodedSelenium
         {
             get
             {
-                return this.testControls.Count;
+                return testControls.Count;
             }
         }
 
@@ -27,19 +27,19 @@ namespace CodedSelenium
         {
             get
             {
-                return this.testControls[index];
+                return testControls[index];
             }
 
             set
             {
-                this.testControls[index] = value;
+                testControls[index] = value;
             }
         }
 
         public string[] GetValuesOfControls()
         {
             List<string> values = new List<string>();
-            foreach (UITestControl control in this.testControls)
+            foreach (UITestControl control in testControls)
             {
                 values.Add(control.InnerText);
             }
@@ -49,44 +49,44 @@ namespace CodedSelenium
 
         public IEnumerator<UITestControl> GetEnumerator()
         {
-            return this.testControls.GetEnumerator();
+            return testControls.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.GetEnumerator();
+            return GetEnumerator();
         }
 
         public void Clear()
         {
-            this.testControls.Clear();
+            testControls.Clear();
         }
 
         public bool Contains(UITestControl testControl)
         {
-            return this.testControls.Contains(testControl);
+            return testControls.Contains(testControl);
         }
 
         public void CopyTo(UITestControl[] array, int arrayIndex)
         {
-            this.testControls.CopyTo(array, arrayIndex);
+            testControls.CopyTo(array, arrayIndex);
         }
 
         public bool Remove(UITestControl item)
         {
-            return this.testControls.Remove(item);
+            return testControls.Remove(item);
         }
 
         public void Add(UITestControl item)
         {
-            this.testControls.Add(item);
+            testControls.Add(item);
         }
 
         public void AddRange(UITestControlCollection collectionToAdd)
         {
             foreach (UITestControl testControl in collectionToAdd)
             {
-                this.Add(testControl);
+                Add(testControl);
             }
         }
     }

@@ -15,11 +15,11 @@ namespace CodedSelenium.Test
 
             checkBox.Checked = true;
             checkBox.Checked.Should().BeTrue();
-            this.AssertResult("checkBox", "change");
+            AssertResult("checkBox", "change");
 
             checkBox.Checked = false;
             checkBox.Checked.Should().BeFalse();
-            this.AssertResult("checkBox", "change");
+            AssertResult("checkBox", "change");
         }
     }
 }

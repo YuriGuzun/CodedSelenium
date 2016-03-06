@@ -14,7 +14,7 @@ namespace CodedSelenium
         {
             get
             {
-                return this.propertyExpressions.Count;
+                return propertyExpressions.Count;
             }
         }
 
@@ -30,45 +30,45 @@ namespace CodedSelenium
         {
             get
             {
-                return this.propertyExpressions.FirstOrDefault(item => item.PropertyName == propertyName).PropertyValue;
+                return propertyExpressions.FirstOrDefault(item => item.PropertyName == propertyName).PropertyValue;
             }
 
             set
             {
-                this.Add(new PropertyExpression(propertyName, value));
+                Add(new PropertyExpression(propertyName, value));
             }
         }
 
         public IEnumerator<PropertyExpression> GetEnumerator()
         {
-            return this.propertyExpressions.GetEnumerator();
+            return propertyExpressions.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.GetEnumerator();
+            return GetEnumerator();
         }
 
         public void Clear()
         {
-            this.propertyExpressions.Clear();
+            propertyExpressions.Clear();
         }
 
         public bool Contains(PropertyExpression propertyExpression)
         {
-            return this.propertyExpressions.Contains(propertyExpression);
+            return propertyExpressions.Contains(propertyExpression);
         }
 
         public void CopyTo(PropertyExpression[] array, int arrayIndex)
         {
-            this.propertyExpressions.CopyTo(array, arrayIndex);
+            propertyExpressions.CopyTo(array, arrayIndex);
         }
 
         public bool Remove(PropertyExpression propertyExpression)
         {
-            PropertyExpression existingItem = this.propertyExpressions
+            PropertyExpression existingItem = propertyExpressions
                 .Find(item => item.PropertyName.Equals(propertyExpression.PropertyName));
-            return this.propertyExpressions.Remove(existingItem);
+            return propertyExpressions.Remove(existingItem);
         }
 
         public void Add(params string[] nameValuePairs)
@@ -81,7 +81,7 @@ namespace CodedSelenium
 
             for (int i = 0; i < count; i += 2)
             {
-                this.Add(nameValuePairs[i], nameValuePairs[i + 1]);
+                Add(nameValuePairs[i], nameValuePairs[i + 1]);
             }
         }
 
@@ -92,36 +92,36 @@ namespace CodedSelenium
                 throw new ArgumentNullException("propertyExpression");
             }
 
-            this.Remove(propertyExpression);
-            this.propertyExpressions.Add(propertyExpression);
+            Remove(propertyExpression);
+            propertyExpressions.Add(propertyExpression);
         }
 
         public void Add(string propertyName, string propertyValue)
         {
-            this.Add(new PropertyExpression(propertyName, propertyValue));
+            Add(new PropertyExpression(propertyName, propertyValue));
         }
 
         public void Add(string propertyName, string propertyValue, PropertyExpressionOperator conditionOperator)
         {
-            this.Add(new PropertyExpression(propertyName, propertyValue, conditionOperator));
+            Add(new PropertyExpression(propertyName, propertyValue, conditionOperator));
         }
 
         public void AddRange(params PropertyExpression[] propertyExpressions)
         {
             foreach (PropertyExpression propertyExpression in propertyExpressions)
             {
-                this.Add(propertyExpression);
+                Add(propertyExpression);
             }
         }
 
         public void AddRange(PropertyExpressionCollection collectionToAdd)
         {
-            this.AddRange(collectionToAdd.ToArray());
+            AddRange(collectionToAdd.ToArray());
         }
 
         public override string ToString()
         {
-            return string.Join(" and ", this.propertyExpressions.Select(item => item.ToString()));
+            return string.Join(" and ", propertyExpressions.Select(item => item.ToString()));
         }
     }
 }

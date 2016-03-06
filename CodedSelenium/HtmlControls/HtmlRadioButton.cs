@@ -15,22 +15,22 @@ namespace CodedSelenium.HtmlControls
         public HtmlRadioButton(UITestControl parent)
           : base(parent)
         {
-            this.SearchProperties.Add(HtmlControl.PropertyNames.TagName, "input");
-            this.SearchProperties.Add(HtmlControl.PropertyNames.Type, "radio");
+            SearchProperties.Add(HtmlControl.PropertyNames.TagName, "input");
+            SearchProperties.Add(HtmlControl.PropertyNames.Type, "radio");
         }
 
         public virtual bool Selected
         {
             get
             {
-                return this.WebElement.Selected;
+                return WebElement.Selected;
             }
 
             set
             {
-                if (this.WebElement.Selected != value)
+                if (WebElement.Selected != value)
                 {
-                    this.WebElement.Click();
+                    WebElement.Click();
                 }
             }
         }
@@ -39,7 +39,7 @@ namespace CodedSelenium.HtmlControls
         {
             get
             {
-                return this.WebElement.GetAttribute(HtmlRadioButton.PropertyNames.Value);
+                return WebElement.GetAttribute(HtmlRadioButton.PropertyNames.Value);
             }
         }
 
@@ -47,7 +47,7 @@ namespace CodedSelenium.HtmlControls
         {
             get
             {
-                return this.GetParent().GetChildren();
+                return GetParent().GetChildren();
             }
         }
 
@@ -55,7 +55,7 @@ namespace CodedSelenium.HtmlControls
         {
             get
             {
-                string value = this.WebElement.GetAttribute(HtmlRadioButton.PropertyNames.ItemCount);
+                string value = WebElement.GetAttribute(HtmlRadioButton.PropertyNames.ItemCount);
                 return int.Parse(value);
             }
         }
@@ -64,7 +64,7 @@ namespace CodedSelenium.HtmlControls
         {
             get
             {
-                return this.WebElement.GetAttribute(HtmlRadioButton.PropertyNames.LabeledBy);
+                return WebElement.GetAttribute(HtmlRadioButton.PropertyNames.LabeledBy);
             }
         }
 

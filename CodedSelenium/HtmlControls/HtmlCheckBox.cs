@@ -9,22 +9,22 @@
         public HtmlCheckBox(UITestControl parent)
           : base(parent)
         {
-            this.SearchProperties.Add(HtmlControl.PropertyNames.TagName, "input");
-            this.SearchProperties.Add(HtmlControl.PropertyNames.Type, "checkbox");
+            SearchProperties.Add(HtmlControl.PropertyNames.TagName, "input");
+            SearchProperties.Add(HtmlControl.PropertyNames.Type, "checkbox");
         }
 
         public virtual bool Checked
         {
             get
             {
-                return this.WebElement.Selected;
+                return WebElement.Selected;
             }
 
             set
             {
-                if (this.WebElement.Selected != value)
+                if (WebElement.Selected != value)
                 {
-                    this.WebElement.Click();
+                    WebElement.Click();
                 }
             }
         }
@@ -33,7 +33,7 @@
         {
             get
             {
-                return (string)this.WebElement.GetAttribute(HtmlCheckBox.PropertyNames.ValueAttribute);
+                return (string)WebElement.GetAttribute(HtmlCheckBox.PropertyNames.ValueAttribute);
             }
         }
 
@@ -41,7 +41,7 @@
         {
             get
             {
-                return (string)this.WebElement.GetAttribute(HtmlCheckBox.PropertyNames.LabeledBy);
+                return (string)WebElement.GetAttribute(HtmlCheckBox.PropertyNames.LabeledBy);
             }
         }
 

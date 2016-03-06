@@ -9,7 +9,7 @@
         public HtmlDocument(UITestControl parent)
           : base(parent)
         {
-            this.SearchProperties.Add(HtmlControl.PropertyNames.TagName, "body");
+            SearchProperties.Add(HtmlControl.PropertyNames.TagName, "body");
         }
 
         public abstract new class PropertyNames : HtmlControl.PropertyNames

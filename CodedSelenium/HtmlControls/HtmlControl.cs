@@ -15,7 +15,7 @@
         {
             get
             {
-                return this.WebElement.GetAttribute(HtmlControl.PropertyNames.HelpText);
+                return WebElement.GetAttribute(HtmlControl.PropertyNames.HelpText);
             }
         }
 
@@ -23,7 +23,7 @@
         {
             get
             {
-                return this.WebElement.GetAttribute(HtmlControl.PropertyNames.Class);
+                return WebElement.GetAttribute(HtmlControl.PropertyNames.Class);
             }
         }
 
@@ -31,7 +31,7 @@
         {
             get
             {
-                return this.WebElement.GetAttribute(HtmlControl.PropertyNames.Id);
+                return WebElement.GetAttribute(HtmlControl.PropertyNames.Id);
             }
         }
 
@@ -39,7 +39,7 @@
         {
             get
             {
-                return this.WebElement.GetAttribute(HtmlControl.PropertyNames.TagName);
+                return WebElement.GetAttribute(HtmlControl.PropertyNames.TagName);
             }
         }
 
@@ -47,7 +47,7 @@
         {
             get
             {
-                return this.WebElement.GetAttribute(HtmlControl.PropertyNames.Title);
+                return WebElement.GetAttribute(HtmlControl.PropertyNames.Title);
             }
         }
 
@@ -55,7 +55,7 @@
         {
             get
             {
-                return this.WebElement.GetAttribute(HtmlControl.PropertyNames.Type);
+                return WebElement.GetAttribute(HtmlControl.PropertyNames.Type);
             }
         }
 
@@ -63,7 +63,7 @@
         {
             get
             {
-                return this.WebElement.GetAttribute(HtmlControl.PropertyNames.ValueAttribute);
+                return WebElement.GetAttribute(HtmlControl.PropertyNames.ValueAttribute);
             }
         }
     }
