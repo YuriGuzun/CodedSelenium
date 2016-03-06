@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodedSelenium.Selectors;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,6 +15,9 @@ namespace CodedSelenium.HtmlControls
           : base(parent)
         {
             this.SearchProperties.Add(HtmlControl.PropertyNames.TagName, "td");
+
+            this.RulesDictionary.Add(HtmlCell.PropertyNames.ColumnIndex, this.ByColumnIndex);
+            this.RulesDictionary.Add(HtmlCell.PropertyNames.RowIndex, this.ByRowIndex);
         }
 
         public virtual int RowIndex
@@ -60,20 +64,27 @@ namespace CodedSelenium.HtmlControls
             }
         }
 
-        protected override List<string> PropertyNamesToIgnoreBy
+        private SelectorPart ByColumnIndex(PropertyExpression propertyExpression)
         {
-            get
+            int columnIndex = 0;
+            if (int.TryParse(propertyExpression.PropertyValue, out columnIndex))
             {
-                foreach (string propertyName in new string[] { HtmlCell.PropertyNames.ColumnIndex, HtmlCell.PropertyNames.RowIndex })
-                {
-                    if (!base.PropertyNamesToIgnoreBy.Contains(propertyName))
-                    {
-                        base.PropertyNamesToIgnoreBy.Add(propertyName);
-                    }
-                }
-
-                return base.PropertyNamesToIgnoreBy;
+                return new SelectorPart(string.Format(":nth-child({0})", columnIndex), SelectorPart.FilterType.ContentFilter);
             }
+
+            throw new ArgumentOutOfRangeException("PropertyNames.ColumnIndex");
+        }
+
+        private SelectorPart ByRowIndex(PropertyExpression propertyExpression)
+        {
+            int rowIndex = 0;
+            if (int.TryParse(propertyExpression.PropertyValue, out rowIndex))
+            {
+                string selector = string.Format(", jQuery(\"tr:nth-child({0})\"%parent%)", rowIndex);
+                return new SelectorPart(selector, SelectorPart.FilterType.ExplicitParent);
+            }
+
+            throw new ArgumentOutOfRangeException("PropertyNames.RowIndex");
         }
 
         public abstract new class PropertyNames : HtmlControl.PropertyNames

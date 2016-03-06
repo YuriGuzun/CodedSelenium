@@ -8,6 +8,9 @@ namespace CodedSelenium.Selectors
 {
     public class JQuerySelector
     {
+        private PropertyExpressionCollection searchProperties;
+        private PropertyExpressionCollection filterProperties;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="JQuerySelector" /> class.
         /// </summary>
@@ -21,6 +24,17 @@ namespace CodedSelenium.Selectors
             this.ContentFilters = contentFilters;
             this.FunctionFilters = functionFilters;
             this.Attributes = attributes;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JQuerySelector" /> class.
+        /// </summary>
+        /// <param name="searchProperties">Collection of search properties</param>
+        /// <param name="filterProperties">Collection of filter properties</param>
+        public JQuerySelector(PropertyExpressionCollection searchProperties, PropertyExpressionCollection filterProperties)
+        {
+            this.searchProperties = searchProperties;
+            this.filterProperties = filterProperties;
         }
 
         /// <summary>
@@ -44,10 +58,11 @@ namespace CodedSelenium.Selectors
         public List<string> Attributes { get; set; }
 
         /// <summary>
-        /// jQuery selector with %parent% placeholder
+        /// jQuery selector. Example 'jQuery("div[id*=customId]")'
         /// </summary>
-        /// <returns>jQuery selector string with %parent% placeholder</returns>
-        public override string ToString()
+        /// <param name="parent">Parent <see cref="JQuerySelector" />. Pass null if there is no one.</param>
+        /// <returns>jQuery selector string</returns>
+        public string ToString(JQuerySelector parent)
         {
             string filter = string.Empty;
             if (this.FunctionFilters.Count != 0)
@@ -63,7 +78,16 @@ namespace CodedSelenium.Selectors
                 string.Join(string.Empty, this.ContentFilters),
                 filter);
 
-            return selector;
+            return selector.Replace("%parent%", parent != null ? ", " + parent.ToString() : string.Empty);
+        }
+
+        /// <summary>
+        /// jQuery selector
+        /// </summary>
+        /// <returns>jQuery selector string</returns>
+        public override string ToString()
+        {
+            return this.ToString(null);
         }
     }
 }

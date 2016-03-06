@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using CodedSelenium.Selectors;
+using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,12 +13,11 @@ namespace CodedSelenium
     /// <summary>
     /// Coded UI content
     /// </summary>
-    public partial class UITestControl
+    public partial class UITestControl : SelectorBasedControl
     {
         private PropertyExpressionCollection searchProperties;
         private PropertyExpressionCollection filterProperties;
         private IWebElement privateWebElement;
-        private List<string> propertyNamesToIgnore;
 
         public UITestControl()
         {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodedSelenium.Selectors;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,7 +14,9 @@ namespace CodedSelenium.HtmlControls
         public HtmlRow(UITestControl parent)
           : base(parent)
         {
-            this.SearchProperties.Add(HtmlControl.PropertyNames.TagName, "tr");
+            this.SearchProperties.Add(HtmlRow.PropertyNames.TagName, "tr");
+
+            this.RulesDictionary.Add(HtmlRow.PropertyNames.RowIndex, this.ByRowIndex);
         }
 
         public virtual UITestControlCollection Cells
@@ -50,22 +53,6 @@ namespace CodedSelenium.HtmlControls
             }
         }
 
-        protected override List<string> PropertyNamesToIgnoreBy
-        {
-            get
-            {
-                foreach (string propertyName in new string[] { HtmlRow.PropertyNames.CellCount, HtmlRow.PropertyNames.RowIndex })
-                {
-                    if (!base.PropertyNamesToIgnoreBy.Contains(propertyName))
-                    {
-                        base.PropertyNamesToIgnoreBy.Add(propertyName);
-                    }
-                }
-
-                return base.PropertyNamesToIgnoreBy;
-            }
-        }
-
         public string[] GetContent()
         {
             UITestControlCollection cells = this.Cells;
@@ -82,6 +69,17 @@ namespace CodedSelenium.HtmlControls
             HtmlCell htmlCell = new HtmlCell(this);
             htmlCell.SearchProperties[HtmlCell.PropertyNames.ColumnIndex] = cellIndex.ToString();
             return htmlCell;
+        }
+
+        private SelectorPart ByRowIndex(PropertyExpression propertyExpression)
+        {
+            int rowIndex = 0;
+            if (int.TryParse(propertyExpression.PropertyValue, out rowIndex))
+            {
+                return new SelectorPart(string.Format(":nth-child({0})", rowIndex), SelectorPart.FilterType.ContentFilter);
+            }
+
+            throw new ArgumentOutOfRangeException("PropertyNames.RowIndex");
         }
 
         public abstract new class PropertyNames : HtmlControl.PropertyNames

@@ -47,22 +47,6 @@ namespace CodedSelenium.HtmlControls
             }
         }
 
-        protected override List<string> PropertyNamesToIgnoreBy
-        {
-            get
-            {
-                foreach (string propertyName in new string[] { HtmlTextArea.PropertyNames.LabeledBy })
-                {
-                    if (!base.PropertyNamesToIgnoreBy.Contains(propertyName))
-                    {
-                        base.PropertyNamesToIgnoreBy.Add(propertyName);
-                    }
-                }
-
-                return base.PropertyNamesToIgnoreBy;
-            }
-        }
-
         public abstract new class PropertyNames : HtmlControl.PropertyNames
         {
             public static readonly string Text = HtmlControl.PropertyNames.InnerText;

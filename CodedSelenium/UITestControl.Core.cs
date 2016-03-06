@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using CodedSelenium.Selectors;
+using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,28 +13,24 @@ namespace CodedSelenium
     /// <summary>
     /// Non Coded UI content
     /// </summary>
-    public partial class UITestControl
+    public partial class UITestControl : SelectorBasedControl
     {
+        private JQuerySelector selector;
+
         public UITestControl ParentTestControl { get; private set; }
 
         protected ISearchContext ParentSearchContext { get; set; }
 
-        protected virtual List<string> PropertyNamesToIgnoreBy
+        protected virtual JQuerySelector Selector
         {
             get
             {
-                if (this.propertyNamesToIgnore == null)
+                if (this.selector == null)
                 {
-                    this.propertyNamesToIgnore = new List<string>()
-                    {
-                        UITestControl.PropertyNames.InnerText,
-                        UITestControl.PropertyNames.TagName,
-                        UITestControl.PropertyNames.TagInstance,
-                        UITestControl.PropertyNames.Instance,
-                    };
+                    this.selector = new JQuerySelector(this.SearchProperties, this.FilterProperties);
                 }
 
-                return this.propertyNamesToIgnore;
+                return this.selector;
             }
         }
 
@@ -91,14 +88,15 @@ namespace CodedSelenium
 
         protected virtual string GetSelector()
         {
-            string thisElementSelector = this.SearchProperties.GetSelector().ToString();
+            string thisElementSelector = this.BuildSelector(this.SearchProperties);
 
             if (this.FilterProperties.Count > 0)
             {
                 PropertyExpressionCollection searchAndFilterProperties = new PropertyExpressionCollection();
                 searchAndFilterProperties.AddRange(this.SearchProperties);
                 searchAndFilterProperties.AddRange(this.FilterProperties);
-                thisElementSelector = string.Format("{0}.length > 1 ? {1} : {0}", thisElementSelector, searchAndFilterProperties.GetSelector());
+                thisElementSelector = string.Format(
+                    "{0}.length > 1 ? {1} : {0}", thisElementSelector, this.BuildSelector(searchAndFilterProperties));
             }
 
             return thisElementSelector;
