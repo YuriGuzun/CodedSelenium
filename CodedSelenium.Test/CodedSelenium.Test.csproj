@@ -86,6 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="TestPages\Iframe.html" />
+    <Content Include="TestPages\SimplePage.html" />
     <Content Include="TestPages\TestPage.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

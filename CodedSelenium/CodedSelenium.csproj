@@ -15,7 +15,6 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
-    <StyleCopTreatErrorsAsWarnings>False</StyleCopTreatErrorsAsWarnings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -106,5 +105,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Import Condition="" Project="$(ProgramFiles)\MSBuild\StyleCop\v4.7\StyleCop.targets" />
 </Project>
