@@ -8,7 +8,7 @@ namespace CodedSelenium.Test
     public class HtmlCheckBoxTest : BasicTest
     {
         [TestMethod]
-        public void HtmlComboBoxTest_SelectedItem()
+        public void HtmlCheckBoxTest_SelectedItem()
         {
             HtmlCheckBox checkBox = new HtmlCheckBox(BrowserWindow);
             checkBox.Checked.Should().BeFalse();

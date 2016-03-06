@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodedSelenium.Selectors;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,6 +15,9 @@ namespace CodedSelenium.HtmlControls
           : base(parent)
         {
             this.SearchProperties.Add(HtmlControl.PropertyNames.TagName, "td");
+
+            this.RulesDictionary.Add(HtmlCell.PropertyNames.ColumnIndex, this.ByColumnIndex);
+            this.RulesDictionary.Add(HtmlCell.PropertyNames.RowIndex, this.ByRowIndex);
         }
 
         public virtual int RowIndex
@@ -60,41 +64,27 @@ namespace CodedSelenium.HtmlControls
             }
         }
 
-        protected override List<string> PropertyNamesToIgnoreByCssSelector
+        private SelectorPart ByColumnIndex(PropertyExpression propertyExpression)
         {
-            get
+            int columnIndex = 0;
+            if (int.TryParse(propertyExpression.PropertyValue, out columnIndex))
             {
-                foreach (string propertyName in new string[] { HtmlCell.PropertyNames.ColumnIndex, HtmlCell.PropertyNames.RowIndex })
-                {
-                    if (!base.PropertyNamesToIgnoreByCssSelector.Contains(propertyName))
-                    {
-                        base.PropertyNamesToIgnoreByCssSelector.Add(propertyName);
-                    }
-                }
-
-                return base.PropertyNamesToIgnoreByCssSelector;
+                return new SelectorPart(string.Format(":nth-child({0})", columnIndex), SelectorPart.FilterType.ContentFilter);
             }
+
+            throw new ArgumentOutOfRangeException("PropertyNames.ColumnIndex");
         }
 
-        protected override string GetCssSelector(Dictionary<string, string> dictionary)
+        private SelectorPart ByRowIndex(PropertyExpression propertyExpression)
         {
-            string cssSelector = string.Empty;
-
-            if (dictionary.ContainsKey(HtmlCell.PropertyNames.RowIndex))
+            int rowIndex = 0;
+            if (int.TryParse(propertyExpression.PropertyValue, out rowIndex))
             {
-                string rowIndex = dictionary[HtmlCell.PropertyNames.RowIndex];
-                cssSelector += string.Format("tr:nth-of-type({0}) ", rowIndex);
+                string selector = string.Format(", jQuery(\"tr:nth-child({0})\"%parent%)", rowIndex);
+                return new SelectorPart(selector, SelectorPart.FilterType.ExplicitParent);
             }
 
-            cssSelector += base.GetCssSelector(dictionary);
-
-            if (dictionary.ContainsKey(HtmlCell.PropertyNames.ColumnIndex))
-            {
-                string columnIndex = dictionary[HtmlCell.PropertyNames.ColumnIndex];
-                cssSelector += string.Format(":nth-of-type({0}) ", columnIndex);
-            }
-
-            return cssSelector;
+            throw new ArgumentOutOfRangeException("PropertyNames.RowIndex");
         }
 
         public abstract new class PropertyNames : HtmlControl.PropertyNames

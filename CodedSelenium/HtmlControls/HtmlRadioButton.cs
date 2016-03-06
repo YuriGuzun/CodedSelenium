@@ -68,23 +68,6 @@ namespace CodedSelenium.HtmlControls
             }
         }
 
-        protected override List<string> PropertyNamesToIgnoreByCssSelector
-        {
-            get
-            {
-                string[] ignoreList = new string[] { HtmlRadioButton.PropertyNames.Selected, HtmlRadioButton.PropertyNames.Group };
-                foreach (string propertyName in ignoreList)
-                {
-                    if (!base.PropertyNamesToIgnoreByCssSelector.Contains(propertyName))
-                    {
-                        base.PropertyNamesToIgnoreByCssSelector.Add(propertyName);
-                    }
-                }
-
-                return base.PropertyNamesToIgnoreByCssSelector;
-            }
-        }
-
         public abstract new class PropertyNames : HtmlControl.PropertyNames
         {
             public static readonly string Selected = "selected";

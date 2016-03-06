@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodedSelenium.Selectors;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,7 +14,9 @@ namespace CodedSelenium.HtmlControls
         public HtmlRow(UITestControl parent)
           : base(parent)
         {
-            this.SearchProperties.Add(HtmlControl.PropertyNames.TagName, "tr");
+            this.SearchProperties.Add(HtmlRow.PropertyNames.TagName, "tr");
+
+            this.RulesDictionary.Add(HtmlRow.PropertyNames.RowIndex, this.ByRowIndex);
         }
 
         public virtual UITestControlCollection Cells
@@ -50,22 +53,6 @@ namespace CodedSelenium.HtmlControls
             }
         }
 
-        protected override List<string> PropertyNamesToIgnoreByCssSelector
-        {
-            get
-            {
-                foreach (string propertyName in new string[] { HtmlRow.PropertyNames.CellCount, HtmlRow.PropertyNames.RowIndex })
-                {
-                    if (!base.PropertyNamesToIgnoreByCssSelector.Contains(propertyName))
-                    {
-                        base.PropertyNamesToIgnoreByCssSelector.Add(propertyName);
-                    }
-                }
-
-                return base.PropertyNamesToIgnoreByCssSelector;
-            }
-        }
-
         public string[] GetContent()
         {
             UITestControlCollection cells = this.Cells;
@@ -84,17 +71,15 @@ namespace CodedSelenium.HtmlControls
             return htmlCell;
         }
 
-        protected override string GetCssSelector(Dictionary<string, string> dictionary)
+        private SelectorPart ByRowIndex(PropertyExpression propertyExpression)
         {
-            string cssSelector = base.GetCssSelector(dictionary);
-
-            if (dictionary.ContainsKey(HtmlCell.PropertyNames.RowIndex))
+            int rowIndex = 0;
+            if (int.TryParse(propertyExpression.PropertyValue, out rowIndex))
             {
-                string columnIndex = dictionary[HtmlCell.PropertyNames.RowIndex];
-                cssSelector += string.Format(":nth-of-type({0}) ", columnIndex);
+                return new SelectorPart(string.Format(":nth-child({0})", rowIndex), SelectorPart.FilterType.ContentFilter);
             }
 
-            return cssSelector;
+            throw new ArgumentOutOfRangeException("PropertyNames.RowIndex");
         }
 
         public abstract new class PropertyNames : HtmlControl.PropertyNames

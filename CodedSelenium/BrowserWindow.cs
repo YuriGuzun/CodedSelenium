@@ -20,7 +20,7 @@ namespace CodedSelenium
 
         public BrowserWindow(EventFiringWebDriver driver)
         {
-            this.Parent = driver;
+            this.ParentSearchContext = driver;
             this.Driver = driver;
 
             this.Driver.ExceptionThrown += this.TakeScreenshotOnException;
