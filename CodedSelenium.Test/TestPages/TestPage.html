@@ -9,23 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script>
         $(document).ready(function () {
-            $("button").on("click", function (e) {
-                console.log(e);
-                document.getElementById("logId").innerHTML = e.currentTarget.id;
-                document.getElementById("logAction").innerHTML = e.type;
-            })
-        });
-
-        $(document).ready(function () {
-            $("input").on("click change", function (e) {
-                console.log(e);
-                document.getElementById("logId").innerHTML = e.currentTarget.id;
-                document.getElementById("logAction").innerHTML = e.type;
-            })
-        });
-
-        $(document).ready(function () {
-            $("select").on("click change", function (e) {
+            $("button, input, select, textarea").on("click change keypress", function (e) {
                 console.log(e);
                 document.getElementById("logId").innerHTML = e.currentTarget.id;
                 document.getElementById("logAction").innerHTML = e.type;
@@ -86,7 +70,13 @@
     <button id="buttonWithAlert" onclick="confirmFunction()">Confirm</button>
     <div><iframe src="Iframe.html"></iframe></div>
 
-    <textarea rows="2"></textarea>
+    <div>
+        <label for="textArea">Description1</label>
+        <textarea id="textArea" rows="2"></textarea>
+
+        <label for="anotherTextArea">Description2</label>
+        <textarea id="anotherTextArea" rows="2"></textarea>
+    </div>
 
     <div id="log">
         <p id="logId" />

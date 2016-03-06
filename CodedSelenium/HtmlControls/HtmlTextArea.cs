@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodedSelenium.Selectors;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CodedSelenium.HtmlControls
 {
-    public class HtmlTextArea : HtmlControl
+    public class HtmlTextArea : HtmlTextControl
     {
         public HtmlTextArea()
         {
@@ -15,43 +16,7 @@ namespace CodedSelenium.HtmlControls
         public HtmlTextArea(UITestControl parent)
           : base(parent)
         {
-            this.SearchProperties.Add(HtmlControl.PropertyNames.TagName, "textarea");
-        }
-
-        public string Text
-        {
-            get
-            {
-                return WebElement.GetAttribute(HtmlEdit.PropertyNames.ValueAttribute);
-            }
-
-            set
-            {
-                WebElement.SendKeys(value);
-            }
-        }
-
-        public virtual string LabeledBy
-        {
-            get
-            {
-                return this.WebElement.GetAttribute(HtmlEdit.PropertyNames.LabeledBy);
-            }
-        }
-
-        public virtual bool ReadOnly
-        {
-            get
-            {
-                return this.WebElement.GetAttribute(HtmlEdit.PropertyNames.ReadOnly).Equals(HtmlEdit.PropertyNames.ReadOnly);
-            }
-        }
-
-        public abstract new class PropertyNames : HtmlControl.PropertyNames
-        {
-            public static readonly string Text = HtmlControl.PropertyNames.InnerText;
-            public static readonly string LabeledBy = "labeledby";
-            public static readonly string ReadOnly = "readonly";
+            this.SearchProperties.Add(HtmlTextArea.PropertyNames.TagName, "textarea");
         }
     }
 }

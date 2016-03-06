@@ -78,6 +78,7 @@
     <Compile Include="HtmlControls\HtmlRow.cs" />
     <Compile Include="HtmlControls\HtmlSpan.cs" />
     <Compile Include="HtmlControls\HtmlTextArea.cs" />
+    <Compile Include="HtmlControls\HtmlTextControl.cs" />
     <Compile Include="Mouse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyExpression.cs" />

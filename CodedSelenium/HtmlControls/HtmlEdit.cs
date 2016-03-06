@@ -1,6 +1,6 @@
 ﻿namespace CodedSelenium.HtmlControls
 {
-    public class HtmlEdit : HtmlControl
+    public class HtmlEdit : HtmlTextControl
     {
         public HtmlEdit()
         {
@@ -10,19 +10,6 @@
             : base(parent)
         {
             SearchProperties.Add(HtmlButton.PropertyNames.TagName, "input");
-        }
-
-        public string Text
-        {
-            get
-            {
-                return WebElement.GetAttribute(HtmlEdit.PropertyNames.ValueAttribute);
-            }
-
-            set
-            {
-                WebElement.SendKeys(value);
-            }
         }
 
         public virtual bool IsPassword
@@ -38,22 +25,6 @@
             get
             {
                 return this.WebElement.GetAttribute(HtmlEdit.PropertyNames.DefaultText);
-            }
-        }
-
-        public virtual string LabeledBy
-        {
-            get
-            {
-                return this.WebElement.GetAttribute(HtmlEdit.PropertyNames.LabeledBy);
-            }
-        }
-
-        public virtual bool ReadOnly
-        {
-            get
-            {
-                return this.WebElement.GetAttribute(HtmlEdit.PropertyNames.ReadOnly).Equals(HtmlEdit.PropertyNames.ReadOnly);
             }
         }
 
