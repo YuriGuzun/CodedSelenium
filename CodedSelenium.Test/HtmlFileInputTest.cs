@@ -1,13 +1,13 @@
 ﻿using CodedSelenium.HtmlControls;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace CodedSelenium.Test
 {
-    [TestClass]
+    [TestFixture]
     public class HtmlFileInputTest : BasicTest
     {
-        [TestMethod]
+        [Test]
         public void HtmlFileInputTest_SelectedItem()
         {
             HtmlFileInput fileInput = new HtmlFileInput(BrowserWindow);

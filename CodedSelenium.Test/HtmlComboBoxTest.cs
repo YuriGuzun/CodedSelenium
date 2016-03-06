@@ -1,13 +1,13 @@
 ﻿using CodedSelenium.HtmlControls;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace CodedSelenium.Test
 {
-    [TestClass]
+    [TestFixture]
     public class HtmlComboBoxTest : BasicTest
     {
-        [TestMethod]
+        [Test]
         public void HtmlComboBoxTest_SelectedItem()
         {
             HtmlComboBox comboBox = new HtmlComboBox(BrowserWindow);
@@ -22,7 +22,7 @@ namespace CodedSelenium.Test
             this.AssertResult("comboBox", "click");
         }
 
-        [TestMethod]
+        [Test]
         public void HtmlComboBoxTest_SelectedIndex()
         {
             HtmlComboBox comboBox = new HtmlComboBox(BrowserWindow);

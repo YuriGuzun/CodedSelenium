@@ -1,13 +1,13 @@
 ﻿using CodedSelenium.HtmlControls;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace CodedSelenium.Test
 {
-    [TestClass]
+    [TestFixture]
     public class HtmlCheckBoxTest : BasicTest
     {
-        [TestMethod]
+        [Test]
         public void HtmlCheckBoxTest_SelectedItem()
         {
             HtmlCheckBox checkBox = new HtmlCheckBox(BrowserWindow);

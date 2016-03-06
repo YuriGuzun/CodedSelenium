@@ -1,13 +1,13 @@
 ﻿using CodedSelenium.HtmlControls;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace CodedSelenium.Test
 {
-    [TestClass]
+    [TestFixture]
     public class HtmlTextAreaTest : BasicTest
     {
-        [TestMethod]
+        [Test]
         public void HtmlTextAreaTest_ByLabledBy_Equals()
         {
             HtmlTextArea textArea = new HtmlTextArea(BrowserWindow);
@@ -21,7 +21,7 @@ namespace CodedSelenium.Test
             this.AssertResult("anotherTextArea", "keypress");
         }
 
-        [TestMethod]
+        [Test]
         public void HtmlTextAreaTest_ByLabledBy_Contains()
         {
             HtmlTextArea textArea = new HtmlTextArea(BrowserWindow);

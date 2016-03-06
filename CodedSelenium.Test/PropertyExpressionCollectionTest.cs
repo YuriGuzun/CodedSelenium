@@ -1,15 +1,15 @@
 ﻿using CodedSelenium.Extension;
 using CodedSelenium.HtmlControls;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using System;
 
 namespace CodedSelenium.Test
 {
-    [TestClass]
+    [TestFixture]
     public class PropertyExpressionCollectionTest : BasicTest
     {
-        [TestMethod]
+        [Test]
         public void PropertyExpressionCollectionTest_Add_Replace()
         {
             HtmlButton button = new HtmlButton(BrowserWindow);
@@ -20,7 +20,7 @@ namespace CodedSelenium.Test
             this.AssertResult("secondButton", "click");
         }
 
-        [TestMethod]
+        [Test]
         public void PropertyExpressionCollectionTest_AddRange()
         {
             HtmlButton button = new HtmlButton(BrowserWindow);
@@ -32,7 +32,7 @@ namespace CodedSelenium.Test
             this.AssertResult("secondButton", "click");
         }
 
-        [TestMethod]
+        [Test]
         public void PropertyExpressionCollectionTest_Add_ArrayOfPairs()
         {
             HtmlButton button = new HtmlButton(BrowserWindow);
@@ -42,7 +42,7 @@ namespace CodedSelenium.Test
             this.AssertResult("secondButton", "click");
         }
 
-        [TestMethod]
+        [Test]
         public void PropertyExpressionCollectionTest_Add_ArrayOfPairs_IncompletePair()
         {
             HtmlButton button = new HtmlButton();
@@ -52,7 +52,7 @@ namespace CodedSelenium.Test
                 .WithMessage("Specified argument was out of the range of valid values.\r\nParameter name: nameValuePairs");
         }
 
-        [TestMethod]
+        [Test]
         public void PropertyExpressionCollectionTest_Remove()
         {
             HtmlButton button = new HtmlButton();
@@ -65,7 +65,7 @@ namespace CodedSelenium.Test
                 .And.OnlyContain(item => item.PropertyName.Equals(HtmlButton.PropertyNames.Class));
         }
 
-        [TestMethod]
+        [Test]
         public void PropertyExpressionCollectionTest_MatchingSearchAndFilterProperty_Id()
         {
             HtmlButton button = new HtmlButton(BrowserWindow);
@@ -76,7 +76,7 @@ namespace CodedSelenium.Test
             this.AssertResult("secondButton", "click");
         }
 
-        [TestMethod]
+        [Test]
         public void PropertyExpressionCollectionTest_MatchingSearchAndFilterProperty_InnerText()
         {
             HtmlButton button = new HtmlButton(BrowserWindow);

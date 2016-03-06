@@ -15,24 +15,9 @@ namespace CodedSelenium
     /// </summary>
     public partial class UITestControl : SelectorBasedControl
     {
-        private JQuerySelector selector;
-
         public UITestControl ParentTestControl { get; private set; }
 
         protected ISearchContext ParentSearchContext { get; set; }
-
-        protected virtual JQuerySelector Selector
-        {
-            get
-            {
-                if (this.selector == null)
-                {
-                    this.selector = new JQuerySelector(this.SearchProperties, this.FilterProperties);
-                }
-
-                return this.selector;
-            }
-        }
 
         protected virtual IWebElement WebElement
         {

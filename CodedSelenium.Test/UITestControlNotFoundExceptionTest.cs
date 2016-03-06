@@ -1,14 +1,14 @@
 ﻿using CodedSelenium.HtmlControls;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using System;
 
 namespace CodedSelenium.Test
 {
-    [TestClass]
+    [TestFixture]
     public class UITestControlNotFoundExceptionTest : BasicTest
     {
-        [TestMethod]
+        [Test]
         public void UITestControlNotFoundExceptionTest_BasicCheck()
         {
             HtmlRow row = new HtmlRow(BrowserWindow);

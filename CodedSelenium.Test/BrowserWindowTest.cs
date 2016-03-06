@@ -1,15 +1,15 @@
 ﻿using CodedSelenium.Extension;
 using CodedSelenium.HtmlControls;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using System;
 
 namespace CodedSelenium.Test
 {
-    [TestClass]
+    [TestFixture]
     public class BrowserWindowTest : BasicTest
     {
-        [TestMethod]
+        [Test]
         public void BrowserWindowTest_Alert()
         {
             HtmlButton button = new HtmlButton(BrowserWindow);
