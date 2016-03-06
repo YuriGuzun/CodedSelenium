@@ -1,6 +1,7 @@
 ﻿using CodedSelenium.HtmlControls;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
+using System;
 using System.IO;
 
 namespace CodedSelenium.Test
@@ -37,7 +38,7 @@ namespace CodedSelenium.Test
             }
         }
 
-        [TestCleanup]
+        [TearDown]
         public void TestCleanup()
         {
             BrowserWindow.ExecuteScript("document.getElementById(\"logId\").innerHTML = ''");

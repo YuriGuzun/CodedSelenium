@@ -1,13 +1,13 @@
 ﻿using CodedSelenium.HtmlControls;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace CodedSelenium.Test
 {
-    [TestClass]
+    [TestFixture]
     public class BasicCheck : BasicTest
     {
-        [TestMethod]
+        [Test]
         public void BasicCheck_HtmlEdit()
         {
             HtmlDiv div = new HtmlDiv(BrowserWindow);
@@ -19,7 +19,7 @@ namespace CodedSelenium.Test
             edit.Text.Should().Be(value);
         }
 
-        [TestMethod]
+        [Test]
         public void BasicCheck_HtmlButton_ByInnerText()
         {
             HtmlButton button = new HtmlButton(BrowserWindow);
@@ -29,7 +29,7 @@ namespace CodedSelenium.Test
             this.AssertResult("secondButton", "click");
         }
 
-        [TestMethod]
+        [Test]
         public void BasicCheck_FilterProperties()
         {
             HtmlButton button = new HtmlButton(BrowserWindow);
@@ -39,7 +39,7 @@ namespace CodedSelenium.Test
             this.AssertResult("secondButton", "click");
         }
 
-        [TestMethod]
+        [Test]
         public void BasicCheck_GetChildren()
         {
             HtmlDiv div = new HtmlDiv(BrowserWindow);
@@ -49,7 +49,7 @@ namespace CodedSelenium.Test
             this.AssertResult("thirdButton", "click");
         }
 
-        [TestMethod]
+        [Test]
         public void BasicCheck_FindMatchingControls()
         {
             HtmlButton button = new HtmlButton(BrowserWindow);
@@ -58,7 +58,7 @@ namespace CodedSelenium.Test
             this.AssertResult("thirdButton", "click");
         }
 
-        [TestMethod]
+        [Test]
         public void BasicCheck_CopyFrom()
         {
             HtmlButton button = new HtmlButton(BrowserWindow);
@@ -68,7 +68,7 @@ namespace CodedSelenium.Test
             this.AssertResult("thirdButton", "click");
         }
 
-        [TestMethod]
+        [Test]
         public void BasicCheck_GetParent()
         {
             HtmlButton button = new HtmlButton(BrowserWindow);

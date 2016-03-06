@@ -1,13 +1,13 @@
 ﻿using CodedSelenium.HtmlControls;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace CodedSelenium.Test
 {
-    [TestClass]
+    [TestFixture]
     public class HtmlCellTest : BasicTest
     {
-        [TestMethod]
+        [Test]
         public void HtmlCellTest_ById()
         {
             HtmlCell cell = new HtmlCell(BrowserWindow);
@@ -16,7 +16,7 @@ namespace CodedSelenium.Test
             cell.InnerText.Should().Be("Item 113");
         }
 
-        [TestMethod]
+        [Test]
         public void HtmlCellTest_ByInnerText()
         {
             HtmlCell cell = new HtmlCell(BrowserWindow);
@@ -25,7 +25,7 @@ namespace CodedSelenium.Test
             cell.Id.Should().Be("cellWithId");
         }
 
-        [TestMethod]
+        [Test]
         public void HtmlCellTest_ByColumnIndex()
         {
             HtmlCell cell = new HtmlCell(BrowserWindow);
@@ -34,7 +34,7 @@ namespace CodedSelenium.Test
             cell.InnerText.Should().Be("Item 011");
         }
 
-        [TestMethod]
+        [Test]
         public void HtmlCellTest_ByRowIndex()
         {
             HtmlCell cell = new HtmlCell(BrowserWindow);
@@ -43,7 +43,7 @@ namespace CodedSelenium.Test
             cell.InnerText.Should().Be("Item 002");
         }
 
-        [TestMethod]
+        [Test]
         public void HtmlCellTest_ByRowAndColumnIndex()
         {
             HtmlCell cell = new HtmlCell(BrowserWindow);
@@ -53,7 +53,7 @@ namespace CodedSelenium.Test
             cell.InnerText.Should().Be("Item 012");
         }
 
-        [TestMethod]
+        [Test]
         public void HtmlCellTest_ByInstance()
         {
             HtmlCell cell = new HtmlCell(BrowserWindow);
@@ -62,7 +62,7 @@ namespace CodedSelenium.Test
             cell.InnerText.Should().Be("Item 012");
         }
 
-        [TestMethod]
+        [Test]
         public void HtmlCellTest_ByTagInstance()
         {
             HtmlCell cell = new HtmlCell(BrowserWindow);

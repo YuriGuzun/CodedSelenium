@@ -1,13 +1,13 @@
 ﻿using CodedSelenium.HtmlControls;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace CodedSelenium.Test
 {
-    [TestClass]
+    [TestFixture]
     public class HtmlRowTest : BasicTest
     {
-        [TestMethod]
+        [Test]
         public void HtmlRowTest_ById()
         {
             HtmlRow row = new HtmlRow(BrowserWindow);
@@ -16,7 +16,7 @@ namespace CodedSelenium.Test
             row.InnerText.Should().Be("Item 102 Item 112");
         }
 
-        [TestMethod]
+        [Test]
         public void HtmlRowTest_ByInnerText()
         {
             HtmlRow row = new HtmlRow(BrowserWindow);
@@ -25,7 +25,7 @@ namespace CodedSelenium.Test
             row.InnerText.Should().Be("Item 102 Item 112");
         }
 
-        [TestMethod]
+        [Test]
         public void HtmlRowTest_ByRowIndex()
         {
             HtmlRow row = new HtmlRow(BrowserWindow);
@@ -34,7 +34,7 @@ namespace CodedSelenium.Test
             row.InnerText.Should().Be("Item 002 Item 012");
         }
 
-        [TestMethod]
+        [Test]
         public void HtmlRowTest_ByRowIndex_FindMatchingControls()
         {
             HtmlRow row = new HtmlRow(BrowserWindow);
@@ -43,7 +43,7 @@ namespace CodedSelenium.Test
             row.FindMatchingControls()[1].InnerText.Should().Be("Item 102 Item 112");
         }
 
-        [TestMethod]
+        [Test]
         public void HtmlRowTest_GetContent()
         {
             HtmlRow row = new HtmlRow(BrowserWindow);
@@ -52,7 +52,7 @@ namespace CodedSelenium.Test
             row.GetContent().Should().Equal("Item 102", "Item 112");
         }
 
-        [TestMethod]
+        [Test]
         public void HtmlRowTest_Cells()
         {
             HtmlRow row = new HtmlRow(BrowserWindow);
@@ -62,7 +62,7 @@ namespace CodedSelenium.Test
             row.Cells.GetValuesOfControls().Should().Equal("Item 102", "Item 112");
         }
 
-        [TestMethod]
+        [Test]
         public void HtmlRowTest_GetCells()
         {
             HtmlRow row = new HtmlRow(BrowserWindow);
