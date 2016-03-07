@@ -1,0 +1,13 @@
+configuration: Release
+
+before_build:
+ - nuget restore
+ 
+build:
+ project: CodedSelenium.sln
+
+after_test: 
+ - .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:".\packages\NUnit.ConsoleRunner.3.2.0\tools\nunit3-console.exe" -targetargs:".\CodedSelenium.Test\bin\Release\CodedSelenium.Test.dll" -filter:"+[CodedSelenium]* -[CodedSelenium]CodedSelenium.Properties.*" -excludebyattribute:*.ExcludeFromCodeCoverage* -hideskipped:All -output:.\CodedSelenium_coverage.xml
+ - "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
+ - pip install codecov
+ - codecov -f "CodedSelenium_coverage.xml"
