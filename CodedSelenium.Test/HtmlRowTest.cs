@@ -31,7 +31,7 @@ namespace CodedSelenium.Test
             HtmlRow row = new HtmlRow(BrowserWindow);
             row.SearchProperties.Add(HtmlRow.PropertyNames.RowIndex, "2");
 
-            row.InnerText.Should().Be("Item 002 Item 012");
+            row.InnerText.Should().Be("Item 001 Item 011");
         }
 
         [Test]

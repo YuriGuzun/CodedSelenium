@@ -40,7 +40,7 @@ namespace CodedSelenium.Test
             HtmlCell cell = new HtmlCell(BrowserWindow);
             cell.SearchProperties.Add(HtmlCell.PropertyNames.RowIndex, "2");
 
-            cell.InnerText.Should().Be("Item 002");
+            cell.InnerText.Should().Be("Item 001");
         }
 
         [Test]
@@ -50,7 +50,7 @@ namespace CodedSelenium.Test
             cell.SearchProperties.Add(HtmlCell.PropertyNames.ColumnIndex, "2");
             cell.SearchProperties.Add(HtmlCell.PropertyNames.RowIndex, "2");
 
-            cell.InnerText.Should().Be("Item 012");
+            cell.InnerText.Should().Be("Item 011");
         }
 
         [Test]
