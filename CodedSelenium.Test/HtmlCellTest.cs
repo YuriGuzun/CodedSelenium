@@ -65,7 +65,8 @@ namespace CodedSelenium.Test
         [Test]
         public void HtmlCellTest_ByTagInstance()
         {
-            HtmlCell cell = new HtmlCell(BrowserWindow);
+            HtmlRow row = new HtmlRow(BrowserWindow);
+            HtmlCell cell = new HtmlCell(row);
             cell.SearchProperties.Add(HtmlCell.PropertyNames.TagInstance, "4");
 
             cell.InnerText.Should().Be("Item 012");

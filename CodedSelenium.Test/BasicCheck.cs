@@ -24,7 +24,7 @@ namespace CodedSelenium.Test
         {
             HtmlButton button = new HtmlButton(BrowserWindow);
             button.SearchProperties.Add(HtmlButton.PropertyNames.InnerText, "Second Button");
-            button.Click();
+            Mouse.Click(button);
 
             AssertResult("secondButton", "click");
         }
@@ -34,7 +34,7 @@ namespace CodedSelenium.Test
         {
             HtmlButton button = new HtmlButton(BrowserWindow);
             button.FilterProperties.Add(HtmlButton.PropertyNames.InnerText, "Second Button");
-            button.Click();
+            Mouse.Click(button);
 
             AssertResult("secondButton", "click");
         }
@@ -44,7 +44,7 @@ namespace CodedSelenium.Test
         {
             HtmlDiv div = new HtmlDiv(BrowserWindow);
             div.SearchProperties.Add(HtmlControl.PropertyNames.Id, "loginFields");
-            div.GetChildren()[2].Click();
+            Mouse.Click(div.GetChildren()[2]);
 
             AssertResult("thirdButton", "click");
         }
@@ -53,7 +53,7 @@ namespace CodedSelenium.Test
         public void BasicCheck_FindMatchingControls()
         {
             HtmlButton button = new HtmlButton(BrowserWindow);
-            button.FindMatchingControls()[2].Click();
+            Mouse.Click(button.FindMatchingControls()[2]);
 
             AssertResult("thirdButton", "click");
         }
@@ -63,7 +63,7 @@ namespace CodedSelenium.Test
         {
             HtmlButton button = new HtmlButton(BrowserWindow);
             button.CopyFrom(button.FindMatchingControls()[2]);
-            button.Click();
+            Mouse.Click(button);
 
             AssertResult("thirdButton", "click");
         }

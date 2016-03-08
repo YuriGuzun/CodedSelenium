@@ -115,7 +115,8 @@ namespace CodedSelenium.Selectors
             int tagInstance = 0;
             if (int.TryParse(propertyExpression.PropertyValue, out tagInstance))
             {
-                return new SelectorPart(string.Format(":nth-of-type(({0})", tagInstance - 1), SelectorPart.FilterType.ContentFilter);
+                return new SelectorPart(
+                    string.Format(").eq({0}", tagInstance - 1), SelectorPart.FilterType.ExplicitParent);
             }
 
             throw new ArgumentOutOfRangeException("PropertyNames.TagInstance");

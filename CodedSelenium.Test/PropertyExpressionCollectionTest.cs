@@ -15,7 +15,7 @@ namespace CodedSelenium.Test
             HtmlButton button = new HtmlButton(BrowserWindow);
             button.SearchProperties.Add(HtmlButton.PropertyNames.Id, "firstButton");
             button.SearchProperties.Add(HtmlButton.PropertyNames.Id, "secondButton");
-            button.Click();
+            Mouse.Click(button);
 
             AssertResult("secondButton", "click");
         }
@@ -27,7 +27,7 @@ namespace CodedSelenium.Test
             button.SearchProperties.Add(HtmlButton.PropertyNames.Id, "secondButton");
             HtmlButton secondButton = new HtmlButton(BrowserWindow);
             secondButton.SearchProperties.AddRange(button.SearchProperties);
-            secondButton.Click();
+            Mouse.Click(secondButton);
 
             AssertResult("secondButton", "click");
         }
@@ -37,7 +37,7 @@ namespace CodedSelenium.Test
         {
             HtmlButton button = new HtmlButton(BrowserWindow);
             button.SearchProperties.Add(HtmlButton.PropertyNames.Id, "secondButton", HtmlButton.PropertyNames.Class, "simpleButtons");
-            button.Click();
+            Mouse.Click(button);
 
             AssertResult("secondButton", "click");
         }
@@ -71,7 +71,7 @@ namespace CodedSelenium.Test
             HtmlButton button = new HtmlButton(BrowserWindow);
             button.SearchProperties.Add(HtmlButton.PropertyNames.Id, "Button", PropertyExpressionOperator.Contains);
             button.FilterProperties.Add(HtmlButton.PropertyNames.Id, "second", PropertyExpressionOperator.Contains);
-            button.Click();
+            Mouse.Click(button);
 
             AssertResult("secondButton", "click");
         }
@@ -82,7 +82,7 @@ namespace CodedSelenium.Test
             HtmlButton button = new HtmlButton(BrowserWindow);
             button.SearchProperties.Add(HtmlButton.PropertyNames.InnerText, "Button", PropertyExpressionOperator.Contains);
             button.FilterProperties.Add(HtmlButton.PropertyNames.InnerText, "Second", PropertyExpressionOperator.Contains);
-            button.Click();
+            Mouse.Click(button);
 
             AssertResult("secondButton", "click");
         }
