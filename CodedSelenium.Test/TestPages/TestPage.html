@@ -9,7 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script>
         $(document).ready(function () {
-            $("button, input, select, textarea").on("click change keypress", function (e) {
+            $("button, input, select, textarea, select, option").on("click change keypress", function (e) {
                 console.log(e);
                 document.getElementById("logId").innerHTML = e.currentTarget.id;
                 document.getElementById("logAction").innerHTML = e.type;
@@ -78,6 +78,13 @@
         <label for="anotherTextArea">Description2</label>
         <textarea id="anotherTextArea" rows="2"></textarea>
     </div>
+
+    <select multiple size="3">
+        <option id="option1">Option 1</option>
+        <option id="option2">Option 2</option>
+        <option id="option3">Option 3</option>
+        <option id="option4">Option 4</option>
+    </select>
 
     <div id="log">
         <p id="logId" />

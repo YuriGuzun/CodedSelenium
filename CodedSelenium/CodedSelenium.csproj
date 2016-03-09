@@ -75,6 +75,7 @@
     <Compile Include="HtmlControls\HtmlImage.cs" />
     <Compile Include="HtmlControls\HtmlInputButton.cs" />
     <Compile Include="HtmlControls\HtmlLabel.cs" />
+    <Compile Include="HtmlControls\HtmlList.cs" />
     <Compile Include="HtmlControls\HtmlRadioButton.cs" />
     <Compile Include="HtmlControls\HtmlRow.cs" />
     <Compile Include="HtmlControls\HtmlSpan.cs" />

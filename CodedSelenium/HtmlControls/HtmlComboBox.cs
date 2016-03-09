@@ -83,7 +83,7 @@ namespace CodedSelenium.HtmlControls
             }
         }
 
-        private SelectElement Selector
+        protected SelectElement Selector
         {
             get
             {
@@ -106,8 +106,12 @@ namespace CodedSelenium.HtmlControls
             public static readonly string ItemCount = "itemcount";
             public static readonly string Items = "items";
             public static readonly string SelectedItem = "selecteditem";
+
             public static readonly string SelectedIndex = "selectedindex";
+
+            // TODO: Handle LabeledBy search property.
             public static readonly string LabeledBy = "labeledby";
+
             public static readonly string Size = "size";
         }
     }
