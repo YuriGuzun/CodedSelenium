@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CodedSelenium.HtmlControls
 {
-    public class HtmlList : HtmlComboBox
+    public class HtmlList : HtmlSelect
     {
         public HtmlList()
           : base()
@@ -16,7 +16,6 @@ namespace CodedSelenium.HtmlControls
         public HtmlList(UITestControl parent)
           : base(parent)
         {
-            this.SearchProperties.Add(HtmlControl.PropertyNames.TagName, "select");
         }
 
         public virtual string[] SelectedItems
@@ -28,6 +27,7 @@ namespace CodedSelenium.HtmlControls
 
             set
             {
+                Selector.DeselectAll();
                 foreach (string item in value)
                     Selector.SelectByText(item);
             }
@@ -44,6 +44,7 @@ namespace CodedSelenium.HtmlControls
 
             set
             {
+                Selector.DeselectAll();
                 foreach (int index in value)
                     Selector.SelectByIndex(index);
             }
@@ -73,14 +74,12 @@ namespace CodedSelenium.HtmlControls
 
         public abstract new class PropertyNames : HtmlControl.PropertyNames
         {
-            public static readonly string ItemCount = "ItemCount";
-            public static readonly string Items = "Items";
+            // TODO: Confirm if CodedUI can search by this property.
+
             public static readonly string SelectedItems = "SelectedItems";
             public static readonly string SelectedIndices = "SelectedIndices";
             public static readonly string SelectedItemsAsString = "SelectedItemsAsString";
             public static readonly string IsMultipleSelection = "multiple";
-            public static readonly string LabeledBy = "LabeledBy";
-            public static readonly string Size = "Size";
         }
     }
 }

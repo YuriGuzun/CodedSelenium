@@ -4,11 +4,12 @@ namespace CodedSelenium.HtmlControls
 {
     public class HtmlTextControl : HtmlControl
     {
-        public HtmlTextControl()
+        protected HtmlTextControl()
+            : base()
         {
         }
 
-        public HtmlTextControl(UITestControl parent)
+        protected HtmlTextControl(UITestControl parent)
           : base(parent)
         {
             RulesDictionary.Add(HtmlTextArea.PropertyNames.LabeledBy, ByLabeledBy);
