@@ -155,11 +155,11 @@ namespace CodedSelenium
         public abstract class PropertyNames
         {
             public const string Class = "Class";
-            public const string HelpText = "HelpText";
             public const string Id = "Id";
             public const string InnerText = "InnerText";
             public const string TagInstance = "TagInstance";
             public const string Title = "Title";
+            public const string HelpText = Title;
             public const string Type = "Type";
             public const string ValueAttribute = "value";
             public const string TagName = "TagName";

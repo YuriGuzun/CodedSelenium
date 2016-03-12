@@ -11,6 +11,8 @@
         {
         }
 
+        // TODO: Clarify what is expected.
+
         public virtual string HelpText
         {
             get
@@ -39,7 +41,7 @@
         {
             get
             {
-                return WebElement.GetAttribute(HtmlControl.PropertyNames.TagName);
+                return WebElement.TagName;
             }
         }
 

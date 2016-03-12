@@ -74,7 +74,7 @@ namespace CodedSelenium.Test
             HtmlButton button = new HtmlButton(BrowserWindow);
             button.SearchProperties.Add(HtmlButton.PropertyNames.Id, "secondButton");
             HtmlDiv div = new HtmlDiv();
-            UITestControl parent = button.GetParent();
+            CodedSelenium.UITestControl parent = button.GetParent();
             div.CopyFrom(parent);
             div.Id.Should().Be("buttons");
         }

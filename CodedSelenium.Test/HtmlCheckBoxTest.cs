@@ -11,6 +11,7 @@ namespace CodedSelenium.Test
         public void HtmlCheckBoxTest_SelectedItem()
         {
             HtmlCheckBox checkBox = new HtmlCheckBox(BrowserWindow);
+            checkBox.SearchProperties.Add(HtmlCheckBox.PropertyNames.Id, "checkBox");
             checkBox.Checked.Should().BeFalse();
 
             checkBox.Checked = true;
