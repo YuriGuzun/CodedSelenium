@@ -5,9 +5,12 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Windows.Input;
 
 namespace CodedSelenium
 {
@@ -16,6 +19,14 @@ namespace CodedSelenium
     /// </summary>
     public partial class UITestControl : SelectorBasedControl
     {
+        internal static Dictionary<ModifierKeys, string> ModifierKeysDictionary = new Dictionary<ModifierKeys, string>()
+        {
+            { ModifierKeys.Alt, OpenQA.Selenium.Keys.Alt },
+            { ModifierKeys.Control, OpenQA.Selenium.Keys.Control },
+            { ModifierKeys.Shift, OpenQA.Selenium.Keys.Shift },
+            { ModifierKeys.None, string.Empty },
+        };
+
         public UITestControl ParentTestControl { get; private set; }
 
         protected ISearchContext ParentSearchContext { get; set; }
@@ -67,9 +78,39 @@ namespace CodedSelenium
             }
         }
 
-        public virtual void Click()
+        internal void Click()
         {
             WebElement.Click();
+        }
+
+        internal void Click(MouseButtons button, ModifierKeys modifierKeys, Nullable<Point> relativeCoordinate)
+        {
+            Actions actions = new Actions((TopParent as BrowserWindow).Driver);
+            if (relativeCoordinate.HasValue)
+                actions = actions.MoveToElement(WebElement, relativeCoordinate.Value.X, relativeCoordinate.Value.Y);
+            else
+                actions = actions.MoveToElement(WebElement);
+
+            if (!ModifierKeysDictionary.ContainsKey(modifierKeys))
+                throw new NotImplementedException(string.Format("'ModifierKeys.{0}' is not supported", modifierKeys.ToString()));
+
+            string keyToPress = ModifierKeysDictionary[modifierKeys];
+
+            switch (button)
+            {
+                case MouseButtons.Left:
+                    actions = actions.KeyDown(keyToPress).Click().KeyUp(keyToPress);
+                    break;
+
+                case MouseButtons.Right:
+                    actions = actions.KeyDown(keyToPress).ContextClick().KeyUp(keyToPress);
+                    break;
+
+                default:
+                    throw new NotImplementedException(string.Format("'MouseButtons.{0}' is not supported", button.ToString()));
+            }
+
+            actions.Perform();
         }
 
         protected virtual string GetSelector()

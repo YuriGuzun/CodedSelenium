@@ -90,17 +90,21 @@
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="BasicTest.cs" />
+    <Compile Include="MouseTest.cs" />
+    <Compile Include="ObjectMap\MouseTestPage.cs" />
+    <Compile Include="ObjectMap\BasicPage.cs" />
+    <Compile Include="ObjectMap\Page.cs" />
     <Compile Include="UITestControlTest.cs" />
-    <Compile Include="HtmlListTest.cs" />
-    <Compile Include="HtmlTextAreaTest.cs" />
+    <Compile Include="HtmlControls\HtmlListTest.cs" />
+    <Compile Include="HtmlControls\HtmlTextAreaTest.cs" />
     <Compile Include="PropertyExpressionCollectionTest.cs" />
     <Compile Include="BrowserWindowTest.cs" />
-    <Compile Include="HtmlCellTest.cs" />
-    <Compile Include="HtmlCheckBoxTest.cs" />
-    <Compile Include="HtmlFileInputTest.cs" />
-    <Compile Include="HtmlRowTest.cs" />
+    <Compile Include="HtmlControls\HtmlCellTest.cs" />
+    <Compile Include="HtmlControls\HtmlCheckBoxTest.cs" />
+    <Compile Include="HtmlControls\HtmlFileInputTest.cs" />
+    <Compile Include="HtmlControls\HtmlRowTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="HtmlComboBoxTest.cs" />
+    <Compile Include="HtmlControls\HtmlComboBoxTest.cs" />
     <Compile Include="UITestControlNotFoundExceptionTest.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -115,7 +119,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="TestPages\Iframe.html" />
-    <Content Include="TestPages\TestPage.html">
+    <Content Include="TestPages\MouseTestPage.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestPages\BasicTestPage.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

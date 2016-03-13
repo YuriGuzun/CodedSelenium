@@ -1,4 +1,5 @@
 ﻿using CodedSelenium.HtmlControls;
+using CodedSelenium.Test.ObjectMap;
 using FluentAssertions;
 using NUnit.Framework;
 using System;
@@ -8,9 +9,10 @@ namespace CodedSelenium.Test
 {
     public class BasicTest
     {
-        public const string PageName = "TestPage.html";
+        public const string PageName = "BasicTestPage.html";
         private static BrowserWindow browserWindow;
         private static string pathToPage;
+        private static BasicTestPage basicTestPage;
 
         protected static string PathToPage
         {
@@ -25,31 +27,47 @@ namespace CodedSelenium.Test
             }
         }
 
-        protected static CodedSelenium.BrowserWindow BrowserWindow
+        protected static BasicTestPage BasicTestPage
         {
             get
             {
-                if (browserWindow == null)
+                if (BasicTest.basicTestPage == null)
                 {
-                    browserWindow = CodedSelenium.BrowserWindow.Launch(PathToPage);
+                    BasicTest.basicTestPage = new BasicTestPage(BasicTest.BrowserWindow);
                 }
 
-                return browserWindow;
+                BasicTest.basicTestPage.Launch();
+                return BasicTest.basicTestPage;
+            }
+        }
+
+        protected static BrowserWindow BrowserWindow
+        {
+            get
+            {
+                if (BasicTest.browserWindow == null)
+                {
+                    BasicTest.browserWindow = BrowserWindow.Launch(PathToPage);
+                }
+
+                return BasicTest.browserWindow;
             }
         }
 
         [TearDown]
         public void TestCleanup()
         {
-            BrowserWindow.ExecuteScript("document.getElementById(\"logId\").innerHTML = ''");
-            BrowserWindow.ExecuteScript("document.getElementById(\"logAction\").innerHTML = ''");
-            BrowserWindow.ExecuteScript("document.getElementById(\"logDetails\").innerHTML = ''");
+            string script =
+                "jQuery('.log').each(function(index) {" +
+                "   $( this ).text('')" +
+                "});";
+            BrowserWindow.ExecuteScript(script);
             AssertResult(string.Empty, string.Empty);
         }
 
         protected void AssertResult(string elementId, string action, string details = "")
         {
-            HtmlDiv parent = new HtmlDiv(BrowserWindow);
+            HtmlDiv parent = new HtmlDiv(BasicTestPage);
             parent.SearchProperties.Add(HtmlDiv.PropertyNames.Id, "log");
 
             HtmlControl idControl = new HtmlControl(parent);

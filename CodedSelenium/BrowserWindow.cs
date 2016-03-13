@@ -6,6 +6,7 @@ using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Support.Events;
 using OpenQA.Selenium.Support.Extensions;
 using System;
+using System.Collections.Generic;
 using System.Drawing.Imaging;
 
 namespace CodedSelenium
@@ -51,6 +52,15 @@ namespace CodedSelenium
             }
         }
 
+        /// <summary>
+        /// BrowserWindow class sets this property on launch. It is required to mimic some coded ui features that
+        /// does not require context to be passed. For example Mouse.Click();
+        /// </summary>
+        public static List<IWebDriver> ActiveWebDriverInstances
+        {
+            get; private set;
+        }
+
         public static BrowserWindow Launch(string uri)
         {
             EventFiringWebDriver driver = null;
@@ -69,6 +79,13 @@ namespace CodedSelenium
                     driver = new EventFiringWebDriver(new ChromeDriver());
                     break;
             }
+
+            if (ActiveWebDriverInstances == null)
+            {
+                ActiveWebDriverInstances = new List<IWebDriver>();
+            }
+
+            ActiveWebDriverInstances.Add(driver);
 
             BrowserWindow browserWindow = new BrowserWindow(driver);
             browserWindow.NavigateToUrl(uri);
@@ -94,7 +111,7 @@ namespace CodedSelenium
         public virtual object ExecuteScript(string script, params object[] args)
         {
             IJavaScriptExecutor js = Driver as IJavaScriptExecutor;
-            return (string)js.ExecuteScript(string.Format(script, args));
+            return (string)js.ExecuteScript(script, args);
         }
 
         public void ClearCoockies()
@@ -120,6 +137,7 @@ namespace CodedSelenium
 
         public void Close()
         {
+            BrowserWindow.ActiveWebDriverInstances.Remove(Driver);
             Driver.Quit();
         }
 

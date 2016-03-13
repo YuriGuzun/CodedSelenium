@@ -2,7 +2,7 @@
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace CodedSelenium.Test
+namespace CodedSelenium.Test.HtmlControls
 {
     [TestFixture]
     public class HtmlFileInputTest : BasicTest
@@ -10,7 +10,7 @@ namespace CodedSelenium.Test
         [Test]
         public void HtmlFileInputTest_SelectedItem()
         {
-            HtmlFileInput fileInput = new HtmlFileInput(BrowserWindow);
+            HtmlFileInput fileInput = new HtmlFileInput(BasicTestPage);
             fileInput.FileName = HtmlFileInputTest.PathToPage;
             fileInput.FileName.Should().EndWith(HtmlFileInputTest.PageName);
             AssertResult("uploadHere", "change");

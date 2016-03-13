@@ -15,7 +15,7 @@ namespace CodedSelenium.Test
             {
                 if (checkBox == null)
                 {
-                    checkBox = new HtmlCheckBox(BrowserWindow);
+                    checkBox = new HtmlCheckBox(BasicTestPage);
                     checkBox.SearchProperties.Add(HtmlCheckBox.PropertyNames.Id, "htmlControlTest_Properties");
                 }
 

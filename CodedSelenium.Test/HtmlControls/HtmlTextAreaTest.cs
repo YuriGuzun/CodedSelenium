@@ -2,7 +2,7 @@
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace CodedSelenium.Test
+namespace CodedSelenium.Test.HtmlControls
 {
     [TestFixture]
     public class HtmlTextAreaTest : BasicTest
@@ -10,7 +10,7 @@ namespace CodedSelenium.Test
         [Test]
         public void HtmlTextAreaTest_ByLabledBy_Equals()
         {
-            HtmlTextArea textArea = new HtmlTextArea(BrowserWindow);
+            HtmlTextArea textArea = new HtmlTextArea(BasicTestPage);
             textArea.SearchProperties.Add(HtmlTextArea.PropertyNames.LabeledBy, "Description2");
 
             textArea.Exists.Should().BeTrue();
@@ -24,7 +24,7 @@ namespace CodedSelenium.Test
         [Test]
         public void HtmlTextAreaTest_ByLabledBy_Contains()
         {
-            HtmlTextArea textArea = new HtmlTextArea(BrowserWindow);
+            HtmlTextArea textArea = new HtmlTextArea(BasicTestPage);
             textArea.SearchProperties.Add(HtmlTextArea.PropertyNames.LabeledBy, "tion2", PropertyExpressionOperator.Contains);
 
             textArea.Exists.Should().BeTrue();

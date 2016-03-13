@@ -12,7 +12,7 @@ namespace CodedSelenium.Test
         [Test]
         public void BrowserWindowTest_Alert()
         {
-            HtmlButton button = new HtmlButton(BrowserWindow);
+            HtmlButton button = new HtmlButton(BasicTestPage);
             button.SearchProperties.Add(HtmlButton.PropertyNames.Id, "buttonWithAlert");
 
             foreach (BrowserDialogAction dialogAction in Enum.GetValues(typeof(BrowserDialogAction)))

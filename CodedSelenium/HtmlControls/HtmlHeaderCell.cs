@@ -15,7 +15,7 @@ namespace CodedSelenium.HtmlControls
         public HtmlHeaderCell(UITestControl parent)
           : base(parent)
         {
-            this.SearchProperties.Add(HtmlControl.PropertyNames.TagName, "th");
+            SearchProperties.Add(HtmlControl.PropertyNames.TagName, "th");
         }
     }
 }

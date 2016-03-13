@@ -12,7 +12,7 @@ namespace CodedSelenium.Test
         [Test]
         public void PropertyExpressionCollectionTest_Add_Replace()
         {
-            HtmlButton button = new HtmlButton(BrowserWindow);
+            HtmlButton button = new HtmlButton(BasicTestPage);
             button.SearchProperties.Add(HtmlButton.PropertyNames.Id, "firstButton");
             button.SearchProperties.Add(HtmlButton.PropertyNames.Id, "secondButton");
             Mouse.Click(button);
@@ -23,9 +23,9 @@ namespace CodedSelenium.Test
         [Test]
         public void PropertyExpressionCollectionTest_AddRange()
         {
-            HtmlButton button = new HtmlButton(BrowserWindow);
+            HtmlButton button = new HtmlButton(BasicTestPage);
             button.SearchProperties.Add(HtmlButton.PropertyNames.Id, "secondButton");
-            HtmlButton secondButton = new HtmlButton(BrowserWindow);
+            HtmlButton secondButton = new HtmlButton(BasicTestPage);
             secondButton.SearchProperties.AddRange(button.SearchProperties);
             Mouse.Click(secondButton);
 
@@ -35,7 +35,7 @@ namespace CodedSelenium.Test
         [Test]
         public void PropertyExpressionCollectionTest_Add_ArrayOfPairs()
         {
-            HtmlButton button = new HtmlButton(BrowserWindow);
+            HtmlButton button = new HtmlButton(BasicTestPage);
             button.SearchProperties.Add(HtmlButton.PropertyNames.Id, "secondButton", HtmlButton.PropertyNames.Class, "simpleButtons");
             Mouse.Click(button);
 
@@ -68,7 +68,7 @@ namespace CodedSelenium.Test
         [Test]
         public void PropertyExpressionCollectionTest_MatchingSearchAndFilterProperty_Id()
         {
-            HtmlButton button = new HtmlButton(BrowserWindow);
+            HtmlButton button = new HtmlButton(BasicTestPage);
             button.SearchProperties.Add(HtmlButton.PropertyNames.Id, "Button", PropertyExpressionOperator.Contains);
             button.FilterProperties.Add(HtmlButton.PropertyNames.Id, "second", PropertyExpressionOperator.Contains);
             Mouse.Click(button);
@@ -79,7 +79,7 @@ namespace CodedSelenium.Test
         [Test]
         public void PropertyExpressionCollectionTest_MatchingSearchAndFilterProperty_InnerText()
         {
-            HtmlButton button = new HtmlButton(BrowserWindow);
+            HtmlButton button = new HtmlButton(BasicTestPage);
             button.SearchProperties.Add(HtmlButton.PropertyNames.InnerText, "Button", PropertyExpressionOperator.Contains);
             button.FilterProperties.Add(HtmlButton.PropertyNames.InnerText, "Second", PropertyExpressionOperator.Contains);
             Mouse.Click(button);

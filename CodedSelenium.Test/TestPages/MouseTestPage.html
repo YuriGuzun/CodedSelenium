@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style type="text/css">
+        #mouseClicksDiv {
+            width: 200px;
+            height: 200px;
+            background: #ccc;
+            padding: 5px;
+            padding-right: 20px;
+            border: solid 1px black;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("div").on("click mousedown mouseup", function (e) {
+                console.log(e);
+                document.getElementById("logId").innerHTML = e.currentTarget.id;
+                document.getElementById("logAction").innerHTML = e.type;
+                document.getElementById("altKey").innerHTML = e.altKey;
+                document.getElementById("shiftKey").innerHTML = e.shiftKey;
+                document.getElementById("ctrlKey").innerHTML = e.ctrlKey;
+                document.getElementById("clientX").innerHTML = e.clientX;
+                document.getElementById("clientY").innerHTML = e.clientY;
+            })
+        });
+    </script>
+
+    <div id="mouseClicksDiv">
+    </div>
+    <div id="log">
+        <p class="log" id="logId" />
+        <p class="log" id="logAction" />
+        <p class="log" id="altKey" />
+        <p class="log" id="shiftKey" />
+        <p class="log" id="ctrlKey" />
+        <p class="log" id="clientX" />
+        <p class="log" id="clientY" />
+    </div>
+</body>
+</html>
