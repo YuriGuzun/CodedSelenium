@@ -90,6 +90,7 @@
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="BasicTest.cs" />
+    <Compile Include="HtmlTableTest.cs" />
     <Compile Include="UITestControlTest.cs" />
     <Compile Include="HtmlListTest.cs" />
     <Compile Include="HtmlTextAreaTest.cs" />

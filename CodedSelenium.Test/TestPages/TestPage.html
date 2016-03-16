@@ -46,7 +46,7 @@
     <input type="checkbox" id="checkBox" />
 
     <input type="file" id="uploadHere" />
-    <table>
+    <table id="firstTable" class="firstTableClass">
         <tbody id="items">
             <tr><th>Header 001</th><th>Header 011</th></tr>
             <tr><td>Item 001</td><td>Item 011</td></tr>
@@ -58,8 +58,8 @@
         </tbody>
     </table>
 
-    <table>
-        <tbody id="items">
+    <table id="secondTable" class="secondTableClass">
+        <tbody id="secondTableItems">
             <tr><td>Item 101</td><td>Item 111</td></tr>
             <tr id="rowWithId"><td>Item 102</td><td>Item 112</td></tr>
             <tr><td>Item 103</td><td id="cellWithId">Item 113</td></tr>
@@ -86,6 +86,12 @@
         <option id="option3">Option 3</option>
         <option id="option4">Option 4</option>
     </select>
+
+
+    <table id="microTable">
+        <tr><td>Item 301</td></tr>
+        <tr><td>Item 302</td></tr>
+    </table>
 
     <div id="log">
         <p id="logId" />
