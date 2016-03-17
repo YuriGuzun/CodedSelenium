@@ -22,7 +22,7 @@ namespace CodedSelenium
         internal static Dictionary<ModifierKeys, string> ModifierKeysDictionary = new Dictionary<ModifierKeys, string>()
         {
             { ModifierKeys.Alt, OpenQA.Selenium.Keys.Alt },
-            { ModifierKeys.Control, OpenQA.Selenium.Keys.Control },
+            { ModifierKeys.Control, OpenQA.Selenium.Keys.LeftControl },
             { ModifierKeys.Shift, OpenQA.Selenium.Keys.Shift },
             { ModifierKeys.None, string.Empty },
         };
@@ -85,7 +85,9 @@ namespace CodedSelenium
 
         internal void Click(MouseButtons button, ModifierKeys modifierKeys, Nullable<Point> relativeCoordinate)
         {
-            Actions actions = new Actions((TopParent as BrowserWindow).Driver);
+            BrowserWindow browserWindow = TopParent as BrowserWindow;
+
+            Actions actions = new Actions(browserWindow.Driver);
             if (relativeCoordinate.HasValue)
                 actions = actions.MoveToElement(WebElement, relativeCoordinate.Value.X, relativeCoordinate.Value.Y);
             else

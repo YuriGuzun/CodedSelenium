@@ -67,7 +67,7 @@ namespace CodedSelenium.Test
 
         protected void AssertResult(string elementId, string action, string details = "")
         {
-            HtmlDiv parent = new HtmlDiv(BasicTestPage);
+            HtmlDiv parent = new HtmlDiv(BrowserWindow);
             parent.SearchProperties.Add(HtmlDiv.PropertyNames.Id, "log");
 
             HtmlControl idControl = new HtmlControl(parent);
@@ -84,7 +84,9 @@ namespace CodedSelenium.Test
 
             idControl.InnerText.Should().Be(elementId, "Because unexpected elementId {0}-ed", action);
             actionControl.InnerText.Should().Be(action, "Because unexpected action");
-            detailsControl.InnerText.Should().Be(details, "Because unexpected details");
+
+            if (!string.IsNullOrEmpty(details))
+                detailsControl.InnerText.Should().Be(details, "Because unexpected details");
         }
     }
 }

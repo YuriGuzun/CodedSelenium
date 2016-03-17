@@ -94,6 +94,7 @@ namespace CodedSelenium
         }
 
         public static void ClearCache()
+
         {
             throw new NotImplementedException("Please see non static analogue");
         }

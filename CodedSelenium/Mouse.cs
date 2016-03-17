@@ -1,4 +1,6 @@
-﻿using OpenQA.Selenium.Interactions;
+﻿using CodedSelenium.HtmlControls;
+using OpenQA.Selenium.Interactions;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -22,6 +24,11 @@ namespace CodedSelenium
 
         {
             control.Click();
+        }
+
+        public static void Click(HtmlDiv firstDiv, object mouseButtons)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <title></title>
     <style type="text/css">
-        #mouseClicksDiv {
+        #firstDiv {
             width: 200px;
             height: 200px;
             background: #ccc;
@@ -13,6 +13,14 @@
             padding-right: 20px;
             border: solid 1px black;
             float: left;
+        }
+
+        div#log {
+            background: #fc0;
+            border: solid 1px black;
+            float: left;
+            position: relative;
+            left: 225px;
         }
     </style>
 </head>
@@ -22,27 +30,30 @@
         $(document).ready(function () {
             $("div").on("click mousedown mouseup", function (e) {
                 console.log(e);
-                document.getElementById("logId").innerHTML = e.currentTarget.id;
                 document.getElementById("logAction").innerHTML = e.type;
+                document.getElementById("button").innerHTML = e.originalEvent.button;
                 document.getElementById("altKey").innerHTML = e.altKey;
                 document.getElementById("shiftKey").innerHTML = e.shiftKey;
                 document.getElementById("ctrlKey").innerHTML = e.ctrlKey;
-                document.getElementById("clientX").innerHTML = e.clientX;
-                document.getElementById("clientY").innerHTML = e.clientY;
-            })
+
+                var posX = $(this).offset().left, posY = $(this).offset().top;
+                document.getElementById("clientX").innerHTML = e.pageX - posX;
+                document.getElementById("clientY").innerHTML = e.pageY - posY;
+            });
         });
     </script>
 
-    <div id="mouseClicksDiv">
-    </div>
-    <div id="log">
-        <p class="log" id="logId" />
-        <p class="log" id="logAction" />
-        <p class="log" id="altKey" />
-        <p class="log" id="shiftKey" />
-        <p class="log" id="ctrlKey" />
-        <p class="log" id="clientX" />
-        <p class="log" id="clientY" />
+    <div id="firstDiv">
+        <div id="log">
+            <p class="log" id="logAction" />
+            <p class="log" id="logId" />
+            <p class="log" id="button" />
+            <p class="log" id="altKey" />
+            <p class="log" id="shiftKey" />
+            <p class="log" id="ctrlKey" />
+            <p class="log" id="clientX" />
+            <p class="log" id="clientY" />
+        </div>
     </div>
 </body>
 </html>

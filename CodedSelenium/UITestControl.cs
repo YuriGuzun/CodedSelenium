@@ -40,7 +40,7 @@ namespace CodedSelenium
                 ParentSearchContext = parent.WebElement;
             }
 
-            TopParent = parent.TopParent;
+            TopParent = parent.TopParent ?? parent;
         }
 
         public virtual UITestControl TopParent
