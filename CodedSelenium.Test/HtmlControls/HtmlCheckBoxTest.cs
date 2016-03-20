@@ -2,7 +2,7 @@
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace CodedSelenium.Test
+namespace CodedSelenium.Test.HtmlControls
 {
     [TestFixture]
     public class HtmlCheckBoxTest : BasicTest
@@ -10,7 +10,7 @@ namespace CodedSelenium.Test
         [Test]
         public void HtmlCheckBoxTest_SelectedItem()
         {
-            HtmlCheckBox checkBox = new HtmlCheckBox(BrowserWindow);
+            HtmlCheckBox checkBox = new HtmlCheckBox(BasicTestPage);
             checkBox.SearchProperties.Add(HtmlCheckBox.PropertyNames.Id, "checkBox");
             checkBox.Checked.Should().BeFalse();
 

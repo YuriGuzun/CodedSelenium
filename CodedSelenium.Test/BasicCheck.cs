@@ -10,7 +10,7 @@ namespace CodedSelenium.Test
         [Test]
         public void BasicCheck_HtmlEdit()
         {
-            HtmlDiv div = new HtmlDiv(BrowserWindow);
+            HtmlDiv div = new HtmlDiv(BasicTestPage);
             div.SearchProperties.Add(HtmlControl.PropertyNames.Id, "loginFields");
             HtmlEdit edit = new HtmlEdit(div);
 
@@ -22,7 +22,7 @@ namespace CodedSelenium.Test
         [Test]
         public void BasicCheck_HtmlButton_ByInnerText()
         {
-            HtmlButton button = new HtmlButton(BrowserWindow);
+            HtmlButton button = new HtmlButton(BasicTestPage);
             button.SearchProperties.Add(HtmlButton.PropertyNames.InnerText, "Second Button");
             Mouse.Click(button);
 
@@ -32,7 +32,7 @@ namespace CodedSelenium.Test
         [Test]
         public void BasicCheck_FilterProperties()
         {
-            HtmlButton button = new HtmlButton(BrowserWindow);
+            HtmlButton button = new HtmlButton(BasicTestPage);
             button.FilterProperties.Add(HtmlButton.PropertyNames.InnerText, "Second Button");
             Mouse.Click(button);
 
@@ -42,7 +42,7 @@ namespace CodedSelenium.Test
         [Test]
         public void BasicCheck_GetChildren()
         {
-            HtmlDiv div = new HtmlDiv(BrowserWindow);
+            HtmlDiv div = new HtmlDiv(BasicTestPage);
             div.SearchProperties.Add(HtmlControl.PropertyNames.Id, "loginFields");
             Mouse.Click(div.GetChildren()[2]);
 
@@ -52,7 +52,7 @@ namespace CodedSelenium.Test
         [Test]
         public void BasicCheck_FindMatchingControls()
         {
-            HtmlButton button = new HtmlButton(BrowserWindow);
+            HtmlButton button = new HtmlButton(BasicTestPage);
             Mouse.Click(button.FindMatchingControls()[2]);
 
             AssertResult("thirdButton", "click");
@@ -61,7 +61,7 @@ namespace CodedSelenium.Test
         [Test]
         public void BasicCheck_CopyFrom()
         {
-            HtmlButton button = new HtmlButton(BrowserWindow);
+            HtmlButton button = new HtmlButton(BasicTestPage);
             button.CopyFrom(button.FindMatchingControls()[2]);
             Mouse.Click(button);
 
@@ -71,7 +71,7 @@ namespace CodedSelenium.Test
         [Test]
         public void BasicCheck_GetParent()
         {
-            HtmlButton button = new HtmlButton(BrowserWindow);
+            HtmlButton button = new HtmlButton(BasicTestPage);
             button.SearchProperties.Add(HtmlButton.PropertyNames.Id, "secondButton");
             HtmlDiv div = new HtmlDiv();
             CodedSelenium.UITestControl parent = button.GetParent();

@@ -11,7 +11,7 @@ namespace CodedSelenium.Test
         [Test]
         public void UITestControlNotFoundExceptionTest_BasicCheck()
         {
-            HtmlRow row = new HtmlRow(BrowserWindow);
+            HtmlRow row = new HtmlRow(BasicTestPage);
             row.SearchProperties.Add(HtmlRow.PropertyNames.Id, "invalidId");
             row.SearchProperties.Add(HtmlRow.PropertyNames.InnerText, "invalidInnerText");
             row.FilterProperties.Add(HtmlRow.PropertyNames.Class, "invalidClass", PropertyExpressionOperator.Contains);

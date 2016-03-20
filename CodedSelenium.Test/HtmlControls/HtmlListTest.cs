@@ -2,7 +2,7 @@
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace CodedSelenium.Test
+namespace CodedSelenium.Test.HtmlControls
 {
     [TestFixture]
     public class HtmlListTest : BasicTest
@@ -15,7 +15,7 @@ namespace CodedSelenium.Test
             {
                 if (list == null)
                 {
-                    list = new HtmlList(BrowserWindow);
+                    list = new HtmlList(BasicTestPage);
                     list.SearchProperties.Add(HtmlList.PropertyNames.Id, "htmlList");
                 }
 
@@ -56,7 +56,7 @@ namespace CodedSelenium.Test
         {
             List.IsMultipleSelection.Should().BeTrue();
 
-            HtmlList comboBox = new HtmlList(BrowserWindow);
+            HtmlList comboBox = new HtmlList(BasicTestPage);
             comboBox.SearchProperties.Add(HtmlList.PropertyNames.Id, "comboBox");
             comboBox.IsMultipleSelection.Should().BeFalse();
         }

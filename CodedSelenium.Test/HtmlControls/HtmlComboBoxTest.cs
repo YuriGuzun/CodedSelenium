@@ -2,7 +2,7 @@
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace CodedSelenium.Test
+namespace CodedSelenium.Test.HtmlControls
 {
     [TestFixture]
     public class HtmlComboBoxTest : BasicTest
@@ -10,7 +10,7 @@ namespace CodedSelenium.Test
         [Test]
         public void HtmlComboBoxTest_SelectedItem()
         {
-            HtmlComboBox comboBox = new HtmlComboBox(BrowserWindow);
+            HtmlComboBox comboBox = new HtmlComboBox(BasicTestPage);
             string coffee = "Coffee";
             string tea = "Tea";
             comboBox.SelectedItem = coffee;
@@ -25,7 +25,7 @@ namespace CodedSelenium.Test
         [Test]
         public void HtmlComboBoxTest_SelectedIndex()
         {
-            HtmlComboBox comboBox = new HtmlComboBox(BrowserWindow);
+            HtmlComboBox comboBox = new HtmlComboBox(BasicTestPage);
             int expectedValue = 1;
             comboBox.SelectedIndex = expectedValue;
             comboBox.SelectedIndex.Should().Be(expectedValue);

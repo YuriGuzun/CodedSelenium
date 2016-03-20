@@ -1,5 +1,6 @@
 ﻿using CodedSelenium.Selectors;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,6 +8,8 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Windows.Forms;
+using System.Windows.Input;
 
 namespace CodedSelenium
 {
@@ -17,6 +20,7 @@ namespace CodedSelenium
     {
         private PropertyExpressionCollection searchProperties;
         private PropertyExpressionCollection filterProperties;
+
         private IWebElement privateWebElement;
 
         public UITestControl()
@@ -35,6 +39,13 @@ namespace CodedSelenium
             {
                 ParentSearchContext = parent.WebElement;
             }
+
+            TopParent = parent.TopParent ?? parent;
+        }
+
+        public virtual UITestControl TopParent
+        {
+            get;
         }
 
         public UITestControl(ISearchContext parent)

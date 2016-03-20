@@ -1,4 +1,5 @@
 ﻿using CodedSelenium.HtmlControls;
+using CodedSelenium.Test.ObjectMap;
 using FluentAssertions;
 using NUnit.Framework;
 using System;
@@ -8,9 +9,10 @@ namespace CodedSelenium.Test
 {
     public class BasicTest
     {
-        public const string PageName = "TestPage.html";
+        public const string PageName = "BasicTestPage.html";
         private static BrowserWindow browserWindow;
         private static string pathToPage;
+        private static BasicTestPage basicTestPage;
 
         protected static string PathToPage
         {
@@ -25,25 +27,41 @@ namespace CodedSelenium.Test
             }
         }
 
-        protected static CodedSelenium.BrowserWindow BrowserWindow
+        protected static BasicTestPage BasicTestPage
         {
             get
             {
-                if (browserWindow == null)
+                if (BasicTest.basicTestPage == null)
                 {
-                    browserWindow = CodedSelenium.BrowserWindow.Launch(PathToPage);
+                    BasicTest.basicTestPage = new BasicTestPage(BasicTest.BrowserWindow);
                 }
 
-                return browserWindow;
+                BasicTest.basicTestPage.Launch();
+                return BasicTest.basicTestPage;
+            }
+        }
+
+        protected static BrowserWindow BrowserWindow
+        {
+            get
+            {
+                if (BasicTest.browserWindow == null)
+                {
+                    BasicTest.browserWindow = BrowserWindow.Launch(PathToPage);
+                }
+
+                return BasicTest.browserWindow;
             }
         }
 
         [TearDown]
         public void TestCleanup()
         {
-            BrowserWindow.ExecuteScript("document.getElementById(\"logId\").innerHTML = ''");
-            BrowserWindow.ExecuteScript("document.getElementById(\"logAction\").innerHTML = ''");
-            BrowserWindow.ExecuteScript("document.getElementById(\"logDetails\").innerHTML = ''");
+            string script =
+                "jQuery('.log').each(function(index) {" +
+                "   $( this ).text('')" +
+                "});";
+            BrowserWindow.ExecuteScript(script);
             AssertResult(string.Empty, string.Empty);
         }
 
@@ -66,7 +84,9 @@ namespace CodedSelenium.Test
 
             idControl.InnerText.Should().Be(elementId, "Because unexpected elementId {0}-ed", action);
             actionControl.InnerText.Should().Be(action, "Because unexpected action");
-            detailsControl.InnerText.Should().Be(details, "Because unexpected details");
+
+            if (!string.IsNullOrEmpty(details))
+                detailsControl.InnerText.Should().Be(details, "Because unexpected details");
         }
     }
 }
