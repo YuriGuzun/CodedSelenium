@@ -28,6 +28,48 @@ namespace CodedSelenium.Test
         }
 
         [Test]
+        public void MouseTest_Click_NoControl_NoParameters()
+        {
+            Mouse.Move(MouseTestPage.FirstDiv, new Point(5, 7));
+            Mouse.Click();
+            AssertClick(MouseTestPage.FirstDiv, 5, 7, MouseClickDiv.MouseAction.Click, MouseButtons.Left, ModifierKeys.None);
+        }
+
+        [Test]
+        public void MouseTest_Click_NoControl_ModifierKeys()
+        {
+            Mouse.Move(MouseTestPage.FirstDiv, new Point(5, 7));
+            Mouse.Click(ModifierKeys.Alt);
+            AssertClick(MouseTestPage.FirstDiv, 5, 7, MouseClickDiv.MouseAction.Click, MouseButtons.Left, ModifierKeys.Alt);
+        }
+
+        [Test]
+        public void MouseTest_Click_NoControl_MouseButton()
+        {
+            Mouse.Move(MouseTestPage.FirstDiv, new Point(5, 7));
+            Mouse.Click(MouseButtons.Right);
+            AssertClick(MouseTestPage.FirstDiv, 5, 7, MouseClickDiv.MouseAction.MouseUp, MouseButtons.Right, ModifierKeys.None);
+        }
+
+        [Test]
+        public void MouseTest_Click_NoControl_MouseButton_ModifierKeys()
+        {
+            Mouse.Move(MouseTestPage.FirstDiv, new Point(5, 7));
+            Mouse.Click(MouseButtons.Right, ModifierKeys.Shift);
+            AssertClick(MouseTestPage.FirstDiv, 5, 7, MouseClickDiv.MouseAction.MouseUp, MouseButtons.Right, ModifierKeys.Shift);
+        }
+
+        [Test]
+        public void MouseTest_Click_NoControl_Point()
+        {
+            Point pointToClick = MouseTestPage.FirstDiv.BoundingRectangle.Location;
+            pointToClick.X += 5;
+            pointToClick.Y += 7;
+            Mouse.Click(pointToClick);
+            AssertClick(MouseTestPage.FirstDiv, 5, 7, MouseClickDiv.MouseAction.Click, MouseButtons.Left, ModifierKeys.None);
+        }
+
+        [Test]
         public void MouseTest_Click_Simple()
         {
             Mouse.Click(MouseTestPage.FirstDiv);
@@ -38,6 +80,7 @@ namespace CodedSelenium.Test
         [TestCase(15, 20, MouseClickDiv.MouseAction.MouseUp, MouseButtons.Right, ModifierKeys.Control)]
         [TestCase(15, 20, MouseClickDiv.MouseAction.Click, MouseButtons.Left, ModifierKeys.Alt)]
         [TestCase(15, 20, MouseClickDiv.MouseAction.Click, MouseButtons.Left, ModifierKeys.Shift)]
+        [TestCase(15, 20, MouseClickDiv.MouseAction.Click, MouseButtons.Left, ModifierKeys.None)]
         public void MouseTest_Click(
             int x, int y, MouseClickDiv.MouseAction action, MouseButtons mouseButton, ModifierKeys modifierKey)
         {

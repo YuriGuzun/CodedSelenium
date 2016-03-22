@@ -48,8 +48,7 @@ namespace CodedSelenium.Test
             HtmlButton button = new HtmlButton();
             Action action = () => button.SearchProperties.Add(HtmlButton.PropertyNames.Id, "secondButton", HtmlButton.PropertyNames.Class);
 
-            action.ShouldThrow<ArgumentOutOfRangeException>()
-                .WithMessage("Specified argument was out of the range of valid values.\r\nParameter name: nameValuePairs");
+            action.ShouldThrow<ArgumentOutOfRangeException>();
         }
 
         [Test]

@@ -1,4 +1,5 @@
 ﻿using CodedSelenium.Extension;
+using CodedSelenium.HtmlControls;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
@@ -7,7 +8,9 @@ using OpenQA.Selenium.Support.Events;
 using OpenQA.Selenium.Support.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Drawing.Imaging;
+using System.Windows.Forms;
 
 namespace CodedSelenium
 {
@@ -44,6 +47,14 @@ namespace CodedSelenium
             }
         }
 
+        public override UITestControl TopParent
+        {
+            get
+            {
+                return this;
+            }
+        }
+
         protected override IWebElement WebElement
         {
             get
@@ -56,9 +67,18 @@ namespace CodedSelenium
         /// BrowserWindow class sets this property on launch. It is required to mimic some coded ui features that
         /// does not require context to be passed. For example Mouse.Click();
         /// </summary>
-        public static List<IWebDriver> ActiveWebDriverInstances
+        public static List<BrowserWindow> ActiveBrowserWindowInstances
         {
             get; private set;
+        }
+
+        public static BrowserWindow ActiveBrowserWindow
+        {
+            get
+            {
+                //// TODO: Think how to identify active window
+                return BrowserWindow.ActiveBrowserWindowInstances[0];
+            }
         }
 
         public static BrowserWindow Launch(string uri)
@@ -80,15 +100,15 @@ namespace CodedSelenium
                     break;
             }
 
-            if (ActiveWebDriverInstances == null)
+            if (ActiveBrowserWindowInstances == null)
             {
-                ActiveWebDriverInstances = new List<IWebDriver>();
+                ActiveBrowserWindowInstances = new List<BrowserWindow>();
             }
-
-            ActiveWebDriverInstances.Add(driver);
-
+            
             BrowserWindow browserWindow = new BrowserWindow(driver);
             browserWindow.NavigateToUrl(uri);
+
+            ActiveBrowserWindowInstances.Add(browserWindow);
 
             return browserWindow;
         }
@@ -138,7 +158,7 @@ namespace CodedSelenium
 
         public void Close()
         {
-            BrowserWindow.ActiveWebDriverInstances.Remove(Driver);
+            BrowserWindow.ActiveBrowserWindowInstances.Remove(this);
             Driver.Quit();
         }
 
@@ -175,6 +195,15 @@ namespace CodedSelenium
 
                 default:
                     throw new NotImplementedException(string.Format("'{0}' action type is not implemented", actionType.ToString()));
+            }
+        }
+
+        internal override void MoveToElement(Nullable<Point> relativeCoordinate)
+        {
+            if (relativeCoordinate.HasValue)
+            {
+                Cursor cursor = new Cursor(Cursor.Current.Handle);
+                Cursor.Position = relativeCoordinate.Value;
             }
         }
 

@@ -13,7 +13,6 @@ namespace CodedSelenium.Test.ObjectMap
     {
         private HtmlControl xControl;
         private HtmlControl yControl;
-        private MouseButtons mouseButton;
         private HtmlControl actionControl;
         private HtmlControl buttonControl;
         private HtmlControl altKeyControl;

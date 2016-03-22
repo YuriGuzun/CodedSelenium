@@ -43,19 +43,21 @@ namespace CodedSelenium
             TopParent = parent.TopParent ?? parent;
         }
 
-        public virtual UITestControl TopParent
+        public UITestControl(UITestControl parent, ISearchContext parentSearchContext)
+            : this(parent)
         {
-            get;
+            ParentSearchContext = parentSearchContext;
         }
 
-        public UITestControl(ISearchContext parent)
-        {
-            ParentSearchContext = parent;
-        }
-
-        public UITestControl(IWebElement webElement)
+        public UITestControl(UITestControl parent, IWebElement webElement)
+            : this(parent)
         {
             privateWebElement = webElement;
+        }
+
+        public virtual UITestControl TopParent
+        {
+            get; private set;
         }
 
         public virtual string InnerText
@@ -119,7 +121,7 @@ namespace CodedSelenium
 
         public UITestControl GetParent()
         {
-            return new UITestControl(WebElement.FindElement(By.XPath("..")));
+            return new UITestControl(this.TopParent, WebElement.FindElement(By.XPath("..")));
         }
 
         public virtual UITestControlCollection GetChildren()
@@ -129,7 +131,7 @@ namespace CodedSelenium
 
             foreach (IWebElement webElement in descendants)
             {
-                collection.Add(new UITestControl(webElement));
+                collection.Add(new UITestControl(this, webElement));
             }
 
             return collection;
@@ -148,7 +150,7 @@ namespace CodedSelenium
             {
                 foreach (IWebElement webElement in matchingElements)
                 {
-                    collection.Add(new UITestControl(webElement));
+                    collection.Add(new UITestControl(ParentTestControl, webElement));
                 }
             }
 

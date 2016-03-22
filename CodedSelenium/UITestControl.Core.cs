@@ -7,8 +7,6 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
 
@@ -78,9 +76,17 @@ namespace CodedSelenium
             }
         }
 
-        internal void Click()
+        internal virtual void MoveToElement(Nullable<Point> relativeCoordinate)
         {
-            WebElement.Click();
+            BrowserWindow browserWindow = TopParent as BrowserWindow;
+            Actions actions = new Actions(browserWindow.Driver);
+
+            if (relativeCoordinate.HasValue)
+                actions.MoveToElement(WebElement, relativeCoordinate.Value.X, relativeCoordinate.Value.Y);
+            else
+                actions.MoveToElement(WebElement);
+
+            actions.Perform();
         }
 
         internal void Click(MouseButtons button, ModifierKeys modifierKeys, Nullable<Point> relativeCoordinate)
@@ -88,11 +94,13 @@ namespace CodedSelenium
             BrowserWindow browserWindow = TopParent as BrowserWindow;
 
             Actions actions = new Actions(browserWindow.Driver);
-            if (relativeCoordinate.HasValue)
-                actions = actions.MoveToElement(WebElement, relativeCoordinate.Value.X, relativeCoordinate.Value.Y);
-            else
-                actions = actions.MoveToElement(WebElement);
+            MoveToElement(relativeCoordinate);
+            actions = ApplyModifiers(actions, button, modifierKeys);
+            actions.Perform();
+        }
 
+        private Actions ApplyModifiers(Actions actions, MouseButtons button, ModifierKeys modifierKeys)
+        {
             if (!ModifierKeysDictionary.ContainsKey(modifierKeys))
                 throw new NotImplementedException(string.Format("'ModifierKeys.{0}' is not supported", modifierKeys.ToString()));
 
@@ -101,18 +109,18 @@ namespace CodedSelenium
             switch (button)
             {
                 case MouseButtons.Left:
-                    actions = actions.KeyDown(keyToPress).Click().KeyUp(keyToPress);
-                    break;
+                    if (modifierKeys == ModifierKeys.None)
+                        return actions.Click();
+                    return actions.KeyDown(keyToPress).Click().KeyUp(keyToPress);
 
                 case MouseButtons.Right:
-                    actions = actions.KeyDown(keyToPress).ContextClick().KeyUp(keyToPress);
-                    break;
+                    if (modifierKeys == ModifierKeys.None)
+                        return actions.ContextClick();
+                    return actions.KeyDown(keyToPress).ContextClick().KeyUp(keyToPress);
 
                 default:
                     throw new NotImplementedException(string.Format("'MouseButtons.{0}' is not supported", button.ToString()));
             }
-
-            actions.Perform();
         }
 
         protected virtual string GetSelector()

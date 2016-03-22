@@ -11,8 +11,47 @@ namespace CodedSelenium
     {
         public static void Click()
         {
-            Actions action = new Actions(BrowserWindow.ActiveWebDriverInstances[0]);
-            action.Click();
+            Click(BrowserWindow.ActiveBrowserWindow);
+        }
+
+        public static void Click(ModifierKeys modifierKeys)
+        {
+            Click(BrowserWindow.ActiveBrowserWindow, modifierKeys);
+        }
+
+        public static void Click(MouseButtons button)
+        {
+            Click(BrowserWindow.ActiveBrowserWindow, button);
+        }
+
+        public static void Click(MouseButtons button, ModifierKeys modifierKeys)
+        {
+            Click(BrowserWindow.ActiveBrowserWindow, button, modifierKeys);
+        }
+
+        public static void Click(Point screenCoordinate)
+        {
+            Click(BrowserWindow.ActiveBrowserWindow, screenCoordinate);
+        }
+
+        private static void Click(UITestControl control, Point screenCoordinate)
+        {
+            control.Click(MouseButtons.Left, ModifierKeys.None, screenCoordinate);
+        }
+
+        public static void Click(UITestControl control, MouseButtons button, ModifierKeys modifierKeys)
+        {
+            control.Click(button, modifierKeys, null);
+        }
+
+        public static void Click(UITestControl control, MouseButtons button)
+        {
+            control.Click(button, ModifierKeys.None, null);
+        }
+
+        public static void Click(UITestControl control, ModifierKeys modifierKeys)
+        {
+            control.Click(MouseButtons.Left, modifierKeys, null);
         }
 
         public static void Click(UITestControl control, MouseButtons button, ModifierKeys modifierKeys, Point relativeCoordinate)
@@ -21,14 +60,13 @@ namespace CodedSelenium
         }
 
         public static void Click(UITestControl control)
-
         {
-            control.Click();
+            control.Click(MouseButtons.Left, ModifierKeys.None, null);
         }
-
-        public static void Click(HtmlDiv firstDiv, object mouseButtons)
+        
+        public static void Move(UITestControl control, Point relativeCoordinate)
         {
-            throw new NotImplementedException();
+            control.MoveToElement(relativeCoordinate);
         }
     }
 }

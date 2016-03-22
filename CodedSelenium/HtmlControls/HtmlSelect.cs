@@ -34,7 +34,7 @@ namespace CodedSelenium.HtmlControls
                 UITestControlCollection collection = new UITestControlCollection();
                 foreach (IWebElement option in Selector.Options)
                 {
-                    collection.Add(new UITestControl(option));
+                    collection.Add(new UITestControl(this, option));
                 }
 
                 return collection;
