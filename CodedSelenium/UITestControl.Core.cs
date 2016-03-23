@@ -93,10 +93,15 @@ namespace CodedSelenium
         {
             BrowserWindow browserWindow = TopParent as BrowserWindow;
 
-            Actions actions = new Actions(browserWindow.Driver);
-            MoveToElement(relativeCoordinate);
-            actions = ApplyModifiers(actions, button, modifierKeys);
-            actions.Perform();
+            if (button == MouseButtons.Left && modifierKeys == ModifierKeys.None && WebElement != null)
+                WebElement.Click();
+            else
+            {
+                Actions actions = new Actions(browserWindow.Driver);
+                MoveToElement(relativeCoordinate);
+                actions = ApplyModifiers(actions, button, modifierKeys);
+                actions.Perform();
+            }
         }
 
         private Actions ApplyModifiers(Actions actions, MouseButtons button, ModifierKeys modifierKeys)

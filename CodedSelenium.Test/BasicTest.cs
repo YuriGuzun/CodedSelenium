@@ -9,6 +9,7 @@ namespace CodedSelenium.Test
 {
     public class BasicTest
     {
+        protected const string SkipCiCategory = "SkipCi";
         public const string PageName = "BasicTestPage.html";
         private static BrowserWindow browserWindow;
         private static string pathToPage;
