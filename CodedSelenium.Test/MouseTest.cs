@@ -80,7 +80,6 @@ namespace CodedSelenium.Test
         [TestCase(15, 20, MouseClickDiv.MouseAction.MouseUp, MouseButtons.Right, ModifierKeys.Control)]
         [TestCase(15, 20, MouseClickDiv.MouseAction.Click, MouseButtons.Left, ModifierKeys.Alt)]
         [TestCase(15, 20, MouseClickDiv.MouseAction.Click, MouseButtons.Left, ModifierKeys.Shift)]
-        [TestCase(15, 20, MouseClickDiv.MouseAction.Click, MouseButtons.Left, ModifierKeys.None)]
         public void MouseTest_Click(
             int x, int y, MouseClickDiv.MouseAction action, MouseButtons mouseButton, ModifierKeys modifierKey)
         {
