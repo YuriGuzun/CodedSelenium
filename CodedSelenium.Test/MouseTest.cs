@@ -28,6 +28,7 @@ namespace CodedSelenium.Test
         }
 
         [Test]
+        [Category(SkipCiCategory)]
         public void MouseTest_Click_NoControl_NoParameters()
         {
             Mouse.Move(MouseTestPage.FirstDiv, new Point(5, 7));
@@ -36,6 +37,7 @@ namespace CodedSelenium.Test
         }
 
         [Test]
+        [Category(SkipCiCategory)]
         public void MouseTest_Click_NoControl_ModifierKeys()
         {
             Mouse.Move(MouseTestPage.FirstDiv, new Point(5, 7));
@@ -44,6 +46,7 @@ namespace CodedSelenium.Test
         }
 
         [Test]
+        [Category(SkipCiCategory)]
         public void MouseTest_Click_NoControl_MouseButton()
         {
             Mouse.Move(MouseTestPage.FirstDiv, new Point(5, 7));
@@ -52,6 +55,7 @@ namespace CodedSelenium.Test
         }
 
         [Test]
+        [Category(SkipCiCategory)]
         public void MouseTest_Click_NoControl_MouseButton_ModifierKeys()
         {
             Mouse.Move(MouseTestPage.FirstDiv, new Point(5, 7));
@@ -60,6 +64,7 @@ namespace CodedSelenium.Test
         }
 
         [Test]
+        [Category(SkipCiCategory)]
         public void MouseTest_Click_NoControl_Point()
         {
             Point pointToClick = MouseTestPage.FirstDiv.BoundingRectangle.Location;
