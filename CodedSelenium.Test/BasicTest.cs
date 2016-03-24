@@ -58,6 +58,7 @@ namespace CodedSelenium.Test
         [TearDown]
         public void TestCleanup()
         {
+            Console.WriteLine("{0},{1}", TestContext.CurrentContext.Test.FullName, TestContext.CurrentContext.Result.Status.ToString());
             string script =
                 "jQuery('.log').each(function(index) {" +
                 "   $( this ).text('')" +
