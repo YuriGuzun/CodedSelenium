@@ -1,5 +1,4 @@
-﻿using CodedSelenium.HtmlControls;
-using CodedSelenium.Test.ObjectMap;
+﻿using CodedSelenium.Test.ObjectMap;
 using FluentAssertions;
 using NUnit.Framework;
 using System.Drawing;
@@ -28,7 +27,6 @@ namespace CodedSelenium.Test
         }
 
         [Test]
-        [Category(SkipCiCategory)]
         public void MouseTest_Click_NoControl_NoParameters()
         {
             Mouse.Move(MouseTestPage.FirstDiv, new Point(5, 7));
@@ -37,7 +35,6 @@ namespace CodedSelenium.Test
         }
 
         [Test]
-        [Category(SkipCiCategory)]
         public void MouseTest_Click_NoControl_ModifierKeys()
         {
             Mouse.Move(MouseTestPage.FirstDiv, new Point(5, 7));
@@ -46,7 +43,6 @@ namespace CodedSelenium.Test
         }
 
         [Test]
-        [Category(SkipCiCategory)]
         public void MouseTest_Click_NoControl_MouseButton()
         {
             Mouse.Move(MouseTestPage.FirstDiv, new Point(5, 7));
@@ -55,7 +51,6 @@ namespace CodedSelenium.Test
         }
 
         [Test]
-        [Category(SkipCiCategory)]
         public void MouseTest_Click_NoControl_MouseButton_ModifierKeys()
         {
             Mouse.Move(MouseTestPage.FirstDiv, new Point(5, 7));
@@ -64,7 +59,6 @@ namespace CodedSelenium.Test
         }
 
         [Test]
-        [Category(SkipCiCategory)]
         public void MouseTest_Click_NoControl_Point()
         {
             Point pointToClick = MouseTestPage.FirstDiv.BoundingRectangle.Location;
@@ -75,7 +69,6 @@ namespace CodedSelenium.Test
         }
 
         [Test]
-        [Category(SkipCiCategory)]
         public void MouseTest_Click_Simple()
         {
             Mouse.Click(MouseTestPage.FirstDiv);
@@ -86,7 +79,6 @@ namespace CodedSelenium.Test
         [TestCase(15, 20, MouseClickDiv.MouseAction.MouseUp, MouseButtons.Right, ModifierKeys.Control)]
         [TestCase(15, 20, MouseClickDiv.MouseAction.Click, MouseButtons.Left, ModifierKeys.Alt)]
         [TestCase(15, 20, MouseClickDiv.MouseAction.Click, MouseButtons.Left, ModifierKeys.Shift)]
-        [Category(SkipCiCategory)]
         public void MouseTest_Click(
             int x, int y, MouseClickDiv.MouseAction action, MouseButtons mouseButton, ModifierKeys modifierKey)
         {
@@ -97,8 +89,10 @@ namespace CodedSelenium.Test
         private void AssertClick(
             MouseClickDiv div, int x, int y, MouseClickDiv.MouseAction action, MouseButtons mouseButton, ModifierKeys modifierKey)
         {
-            div.X.Should().Be(x, "X");
-            div.Y.Should().Be(y, "Y");
+            Wait.Until((d) => { return !string.IsNullOrEmpty(div.X); });
+
+            div.X.Should().Be(x.ToString(), "X");
+            div.Y.Should().Be(y.ToString(), "Y");
             div.Action.Should().Be(action, "Action");
             div.MouseButton.Should().Be(mouseButton, "MouseButton");
             div.ModifierKey.Should().Be(modifierKey, "ModifierKey");

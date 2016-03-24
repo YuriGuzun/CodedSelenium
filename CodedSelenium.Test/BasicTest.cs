@@ -15,6 +15,7 @@ namespace CodedSelenium.Test
         private static BrowserWindow browserWindow;
         private static string pathToPage;
         private static BasicTestPage basicTestPage;
+        private static WebDriverWait webDriverWait;
 
         protected static string PathToPage
         {
@@ -56,6 +57,20 @@ namespace CodedSelenium.Test
             }
         }
 
+        protected static WebDriverWait Wait
+        {
+            get
+            {
+                if (BasicTest.webDriverWait == null)
+                {
+                    BasicTest.webDriverWait = new WebDriverWait(BrowserWindow.Driver, TimeSpan.FromSeconds(2));
+                    BasicTest.webDriverWait.PollingInterval = TimeSpan.FromMilliseconds(0);
+                }
+
+                return BasicTest.webDriverWait;
+            }
+        }
+
         [TearDown]
         public void TestCleanup()
         {
@@ -84,10 +99,8 @@ namespace CodedSelenium.Test
             HtmlControl detailsControl = new HtmlControl(parent);
             detailsControl.SearchProperties.Add(HtmlControl.PropertyNames.TagName, "p");
             detailsControl.SearchProperties.Add(HtmlControl.PropertyNames.Id, "logDetails");
-
-            WebDriverWait wait = new WebDriverWait(BrowserWindow.Driver, TimeSpan.FromSeconds(2));
-            wait.PollingInterval = TimeSpan.FromMilliseconds(0);
-            wait.Until((d) => { return idControl.InnerText.Equals(elementId); });
+                        
+            Wait.Until((d) => { return idControl.InnerText.Equals(elementId); });
 
             idControl.InnerText.Should().Be(elementId, "Because unexpected elementId {0}-ed", action);
             actionControl.InnerText.Should().Be(action, "Because unexpected action");
