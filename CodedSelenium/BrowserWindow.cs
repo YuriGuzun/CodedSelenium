@@ -6,6 +6,7 @@ using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Support.Events;
 using OpenQA.Selenium.Support.Extensions;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -179,18 +180,21 @@ namespace CodedSelenium
 
         public virtual void PerformDialogAction(BrowserDialogAction actionType)
         {
+            WebDriverWait wait = new WebDriverWait(this.Driver, TimeSpan.FromSeconds(2));
+            wait.IgnoreExceptionTypes(typeof(NoAlertPresentException));
+
             switch (actionType)
             {
                 case BrowserDialogAction.Ok:
                 case BrowserDialogAction.Yes:
-                    Driver.SwitchTo().Alert().Accept();
+                    wait.Until((d) => { Driver.SwitchTo().Alert().Accept(); return true; });                    
                     break;
 
                 case BrowserDialogAction.Cancel:
                 case BrowserDialogAction.Ignore:
                 case BrowserDialogAction.Close:
                 case BrowserDialogAction.No:
-                    Driver.SwitchTo().Alert().Dismiss();
+                    wait.Until((d) => { Driver.SwitchTo().Alert().Dismiss(); return true; });
                     break;
 
                 default:
