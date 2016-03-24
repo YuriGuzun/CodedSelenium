@@ -71,16 +71,13 @@ namespace CodedSelenium.Test
             }
         }
 
-        [TearDown]
-        public void TestCleanup()
+        public void CleanLogs()
         {
-            Console.WriteLine("{0},{1}", TestContext.CurrentContext.Test.FullName, TestContext.CurrentContext.Result.Status.ToString());
             string script =
                 "jQuery('.log').each(function(index) {" +
                 "   $( this ).text('')" +
                 "});";
             BrowserWindow.ExecuteScript(script);
-            AssertResult(string.Empty, string.Empty);
         }
 
         protected void AssertResult(string elementId, string action, string details = "")
@@ -99,14 +96,16 @@ namespace CodedSelenium.Test
             HtmlControl detailsControl = new HtmlControl(parent);
             detailsControl.SearchProperties.Add(HtmlControl.PropertyNames.TagName, "p");
             detailsControl.SearchProperties.Add(HtmlControl.PropertyNames.Id, "logDetails");
-                        
-            Wait.Until((d) => { return idControl.InnerText.Equals(elementId); });
 
+            Wait.Until((d) => { return idControl.InnerText.Equals(elementId); });
             idControl.InnerText.Should().Be(elementId, "Because unexpected elementId {0}-ed", action);
+
             actionControl.InnerText.Should().Be(action, "Because unexpected action");
 
             if (!string.IsNullOrEmpty(details))
                 detailsControl.InnerText.Should().Be(details, "Because unexpected details");
+
+            CleanLogs();
         }
     }
 }
