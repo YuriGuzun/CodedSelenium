@@ -75,6 +75,7 @@ namespace CodedSelenium.Test
         }
 
         [Test]
+        [Category(SkipCiCategory)]
         public void MouseTest_Click_Simple()
         {
             Mouse.Click(MouseTestPage.FirstDiv);
@@ -85,6 +86,7 @@ namespace CodedSelenium.Test
         [TestCase(15, 20, MouseClickDiv.MouseAction.MouseUp, MouseButtons.Right, ModifierKeys.Control)]
         [TestCase(15, 20, MouseClickDiv.MouseAction.Click, MouseButtons.Left, ModifierKeys.Alt)]
         [TestCase(15, 20, MouseClickDiv.MouseAction.Click, MouseButtons.Left, ModifierKeys.Shift)]
+        [Category(SkipCiCategory)]
         public void MouseTest_Click(
             int x, int y, MouseClickDiv.MouseAction action, MouseButtons mouseButton, ModifierKeys modifierKey)
         {
