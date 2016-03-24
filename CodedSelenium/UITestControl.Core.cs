@@ -1,6 +1,7 @@
 ﻿using CodedSelenium.Selectors;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,6 +25,8 @@ namespace CodedSelenium
             { ModifierKeys.Shift, OpenQA.Selenium.Keys.Shift },
             { ModifierKeys.None, string.Empty },
         };
+
+        private WebDriverWait webDriverWait;
 
         public UITestControl ParentTestControl { get; private set; }
 
@@ -49,6 +52,20 @@ namespace CodedSelenium
                 }
 
                 return webElement;
+            }
+        }
+
+        protected WebDriverWait Wait
+        {
+            get
+            {
+                if (webDriverWait == null)
+                {
+                    webDriverWait = new WebDriverWait((TopParent as BrowserWindow).Driver, TimeSpan.FromSeconds(2));
+                    webDriverWait.PollingInterval = TimeSpan.FromMilliseconds(0);
+                }
+
+                return webDriverWait;
             }
         }
 

@@ -17,7 +17,6 @@ namespace CodedSelenium.Test
             string value = "banana";
             edit.Text = value;
 
-            Wait.Until((d) => { return edit.Text.Equals(value); });
             edit.Text.Should().Be(value);
         }
 

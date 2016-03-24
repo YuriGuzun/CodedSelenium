@@ -89,6 +89,7 @@ namespace CodedSelenium.Test
         private void AssertClick(
             MouseClickDiv div, int x, int y, MouseClickDiv.MouseAction action, MouseButtons mouseButton, ModifierKeys modifierKey)
         {
+            Wait.Until((d) => { return div.X.Equals(x.ToString()); });
             div.X.Should().Be(x.ToString(), "X");
             div.Y.Should().Be(y.ToString(), "Y");
             div.Action.Should().Be(action, "Action");

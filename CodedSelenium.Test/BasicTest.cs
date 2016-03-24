@@ -100,10 +100,14 @@ namespace CodedSelenium.Test
             Wait.Until((d) => { return idControl.InnerText.Equals(elementId); });
             idControl.InnerText.Should().Be(elementId, "Because unexpected elementId {0}-ed", action);
 
+            Wait.Until((d) => { return actionControl.InnerText.Equals(action); });
             actionControl.InnerText.Should().Be(action, "Because unexpected action");
 
             if (!string.IsNullOrEmpty(details))
+            {
+                Wait.Until((d) => { return detailsControl.InnerText.Equals(details); });
                 detailsControl.InnerText.Should().Be(details, "Because unexpected details");
+            }
 
             CleanLogs();
         }
