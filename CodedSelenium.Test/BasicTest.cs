@@ -37,7 +37,8 @@ namespace CodedSelenium.Test
                     BasicTest.basicTestPage = new BasicTestPage(BasicTest.BrowserWindow);
                 }
 
-                BasicTest.basicTestPage.Launch();
+                //BasicTest.basicTestPage.Launch();
+
                 return BasicTest.basicTestPage;
             }
         }

@@ -136,7 +136,7 @@ namespace CodedSelenium
             return (string)js.ExecuteScript(script, args);
         }
 
-        public void ClearCoockies()
+        public void ClearCookiesNonStatic()
         {
             Driver.Manage().Cookies.DeleteAllCookies();
         }
