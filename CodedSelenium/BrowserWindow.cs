@@ -1,5 +1,4 @@
 ﻿using CodedSelenium.Extension;
-using CodedSelenium.HtmlControls;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
@@ -105,7 +104,7 @@ namespace CodedSelenium
             {
                 ActiveBrowserWindowInstances = new List<BrowserWindow>();
             }
-            
+
             BrowserWindow browserWindow = new BrowserWindow(driver);
             browserWindow.NavigateToUrl(uri);
 
@@ -187,7 +186,7 @@ namespace CodedSelenium
             {
                 case BrowserDialogAction.Ok:
                 case BrowserDialogAction.Yes:
-                    wait.Until((d) => { Driver.SwitchTo().Alert().Accept(); return true; });                    
+                    wait.Until((d) => { Driver.SwitchTo().Alert().Accept(); return true; });
                     break;
 
                 case BrowserDialogAction.Cancel:

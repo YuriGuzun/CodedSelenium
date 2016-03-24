@@ -2,6 +2,7 @@
 using CodedSelenium.Test.ObjectMap;
 using FluentAssertions;
 using NUnit.Framework;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.IO;
 
@@ -37,8 +38,7 @@ namespace CodedSelenium.Test
                     BasicTest.basicTestPage = new BasicTestPage(BasicTest.BrowserWindow);
                 }
 
-                //BasicTest.basicTestPage.Launch();
-
+                BasicTest.basicTestPage.Launch();
                 return BasicTest.basicTestPage;
             }
         }
@@ -84,6 +84,10 @@ namespace CodedSelenium.Test
             HtmlControl detailsControl = new HtmlControl(parent);
             detailsControl.SearchProperties.Add(HtmlControl.PropertyNames.TagName, "p");
             detailsControl.SearchProperties.Add(HtmlControl.PropertyNames.Id, "logDetails");
+
+            WebDriverWait wait = new WebDriverWait(BrowserWindow.Driver, TimeSpan.FromSeconds(2));
+            wait.PollingInterval = TimeSpan.FromMilliseconds(0);
+            wait.Until((d) => { return idControl.InnerText.Equals(elementId); });
 
             idControl.InnerText.Should().Be(elementId, "Because unexpected elementId {0}-ed", action);
             actionControl.InnerText.Should().Be(action, "Because unexpected action");
