@@ -25,6 +25,7 @@
                 if (WebElement.Selected != value)
                 {
                     WebElement.Click();
+                    Wait.Until((d) => { return this.Checked == value; });
                 }
             }
         }

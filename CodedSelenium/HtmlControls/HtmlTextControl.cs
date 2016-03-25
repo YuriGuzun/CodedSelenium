@@ -26,6 +26,8 @@ namespace CodedSelenium.HtmlControls
             {
                 WebElement.Clear();
                 WebElement.SendKeys(value);
+
+                Wait.Until((d) => { return this.Text == value; });
             }
         }
 
