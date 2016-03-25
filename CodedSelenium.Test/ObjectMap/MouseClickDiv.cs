@@ -128,7 +128,7 @@ namespace CodedSelenium.Test.ObjectMap
             }
         }
 
-        public int X
+        public string X
         {
             get
             {
@@ -138,12 +138,11 @@ namespace CodedSelenium.Test.ObjectMap
                     xControl.SearchProperties[HtmlControl.PropertyNames.Id] = "clientX";
                 }
 
-                string value = xControl.InnerText;
-                return int.Parse(value);
+                return xControl.InnerText;
             }
         }
 
-        public int Y
+        public string Y
         {
             get
             {
@@ -153,8 +152,7 @@ namespace CodedSelenium.Test.ObjectMap
                     yControl.SearchProperties[HtmlControl.PropertyNames.Id] = "clientY";
                 }
 
-                string value = yControl.InnerText;
-                return int.Parse(value);
+                return yControl.InnerText;
             }
         }
 

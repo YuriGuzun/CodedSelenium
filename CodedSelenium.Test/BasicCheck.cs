@@ -16,6 +16,7 @@ namespace CodedSelenium.Test
 
             string value = "banana";
             edit.Text = value;
+
             edit.Text.Should().Be(value);
         }
 

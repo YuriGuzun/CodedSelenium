@@ -2,6 +2,7 @@
 using CodedSelenium.Test.ObjectMap;
 using FluentAssertions;
 using NUnit.Framework;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.IO;
 
@@ -14,6 +15,7 @@ namespace CodedSelenium.Test
         private static BrowserWindow browserWindow;
         private static string pathToPage;
         private static BasicTestPage basicTestPage;
+        private static WebDriverWait webDriverWait;
 
         protected static string PathToPage
         {
@@ -55,15 +57,27 @@ namespace CodedSelenium.Test
             }
         }
 
-        [TearDown]
-        public void TestCleanup()
+        protected static WebDriverWait Wait
+        {
+            get
+            {
+                if (BasicTest.webDriverWait == null)
+                {
+                    BasicTest.webDriverWait = new WebDriverWait(BrowserWindow.Driver, TimeSpan.FromSeconds(5));
+                    BasicTest.webDriverWait.PollingInterval = TimeSpan.FromMilliseconds(0);
+                }
+
+                return BasicTest.webDriverWait;
+            }
+        }
+
+        public void CleanLogs()
         {
             string script =
                 "jQuery('.log').each(function(index) {" +
                 "   $( this ).text('')" +
                 "});";
             BrowserWindow.ExecuteScript(script);
-            AssertResult(string.Empty, string.Empty);
         }
 
         protected void AssertResult(string elementId, string action, string details = "")
@@ -83,11 +97,19 @@ namespace CodedSelenium.Test
             detailsControl.SearchProperties.Add(HtmlControl.PropertyNames.TagName, "p");
             detailsControl.SearchProperties.Add(HtmlControl.PropertyNames.Id, "logDetails");
 
+            Wait.Until((d) => { return idControl.InnerText.Equals(elementId); });
             idControl.InnerText.Should().Be(elementId, "Because unexpected elementId {0}-ed", action);
+
+            Wait.Until((d) => { return actionControl.InnerText.Equals(action); });
             actionControl.InnerText.Should().Be(action, "Because unexpected action");
 
             if (!string.IsNullOrEmpty(details))
+            {
+                Wait.Until((d) => { return detailsControl.InnerText.Equals(details); });
                 detailsControl.InnerText.Should().Be(details, "Because unexpected details");
+            }
+
+            CleanLogs();
         }
     }
 }
