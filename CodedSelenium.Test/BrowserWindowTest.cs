@@ -40,6 +40,7 @@ namespace CodedSelenium.Test
                         action.ShouldThrow<NotImplementedException>()
                             .WithMessage(string.Format("'{0}' action type is not implemented", dialogAction.ToString()));
                         BrowserWindow.PerformDialogAction(BrowserDialogAction.Ok);
+                        AssertResult("buttonWithAlert", "click", "OK!");
                         break;
                 }
             }
