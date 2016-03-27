@@ -11,7 +11,7 @@ namespace CodedSelenium.Test.ObjectMap
 {
     public class MouseClickDiv : HtmlDiv
     {
-        private HtmlControl xControl;
+        private HtmlControl _xControl;
         private HtmlControl _yControl;
         private HtmlControl _actionControl;
         private HtmlControl _buttonControl;
@@ -139,13 +139,13 @@ namespace CodedSelenium.Test.ObjectMap
         {
             get
             {
-                if (xControl == null)
+                if (_xControl == null)
                 {
-                    xControl = new HtmlControl(this);
-                    xControl.SearchProperties[HtmlControl.PropertyNames.Id] = "clientX";
+                    _xControl = new HtmlControl(this);
+                    _xControl.SearchProperties[HtmlControl.PropertyNames.Id] = "clientX";
                 }
 
-                return xControl.InnerText;
+                return _xControl.InnerText;
             }
         }
 
