@@ -12,29 +12,36 @@ namespace CodedSelenium.Test.ObjectMap
     public class MouseClickDiv : HtmlDiv
     {
         private HtmlControl xControl;
-        private HtmlControl yControl;
-        private HtmlControl actionControl;
-        private HtmlControl buttonControl;
-        private HtmlControl altKeyControl;
-        private HtmlControl shiftKeyControl;
-        private HtmlControl ctrlKeyControl;
+        private HtmlControl _yControl;
+        private HtmlControl _actionControl;
+        private HtmlControl _buttonControl;
+        private HtmlControl _altKeyControl;
+        private HtmlControl _shiftKeyControl;
+        private HtmlControl _ctrlKeyControl;
 
         public MouseClickDiv(UITestControl parent)
             : base(parent)
         {
         }
 
+        public enum MouseAction
+        {
+            Click,
+            MouseDown,
+            MouseUp
+        }
+
         public MouseAction Action
         {
             get
             {
-                if (actionControl == null)
+                if (_actionControl == null)
                 {
-                    actionControl = new HtmlControl(this);
-                    actionControl.SearchProperties[HtmlControl.PropertyNames.Id] = "logAction";
+                    _actionControl = new HtmlControl(this);
+                    _actionControl.SearchProperties[HtmlControl.PropertyNames.Id] = "logAction";
                 }
 
-                string value = actionControl.InnerText;
+                string value = _actionControl.InnerText;
 
                 switch (value)
                 {
@@ -57,13 +64,13 @@ namespace CodedSelenium.Test.ObjectMap
         {
             get
             {
-                if (buttonControl == null)
+                if (_buttonControl == null)
                 {
-                    buttonControl = new HtmlControl(this);
-                    buttonControl.SearchProperties[HtmlControl.PropertyNames.Id] = "button";
+                    _buttonControl = new HtmlControl(this);
+                    _buttonControl.SearchProperties[HtmlControl.PropertyNames.Id] = "button";
                 }
 
-                string value = buttonControl.InnerText;
+                string value = _buttonControl.InnerText;
 
                 switch (value)
                 {
@@ -86,25 +93,25 @@ namespace CodedSelenium.Test.ObjectMap
         {
             get
             {
-                if (altKeyControl == null)
+                if (_altKeyControl == null)
                 {
-                    altKeyControl = new HtmlControl(this);
-                    altKeyControl.SearchProperties.Add(HtmlControl.PropertyNames.Id, "altKey");
+                    _altKeyControl = new HtmlControl(this);
+                    _altKeyControl.SearchProperties.Add(HtmlControl.PropertyNames.Id, "altKey");
                 }
 
-                if (shiftKeyControl == null)
+                if (_shiftKeyControl == null)
                 {
-                    shiftKeyControl = new HtmlControl(this);
-                    shiftKeyControl.SearchProperties.Add(HtmlControl.PropertyNames.Id, "shiftKey");
+                    _shiftKeyControl = new HtmlControl(this);
+                    _shiftKeyControl.SearchProperties.Add(HtmlControl.PropertyNames.Id, "shiftKey");
                 }
 
-                if (ctrlKeyControl == null)
+                if (_ctrlKeyControl == null)
                 {
-                    ctrlKeyControl = new HtmlControl(this);
-                    ctrlKeyControl.SearchProperties.Add(HtmlControl.PropertyNames.Id, "ctrlKey");
+                    _ctrlKeyControl = new HtmlControl(this);
+                    _ctrlKeyControl.SearchProperties.Add(HtmlControl.PropertyNames.Id, "ctrlKey");
                 }
 
-                foreach (HtmlControl item in new[] { altKeyControl, shiftKeyControl, ctrlKeyControl })
+                foreach (HtmlControl item in new[] { _altKeyControl, _shiftKeyControl, _ctrlKeyControl })
                 {
                     string value = item.InnerText;
 
@@ -146,21 +153,14 @@ namespace CodedSelenium.Test.ObjectMap
         {
             get
             {
-                if (yControl == null)
+                if (_yControl == null)
                 {
-                    yControl = new HtmlControl(this);
-                    yControl.SearchProperties[HtmlControl.PropertyNames.Id] = "clientY";
+                    _yControl = new HtmlControl(this);
+                    _yControl.SearchProperties[HtmlControl.PropertyNames.Id] = "clientY";
                 }
 
-                return yControl.InnerText;
+                return _yControl.InnerText;
             }
-        }
-
-        public enum MouseAction
-        {
-            Click,
-            MouseDown,
-            MouseUp
         }
     }
 }

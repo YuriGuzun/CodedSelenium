@@ -57,7 +57,7 @@ namespace CodedSelenium.HtmlControls
                 return string.Join(string.Empty, SelectedItems);
             }
 
-            // TODO: Clarify what is expected.
+            //// TODO: Clarify what is expected.
             set
             {
                 throw new NotImplementedException();
@@ -74,7 +74,7 @@ namespace CodedSelenium.HtmlControls
 
         public abstract new class PropertyNames : HtmlControl.PropertyNames
         {
-            // TODO: Confirm if CodedUI can search by this property.
+            //// TODO: Confirm if CodedUI can search by this property.
 
             public static readonly string SelectedItems = "SelectedItems";
             public static readonly string SelectedIndices = "SelectedIndices";

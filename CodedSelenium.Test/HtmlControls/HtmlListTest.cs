@@ -7,25 +7,26 @@ namespace CodedSelenium.Test.HtmlControls
     [TestFixture]
     public class HtmlListTest : BasicTest
     {
-        private HtmlList list;
+        private HtmlList _list;
 
         private HtmlList List
         {
             get
             {
-                if (list == null)
+                if (_list == null)
                 {
-                    list = new HtmlList(BasicTestPage);
-                    list.SearchProperties.Add(HtmlList.PropertyNames.Id, "htmlList");
+                    _list = new HtmlList(BasicTestPage);
+                    _list.SearchProperties.Add(HtmlList.PropertyNames.Id, "htmlList");
                 }
 
-                return list;
+                return _list;
             }
         }
 
         [TestCase("Option 1", "Option 3")]
         [TestCase("Option 4")]
-        [TestCase()]
+        [TestCase]
+        [Test]
         public void HtmlListTest_SelectedItems(params string[] expectedValues)
         {
             List.SelectedItems = expectedValues;
@@ -34,7 +35,8 @@ namespace CodedSelenium.Test.HtmlControls
 
         [TestCase(0, 2)]
         [TestCase(3)]
-        [TestCase()]
+        [TestCase]
+        [Test]
         public void HtmlListTest_SelectedIndex(params int[] expectedIndices)
         {
             List.SelectedIndices = expectedIndices;
@@ -43,7 +45,8 @@ namespace CodedSelenium.Test.HtmlControls
 
         [TestCase("Option 1", "Option 3")]
         [TestCase("Option 4")]
-        [TestCase()]
+        [TestCase]
+        [Test]
         public void HtmlListTest_SelectedItemsAsString(params string[] expectedValues)
         {
             List.SelectedItems = expectedValues;

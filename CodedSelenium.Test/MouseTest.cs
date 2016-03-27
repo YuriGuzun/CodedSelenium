@@ -10,19 +10,19 @@ namespace CodedSelenium.Test
     [TestFixture]
     public class MouseTest : BasicTest
     {
-        private MouseTestPage mouseTestPage;
+        private MouseTestPage _mouseTestPage;
 
         private MouseTestPage MouseTestPage
         {
             get
             {
-                if (mouseTestPage == null)
+                if (_mouseTestPage == null)
                 {
-                    mouseTestPage = new MouseTestPage(BasicTest.BrowserWindow);
+                    _mouseTestPage = new MouseTestPage(BasicTest.BrowserWindow);
                 }
 
-                mouseTestPage.Launch();
-                return mouseTestPage;
+                _mouseTestPage.Launch();
+                return _mouseTestPage;
             }
         }
 
@@ -79,6 +79,7 @@ namespace CodedSelenium.Test
         [TestCase(15, 20, MouseClickDiv.MouseAction.MouseUp, MouseButtons.Right, ModifierKeys.Control)]
         [TestCase(15, 20, MouseClickDiv.MouseAction.Click, MouseButtons.Left, ModifierKeys.Alt)]
         [TestCase(15, 20, MouseClickDiv.MouseAction.Click, MouseButtons.Left, ModifierKeys.Shift)]
+        [Test]
         public void MouseTest_Click(
             int x, int y, MouseClickDiv.MouseAction action, MouseButtons mouseButton, ModifierKeys modifierKey)
         {

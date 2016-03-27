@@ -8,8 +8,8 @@ namespace CodedSelenium.Selectors
 {
     public class JQuerySelector
     {
-        private PropertyExpressionCollection searchProperties;
-        private PropertyExpressionCollection filterProperties;
+        private PropertyExpressionCollection _searchProperties;
+        private PropertyExpressionCollection _filterProperties;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="JQuerySelector" /> class.
@@ -33,8 +33,8 @@ namespace CodedSelenium.Selectors
         /// <param name="filterProperties">Collection of filter properties</param>
         public JQuerySelector(PropertyExpressionCollection searchProperties, PropertyExpressionCollection filterProperties)
         {
-            this.searchProperties = searchProperties;
-            this.filterProperties = filterProperties;
+            this._searchProperties = searchProperties;
+            this._filterProperties = filterProperties;
         }
 
         /// <summary>

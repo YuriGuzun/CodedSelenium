@@ -7,19 +7,19 @@ namespace CodedSelenium.Test
     [TestFixture]
     public class UITestControlTest : BasicTest
     {
-        private HtmlCheckBox checkBox;
+        private HtmlCheckBox _checkBox;
 
         private HtmlCheckBox CheckBox
         {
             get
             {
-                if (checkBox == null)
+                if (_checkBox == null)
                 {
-                    checkBox = new HtmlCheckBox(BasicTestPage);
-                    checkBox.SearchProperties.Add(HtmlCheckBox.PropertyNames.Id, "htmlControlTest_Properties");
+                    _checkBox = new HtmlCheckBox(BasicTestPage);
+                    _checkBox.SearchProperties.Add(HtmlCheckBox.PropertyNames.Id, "htmlControlTest_Properties");
                 }
 
-                return checkBox;
+                return _checkBox;
             }
         }
 

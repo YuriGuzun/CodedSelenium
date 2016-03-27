@@ -18,7 +18,7 @@ namespace CodedSelenium
     /// </summary>
     public partial class UITestControl : SelectorBasedControl
     {
-        internal static Dictionary<ModifierKeys, string> ModifierKeysDictionary = new Dictionary<ModifierKeys, string>()
+        private static Dictionary<ModifierKeys, string> _modifierKeysDictionary = new Dictionary<ModifierKeys, string>()
         {
             { ModifierKeys.Alt, OpenQA.Selenium.Keys.Alt },
             { ModifierKeys.Control, OpenQA.Selenium.Keys.LeftControl },
@@ -26,7 +26,7 @@ namespace CodedSelenium
             { ModifierKeys.None, string.Empty },
         };
 
-        private WebDriverWait webDriverWait;
+        private WebDriverWait _webDriverWait;
 
         public UITestControl ParentTestControl { get; private set; }
 
@@ -43,7 +43,7 @@ namespace CodedSelenium
                         "Unable to find ui control control matching search criteria:\r\n" +
                         "\tSearchProperties: " + SearchProperties.ToString();
 
-                    if (filterProperties != null && FilterProperties.Count != 0)
+                    if (_filterProperties != null && FilterProperties.Count != 0)
                     {
                         message += "\tFilterProperties: " + FilterProperties.ToString();
                     }
@@ -59,13 +59,13 @@ namespace CodedSelenium
         {
             get
             {
-                if (webDriverWait == null)
+                if (_webDriverWait == null)
                 {
-                    webDriverWait = new WebDriverWait((TopParent as BrowserWindow).Driver, TimeSpan.FromSeconds(2));
-                    webDriverWait.PollingInterval = TimeSpan.FromMilliseconds(0);
+                    _webDriverWait = new WebDriverWait((TopParent as BrowserWindow).Driver, TimeSpan.FromSeconds(2));
+                    _webDriverWait.PollingInterval = TimeSpan.FromMilliseconds(0);
                 }
 
-                return webDriverWait;
+                return _webDriverWait;
             }
         }
 
@@ -73,9 +73,9 @@ namespace CodedSelenium
         {
             get
             {
-                if (privateWebElement != null)
+                if (_privateWebElement != null)
                 {
-                    return privateWebElement;
+                    return _privateWebElement;
                 }
 
                 IEnumerable<IWebElement> webElements = FindMatchingWebElements();
@@ -89,11 +89,11 @@ namespace CodedSelenium
 
             set
             {
-                privateWebElement = WebElement;
+                _privateWebElement = WebElement;
             }
         }
 
-        internal virtual void MoveToElement(Nullable<Point> relativeCoordinate)
+        internal virtual void MoveToElement(Point? relativeCoordinate)
         {
             BrowserWindow browserWindow = TopParent as BrowserWindow;
             Actions actions = new Actions(browserWindow.Driver);
@@ -106,7 +106,7 @@ namespace CodedSelenium
             actions.Perform();
         }
 
-        internal void Click(MouseButtons button, ModifierKeys modifierKeys, Nullable<Point> relativeCoordinate)
+        internal void Click(MouseButtons button, ModifierKeys modifierKeys, Point? relativeCoordinate)
         {
             BrowserWindow browserWindow = TopParent as BrowserWindow;
 
@@ -118,30 +118,6 @@ namespace CodedSelenium
                 MoveToElement(relativeCoordinate);
                 actions = ApplyModifiers(actions, button, modifierKeys);
                 actions.Perform();
-            }
-        }
-
-        private Actions ApplyModifiers(Actions actions, MouseButtons button, ModifierKeys modifierKeys)
-        {
-            if (!ModifierKeysDictionary.ContainsKey(modifierKeys))
-                throw new NotImplementedException(string.Format("'ModifierKeys.{0}' is not supported", modifierKeys.ToString()));
-
-            string keyToPress = ModifierKeysDictionary[modifierKeys];
-
-            switch (button)
-            {
-                case MouseButtons.Left:
-                    if (modifierKeys == ModifierKeys.None)
-                        return actions.Click();
-                    return actions.KeyDown(keyToPress).Click().KeyUp(keyToPress);
-
-                case MouseButtons.Right:
-                    if (modifierKeys == ModifierKeys.None)
-                        return actions.ContextClick();
-                    return actions.KeyDown(keyToPress).ContextClick().KeyUp(keyToPress);
-
-                default:
-                    throw new NotImplementedException(string.Format("'MouseButtons.{0}' is not supported", button.ToString()));
             }
         }
 
@@ -188,6 +164,30 @@ namespace CodedSelenium
             }
 
             return webElements;
+        }
+
+        private Actions ApplyModifiers(Actions actions, MouseButtons button, ModifierKeys modifierKeys)
+        {
+            if (!_modifierKeysDictionary.ContainsKey(modifierKeys))
+                throw new NotImplementedException(string.Format("'ModifierKeys.{0}' is not supported", modifierKeys.ToString()));
+
+            string keyToPress = _modifierKeysDictionary[modifierKeys];
+
+            switch (button)
+            {
+                case MouseButtons.Left:
+                    if (modifierKeys == ModifierKeys.None)
+                        return actions.Click();
+                    return actions.KeyDown(keyToPress).Click().KeyUp(keyToPress);
+
+                case MouseButtons.Right:
+                    if (modifierKeys == ModifierKeys.None)
+                        return actions.ContextClick();
+                    return actions.KeyDown(keyToPress).ContextClick().KeyUp(keyToPress);
+
+                default:
+                    throw new NotImplementedException(string.Format("'MouseButtons.{0}' is not supported", button.ToString()));
+            }
         }
     }
 }
