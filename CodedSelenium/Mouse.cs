@@ -34,7 +34,7 @@ namespace CodedSelenium
             Click(BrowserWindow.ActiveBrowserWindow, screenCoordinate);
         }
 
-        private static void Click(UITestControl control, Point screenCoordinate)
+        public static void Click(UITestControl control, Point screenCoordinate)
         {
             control.Click(MouseButtons.Left, ModifierKeys.None, screenCoordinate);
         }
@@ -63,7 +63,7 @@ namespace CodedSelenium
         {
             control.Click(MouseButtons.Left, ModifierKeys.None, null);
         }
-        
+
         public static void Move(UITestControl control, Point relativeCoordinate)
         {
             control.MoveToElement(relativeCoordinate);

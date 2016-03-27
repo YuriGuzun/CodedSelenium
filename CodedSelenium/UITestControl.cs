@@ -18,10 +18,9 @@ namespace CodedSelenium
     /// </summary>
     public partial class UITestControl : SelectorBasedControl
     {
-        private PropertyExpressionCollection searchProperties;
-        private PropertyExpressionCollection filterProperties;
-
-        private IWebElement privateWebElement;
+        private PropertyExpressionCollection _searchProperties;
+        private PropertyExpressionCollection _filterProperties;
+        private IWebElement _privateWebElement;
 
         public UITestControl()
         {
@@ -52,7 +51,7 @@ namespace CodedSelenium
         public UITestControl(UITestControl parent, IWebElement webElement)
             : this(parent)
         {
-            privateWebElement = webElement;
+            _privateWebElement = webElement;
         }
 
         public virtual UITestControl TopParent
@@ -88,12 +87,12 @@ namespace CodedSelenium
         {
             get
             {
-                if (searchProperties == null)
+                if (_searchProperties == null)
                 {
-                    searchProperties = new PropertyExpressionCollection();
+                    _searchProperties = new PropertyExpressionCollection();
                 }
 
-                return searchProperties;
+                return _searchProperties;
             }
         }
 
@@ -101,12 +100,12 @@ namespace CodedSelenium
         {
             get
             {
-                if (filterProperties == null)
+                if (_filterProperties == null)
                 {
-                    filterProperties = new PropertyExpressionCollection();
+                    _filterProperties = new PropertyExpressionCollection();
                 }
 
-                return filterProperties;
+                return _filterProperties;
             }
         }
 
@@ -160,9 +159,9 @@ namespace CodedSelenium
         public virtual void CopyFrom(UITestControl controlToCopy)
         {
             ParentSearchContext = controlToCopy.ParentSearchContext;
-            privateWebElement = controlToCopy.privateWebElement;
-            searchProperties = controlToCopy.searchProperties;
-            filterProperties = controlToCopy.filterProperties;
+            _privateWebElement = controlToCopy._privateWebElement;
+            _searchProperties = controlToCopy._searchProperties;
+            _filterProperties = controlToCopy._filterProperties;
         }
 
         public abstract class PropertyNames

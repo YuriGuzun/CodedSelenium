@@ -9,15 +9,15 @@ namespace CodedSelenium.Selectors
 {
     public class SelectorBasedControl
     {
-        private Dictionary<string, Func<PropertyExpression, SelectorPart>> rulesDictionary;
+        private Dictionary<string, Func<PropertyExpression, SelectorPart>> _rulesDictionary;
 
         protected virtual Dictionary<string, Func<PropertyExpression, SelectorPart>> RulesDictionary
         {
             get
             {
-                if (rulesDictionary == null)
+                if (_rulesDictionary == null)
                 {
-                    rulesDictionary = new Dictionary<string, Func<PropertyExpression, SelectorPart>>()
+                    _rulesDictionary = new Dictionary<string, Func<PropertyExpression, SelectorPart>>()
                     {
                         { UITestControl.PropertyNames.Instance, ByInstance },
                         { UITestControl.PropertyNames.TagInstance, ByTagInstance },
@@ -25,7 +25,7 @@ namespace CodedSelenium.Selectors
                     };
                 }
 
-                return rulesDictionary;
+                return _rulesDictionary;
             }
         }
 
@@ -72,7 +72,9 @@ namespace CodedSelenium.Selectors
                 else
                 {
                     string containsSign = propertyExpression.PropertyOperator == PropertyExpressionOperator.Contains ? "*" : string.Empty;
-                    attributes.Add(string.Format("[{0}{1}={2}]", propertyExpression.PropertyName, containsSign, propertyExpression.PropertyValue));
+                    string attribute = string.Format(
+                        "[{0}{1}={2}]", propertyExpression.PropertyName, containsSign, propertyExpression.PropertyValue);
+                    attributes.Add(attribute);
                 }
             }
 

@@ -16,7 +16,7 @@ namespace CodedSelenium
 {
     public class BrowserWindow : UITestControl, IDisposable
     {
-        private bool disposed = false;
+        private bool _isDisposed = false;
 
         public BrowserWindow()
         {
@@ -36,6 +36,20 @@ namespace CodedSelenium
         }
 
         public static string CurrentBrowser { get; set; }
+
+        public static BrowserWindow ActiveBrowserWindow
+        {
+            get
+            {
+                //// TODO: Think how to identify active window
+                return BrowserWindow.ActiveBrowserWindowInstances[0];
+            }
+        }
+
+        public static List<BrowserWindow> ActiveBrowserWindowInstances
+        {
+            get; private set;
+        }
 
         public EventFiringWebDriver Driver { get; private set; }
 
@@ -60,24 +74,6 @@ namespace CodedSelenium
             get
             {
                 return null;
-            }
-        }
-
-        /// <summary>
-        /// BrowserWindow class sets this property on launch. It is required to mimic some coded ui features that
-        /// does not require context to be passed. For example Mouse.Click();
-        /// </summary>
-        public static List<BrowserWindow> ActiveBrowserWindowInstances
-        {
-            get; private set;
-        }
-
-        public static BrowserWindow ActiveBrowserWindow
-        {
-            get
-            {
-                //// TODO: Think how to identify active window
-                return BrowserWindow.ActiveBrowserWindowInstances[0];
             }
         }
 
@@ -114,7 +110,6 @@ namespace CodedSelenium
         }
 
         public static void ClearCache()
-
         {
             throw new NotImplementedException("Please see non static analogue");
         }
@@ -201,7 +196,7 @@ namespace CodedSelenium
             }
         }
 
-        internal override void MoveToElement(Nullable<Point> relativeCoordinate)
+        internal override void MoveToElement(Point? relativeCoordinate)
         {
             if (relativeCoordinate.HasValue)
             {
@@ -212,7 +207,7 @@ namespace CodedSelenium
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposed)
+            if (!_isDisposed)
             {
                 if (disposing)
                 {
@@ -221,7 +216,7 @@ namespace CodedSelenium
                         Close();
                     }
 
-                    disposed = true;
+                    _isDisposed = true;
                 }
             }
         }

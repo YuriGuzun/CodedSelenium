@@ -9,7 +9,7 @@ namespace CodedSelenium.Test.ObjectMap
 {
     public class MouseTestPage : Page
     {
-        private MouseClickDiv firstDiv;
+        private MouseClickDiv _firstDiv;
 
         public MouseTestPage(BrowserWindow browserWindow)
             : base(browserWindow)
@@ -28,10 +28,10 @@ namespace CodedSelenium.Test.ObjectMap
         {
             get
             {
-                if (firstDiv == null)
-                    firstDiv = new MouseClickDiv(this);
+                if (_firstDiv == null)
+                    _firstDiv = new MouseClickDiv(this);
 
-                return firstDiv;
+                return _firstDiv;
             }
         }
     }

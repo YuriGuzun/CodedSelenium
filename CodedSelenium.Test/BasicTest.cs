@@ -10,23 +10,23 @@ namespace CodedSelenium.Test
 {
     public class BasicTest
     {
-        protected const string SkipCiCategory = "SkipCi";
         public const string PageName = "BasicTestPage.html";
-        private static BrowserWindow browserWindow;
-        private static string pathToPage;
-        private static BasicTestPage basicTestPage;
-        private static WebDriverWait webDriverWait;
+        public const string SkipCiCategory = "SkipCi";
+        private static BrowserWindow _browserWindow;
+        private static string _pathToPage;
+        private static BasicTestPage _basicTestPage;
+        private static WebDriverWait _webDriverWait;
 
         protected static string PathToPage
         {
             get
             {
-                if (pathToPage == null)
+                if (_pathToPage == null)
                 {
-                    pathToPage = Directory.GetCurrentDirectory() + "\\TestPages\\" + PageName;
+                    _pathToPage = Directory.GetCurrentDirectory() + "\\TestPages\\" + PageName;
                 }
 
-                return pathToPage;
+                return _pathToPage;
             }
         }
 
@@ -34,13 +34,13 @@ namespace CodedSelenium.Test
         {
             get
             {
-                if (BasicTest.basicTestPage == null)
+                if (BasicTest._basicTestPage == null)
                 {
-                    BasicTest.basicTestPage = new BasicTestPage(BasicTest.BrowserWindow);
+                    BasicTest._basicTestPage = new BasicTestPage(BasicTest.BrowserWindow);
                 }
 
-                BasicTest.basicTestPage.Launch();
-                return BasicTest.basicTestPage;
+                BasicTest._basicTestPage.Launch();
+                return BasicTest._basicTestPage;
             }
         }
 
@@ -48,12 +48,12 @@ namespace CodedSelenium.Test
         {
             get
             {
-                if (BasicTest.browserWindow == null)
+                if (BasicTest._browserWindow == null)
                 {
-                    BasicTest.browserWindow = BrowserWindow.Launch(PathToPage);
+                    BasicTest._browserWindow = BrowserWindow.Launch(PathToPage);
                 }
 
-                return BasicTest.browserWindow;
+                return BasicTest._browserWindow;
             }
         }
 
@@ -61,13 +61,13 @@ namespace CodedSelenium.Test
         {
             get
             {
-                if (BasicTest.webDriverWait == null)
+                if (BasicTest._webDriverWait == null)
                 {
-                    BasicTest.webDriverWait = new WebDriverWait(BrowserWindow.Driver, TimeSpan.FromSeconds(5));
-                    BasicTest.webDriverWait.PollingInterval = TimeSpan.FromMilliseconds(0);
+                    BasicTest._webDriverWait = new WebDriverWait(BrowserWindow.Driver, TimeSpan.FromSeconds(5));
+                    BasicTest._webDriverWait.PollingInterval = TimeSpan.FromMilliseconds(0);
                 }
 
-                return BasicTest.webDriverWait;
+                return BasicTest._webDriverWait;
             }
         }
 

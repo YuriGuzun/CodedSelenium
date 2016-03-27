@@ -1,5 +1,4 @@
-﻿using CodedSelenium.Selectors;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,13 +7,13 @@ namespace CodedSelenium
 {
     public class PropertyExpressionCollection : ICollection<PropertyExpression>, IEnumerable<PropertyExpression>, IEnumerable
     {
-        private List<PropertyExpression> propertyExpressions = new List<PropertyExpression>();
+        private List<PropertyExpression> _propertyExpressions = new List<PropertyExpression>();
 
         public int Count
         {
             get
             {
-                return propertyExpressions.Count;
+                return _propertyExpressions.Count;
             }
         }
 
@@ -30,7 +29,7 @@ namespace CodedSelenium
         {
             get
             {
-                return propertyExpressions.FirstOrDefault(item => item.PropertyName == propertyName).PropertyValue;
+                return _propertyExpressions.FirstOrDefault(item => item.PropertyName == propertyName).PropertyValue;
             }
 
             set
@@ -41,7 +40,7 @@ namespace CodedSelenium
 
         public IEnumerator<PropertyExpression> GetEnumerator()
         {
-            return propertyExpressions.GetEnumerator();
+            return _propertyExpressions.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -51,24 +50,24 @@ namespace CodedSelenium
 
         public void Clear()
         {
-            propertyExpressions.Clear();
+            _propertyExpressions.Clear();
         }
 
         public bool Contains(PropertyExpression propertyExpression)
         {
-            return propertyExpressions.Contains(propertyExpression);
+            return _propertyExpressions.Contains(propertyExpression);
         }
 
         public void CopyTo(PropertyExpression[] array, int arrayIndex)
         {
-            propertyExpressions.CopyTo(array, arrayIndex);
+            _propertyExpressions.CopyTo(array, arrayIndex);
         }
 
         public bool Remove(PropertyExpression propertyExpression)
         {
-            PropertyExpression existingItem = propertyExpressions
+            PropertyExpression existingItem = _propertyExpressions
                 .Find(item => item.PropertyName.Equals(propertyExpression.PropertyName));
-            return propertyExpressions.Remove(existingItem);
+            return _propertyExpressions.Remove(existingItem);
         }
 
         public void Add(params string[] nameValuePairs)
@@ -93,7 +92,7 @@ namespace CodedSelenium
             }
 
             Remove(propertyExpression);
-            propertyExpressions.Add(propertyExpression);
+            _propertyExpressions.Add(propertyExpression);
         }
 
         public void Add(string propertyName, string propertyValue)
@@ -121,7 +120,7 @@ namespace CodedSelenium
 
         public override string ToString()
         {
-            return string.Join(" and ", propertyExpressions.Select(item => item.ToString()));
+            return string.Join(" and ", _propertyExpressions.Select(item => item.ToString()));
         }
     }
 }

@@ -57,7 +57,8 @@ namespace CodedSelenium.HtmlControls
             else
             {
                 string selector = string.Format(
-                    ".prev().filter(function() {{ return $(this).text() === \"{0}\";}}).next(\"textarea\")", propertyExpression.PropertyValue);
+                    ".prev().filter(function() {{ return $(this).text() === \"{0}\";}}).next(\"textarea\")",
+                    propertyExpression.PropertyValue);
                 return new SelectorPart(selector, SelectorPart.FilterType.Method);
             }
         }

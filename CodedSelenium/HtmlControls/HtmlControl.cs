@@ -11,7 +11,7 @@
         {
         }
 
-        // TODO: Clarify what is expected.
+        //// TODO: Clarify what is expected.
 
         public virtual string HelpText
         {

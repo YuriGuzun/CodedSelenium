@@ -6,7 +6,7 @@ namespace CodedSelenium.HtmlControls
 {
     public class HtmlSelect : HtmlControl
     {
-        private SelectElement selector;
+        private SelectElement _selector;
 
         protected HtmlSelect()
             : base()
@@ -61,12 +61,12 @@ namespace CodedSelenium.HtmlControls
         {
             get
             {
-                if (selector == null)
+                if (_selector == null)
                 {
-                    selector = new SelectElement(WebElement);
+                    _selector = new SelectElement(WebElement);
                 }
 
-                return selector;
+                return _selector;
             }
         }
 
