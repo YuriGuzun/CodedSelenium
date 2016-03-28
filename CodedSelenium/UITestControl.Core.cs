@@ -121,7 +121,24 @@ namespace CodedSelenium
             }
         }
 
-        protected virtual string GetSelector()
+        internal void DoubleClick(ModifierKeys modifierKeys, Point? relativeCoordinate)
+        {
+            BrowserWindow browserWindow = TopParent as BrowserWindow;
+
+            Actions actions = new Actions(browserWindow.Driver);
+            MoveToElement(relativeCoordinate);
+
+            if (!_modifierKeysDictionary.ContainsKey(modifierKeys))
+                throw new NotImplementedException(string.Format("'ModifierKeys.{0}' is not supported", modifierKeys.ToString()));
+
+            string keyToPress = _modifierKeysDictionary[modifierKeys];
+            if (modifierKeys == ModifierKeys.None)
+                actions.DoubleClick().Perform();
+            else
+                actions.KeyDown(keyToPress).DoubleClick().KeyUp(keyToPress).Perform();
+        }
+
+        private string GetSelector()
         {
             string thisElementSelector = BuildSelector(SearchProperties);
 
@@ -173,21 +190,27 @@ namespace CodedSelenium
 
             string keyToPress = _modifierKeysDictionary[modifierKeys];
 
+            if (modifierKeys != ModifierKeys.None)
+                actions = actions.KeyDown(keyToPress);
+
             switch (button)
             {
                 case MouseButtons.Left:
-                    if (modifierKeys == ModifierKeys.None)
-                        return actions.Click();
-                    return actions.KeyDown(keyToPress).Click().KeyUp(keyToPress);
+                    actions = actions.Click();
+                    break;
 
                 case MouseButtons.Right:
-                    if (modifierKeys == ModifierKeys.None)
-                        return actions.ContextClick();
-                    return actions.KeyDown(keyToPress).ContextClick().KeyUp(keyToPress);
+                    actions = actions.ContextClick();
+                    break;
 
                 default:
                     throw new NotImplementedException(string.Format("'MouseButtons.{0}' is not supported", button.ToString()));
             }
+
+            if (modifierKeys != ModifierKeys.None)
+                actions = actions.KeyUp(keyToPress);
+
+            return actions;
         }
     }
 }

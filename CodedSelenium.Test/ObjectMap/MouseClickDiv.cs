@@ -1,9 +1,5 @@
 ﻿using CodedSelenium.HtmlControls;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
 
@@ -28,7 +24,8 @@ namespace CodedSelenium.Test.ObjectMap
         {
             Click,
             MouseDown,
-            MouseUp
+            MouseUp,
+            DblClick
         }
 
         public MouseAction Action
@@ -53,6 +50,9 @@ namespace CodedSelenium.Test.ObjectMap
 
                     case "mousedown":
                         return MouseAction.MouseDown;
+
+                    case "dblclick":
+                        return MouseAction.DblClick;
 
                     default:
                         throw new NotImplementedException(string.Format("'{0}' mouse action type is not handled", value));

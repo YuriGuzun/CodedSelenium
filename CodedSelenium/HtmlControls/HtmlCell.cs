@@ -1,9 +1,4 @@
-﻿using CodedSelenium.Selectors;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace CodedSelenium.HtmlControls
+﻿namespace CodedSelenium.HtmlControls
 {
     public class HtmlCell : HtmlCellBase
     {

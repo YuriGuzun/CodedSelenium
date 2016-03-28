@@ -1,11 +1,4 @@
-﻿using CodedSelenium.HtmlControls;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CodedSelenium.Test.ObjectMap
+﻿namespace CodedSelenium.Test.ObjectMap
 {
     public class MouseTestPage : Page
     {

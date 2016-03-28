@@ -1,5 +1,4 @@
-﻿using CodedSelenium.Extension;
-using CodedSelenium.HtmlControls;
+﻿using CodedSelenium.HtmlControls;
 using FluentAssertions;
 using NUnit.Framework;
 using System;

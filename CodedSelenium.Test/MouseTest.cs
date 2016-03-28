@@ -75,16 +75,53 @@ namespace CodedSelenium.Test
             AssertClick(MouseTestPage.FirstDiv, 113, 106, MouseClickDiv.MouseAction.Click, MouseButtons.Left, ModifierKeys.None);
         }
 
-        [TestCase(15, 20, MouseClickDiv.MouseAction.Click, MouseButtons.Left, ModifierKeys.Control)]
-        [TestCase(15, 20, MouseClickDiv.MouseAction.MouseUp, MouseButtons.Right, ModifierKeys.Control)]
-        [TestCase(15, 20, MouseClickDiv.MouseAction.Click, MouseButtons.Left, ModifierKeys.Alt)]
-        [TestCase(15, 20, MouseClickDiv.MouseAction.Click, MouseButtons.Left, ModifierKeys.Shift)]
+        [TestCase(10, 15, MouseClickDiv.MouseAction.Click, MouseButtons.Left, ModifierKeys.Control)]
+        [TestCase(20, 25, MouseClickDiv.MouseAction.MouseUp, MouseButtons.Right, ModifierKeys.Control)]
+        [TestCase(30, 35, MouseClickDiv.MouseAction.Click, MouseButtons.Left, ModifierKeys.Alt)]
+        [TestCase(40, 45, MouseClickDiv.MouseAction.Click, MouseButtons.Left, ModifierKeys.Shift)]
         [Test]
         public void MouseTest_Click(
             int x, int y, MouseClickDiv.MouseAction action, MouseButtons mouseButton, ModifierKeys modifierKey)
         {
             Mouse.Click(MouseTestPage.FirstDiv, mouseButton, modifierKey, new Point(x, y));
             AssertClick(MouseTestPage.FirstDiv, x, y, action, mouseButton, modifierKey);
+        }
+
+        [TestCase(10, 15, ModifierKeys.Control)]
+        [TestCase(20, 25, ModifierKeys.Alt)]
+        [TestCase(30, 35, ModifierKeys.Shift)]
+        [Test]
+        public void MouseTest_DoubleClick(
+            int x, int y, ModifierKeys modifierKey)
+        {
+            Mouse.DoubleClick(MouseTestPage.FirstDiv, modifierKey, new Point(x, y));
+            AssertClick(MouseTestPage.FirstDiv, x, y, MouseClickDiv.MouseAction.DblClick, MouseButtons.Left, modifierKey);
+        }
+
+        [Test]
+        public void MouseTest_DoubleClick_NoControl_NoParameters()
+        {
+            Mouse.Move(MouseTestPage.FirstDiv, new Point(5, 7));
+            Mouse.DoubleClick();
+            AssertClick(MouseTestPage.FirstDiv, 5, 7, MouseClickDiv.MouseAction.DblClick, MouseButtons.Left, ModifierKeys.None);
+        }
+
+        [Test]
+        public void MouseTest_DoubleClick_NoControl_ModifierKeys()
+        {
+            Mouse.Move(MouseTestPage.FirstDiv, new Point(5, 7));
+            Mouse.DoubleClick(ModifierKeys.Alt);
+            AssertClick(MouseTestPage.FirstDiv, 5, 7, MouseClickDiv.MouseAction.DblClick, MouseButtons.Left, ModifierKeys.Alt);
+        }
+
+        [Test]
+        public void MouseTest_DoubleClick_NoControl_Point()
+        {
+            Point pointToClick = MouseTestPage.FirstDiv.BoundingRectangle.Location;
+            pointToClick.X += 5;
+            pointToClick.Y += 7;
+            Mouse.DoubleClick(pointToClick);
+            AssertClick(MouseTestPage.FirstDiv, 5, 7, MouseClickDiv.MouseAction.DblClick, MouseButtons.Left, ModifierKeys.None);
         }
 
         private void AssertClick(

@@ -28,7 +28,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script>
         $(document).ready(function () {
-            $("div").on("click mousedown mouseup", function (e) {
+            $("div").on("click mousedown mouseup dblclick", function (e) {
                 console.log(e);
                 document.getElementById("logAction").innerHTML = e.type;
                 document.getElementById("button").innerHTML = e.originalEvent.button;

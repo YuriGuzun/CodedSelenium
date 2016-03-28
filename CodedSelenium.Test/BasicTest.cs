@@ -1,7 +1,6 @@
 ﻿using CodedSelenium.HtmlControls;
 using CodedSelenium.Test.ObjectMap;
 using FluentAssertions;
-using NUnit.Framework;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.IO;
@@ -63,7 +62,7 @@ namespace CodedSelenium.Test
             {
                 if (BasicTest._webDriverWait == null)
                 {
-                    BasicTest._webDriverWait = new WebDriverWait(BrowserWindow.Driver, TimeSpan.FromSeconds(5));
+                    BasicTest._webDriverWait = new WebDriverWait(BrowserWindow.Driver, TimeSpan.FromSeconds(2));
                     BasicTest._webDriverWait.PollingInterval = TimeSpan.FromMilliseconds(0);
                 }
 
