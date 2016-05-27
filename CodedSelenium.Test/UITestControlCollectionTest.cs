@@ -113,7 +113,6 @@ namespace CodedSelenium.Test
             toAdd.Add(lastItem);
             toAdd.Add(lastItem);
 
-
             siblings
                 .AddRange(toAdd);
 
