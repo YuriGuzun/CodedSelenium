@@ -48,7 +48,7 @@ namespace CodedSelenium.Test
             siblings.Should().NotBeNullOrEmpty("because the CheckBox should have siblings");
 
             siblings.Clear();
-            siblings.Should().Empty("because we cleared the collection");
+            siblings.Should().BeEmpty("because we cleared the collection");
         }
 
         [Test]
@@ -95,7 +95,7 @@ namespace CodedSelenium.Test
             siblings.Should().NotBeNullOrEmpty("because the CheckBox should have siblings");
 
             UITestControl[] copyTo = new UITestControl[siblings.Count];
-            siblings.CopyTo(copyTo, copyTo.Length);
+            siblings.CopyTo(copyTo, 0);
 
             copyTo
                 .ShouldAllBeEquivalentTo(siblings, "because we copied the collection");
@@ -112,7 +112,6 @@ namespace CodedSelenium.Test
             var toAdd = new UITestControlCollection();
             toAdd.Add(lastItem);
             toAdd.Add(lastItem);
-
 
             siblings
                 .AddRange(toAdd);
