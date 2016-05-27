@@ -48,7 +48,7 @@ namespace CodedSelenium.Test
             siblings.Should().NotBeNullOrEmpty("because the CheckBox should have siblings");
 
             siblings.Clear();
-            siblings.Should().Empty("because we cleared the collection");
+            siblings.Should().BeEmpty("because we cleared the collection");
         }
 
         [Test]
