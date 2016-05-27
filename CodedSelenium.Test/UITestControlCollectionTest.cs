@@ -95,7 +95,7 @@ namespace CodedSelenium.Test
             siblings.Should().NotBeNullOrEmpty("because the CheckBox should have siblings");
 
             UITestControl[] copyTo = new UITestControl[siblings.Count];
-            siblings.CopyTo(copyTo, copyTo.Length);
+            siblings.CopyTo(copyTo, 0);
 
             copyTo
                 .ShouldAllBeEquivalentTo(siblings, "because we copied the collection");
