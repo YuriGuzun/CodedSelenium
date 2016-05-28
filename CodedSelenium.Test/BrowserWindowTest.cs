@@ -9,7 +9,8 @@ namespace CodedSelenium.Test
     [TestFixture]
     public class BrowserWindowTest : BasicTest
     {
-        private string CurrentPage {
+        private string CurrentPage
+        {
             get { return "https://google.com"; }
         }
 
