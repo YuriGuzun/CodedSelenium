@@ -130,15 +130,6 @@ namespace CodedSelenium.Test
                 .ShouldBeEquivalentTo(lastNavigatedPage, "because forward should undo back.");
         }
 
-        [Test]
-        public void BrowserWindowTest_ShouldBeDisposeable()
-        {
-            var browserWindow = new BrowserWindow();
-            browserWindow.Dispose();
-
-            browserWindow.Should().BeNull("because we disposed the object.");
-        }
-
         [TearDown]
         public void Teardown()
         {
