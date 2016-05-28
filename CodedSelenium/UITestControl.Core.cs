@@ -99,9 +99,18 @@ namespace CodedSelenium
             Actions actions = new Actions(browserWindow.Driver);
 
             if (relativeCoordinate.HasValue)
+            {
+                if (relativeCoordinate.Value.X < 0 || relativeCoordinate.Value.Y < 0)
+                {
+                    throw new ArgumentOutOfRangeException("relativeCoordinate", relativeCoordinate.Value.ToString());
+                }
+
                 actions.MoveToElement(WebElement, relativeCoordinate.Value.X, relativeCoordinate.Value.Y);
+            }
             else
+            {
                 actions.MoveToElement(WebElement);
+            }
 
             actions.Perform();
         }
@@ -110,7 +119,7 @@ namespace CodedSelenium
         {
             BrowserWindow browserWindow = TopParent as BrowserWindow;
 
-            if (button == MouseButtons.Left && modifierKeys == ModifierKeys.None && WebElement != null)
+            if (button == MouseButtons.Left && modifierKeys == ModifierKeys.None && WebElement != null && !relativeCoordinate.HasValue)
                 WebElement.Click();
             else
             {
