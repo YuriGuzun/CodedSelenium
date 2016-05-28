@@ -19,6 +19,12 @@ namespace CodedSelenium.Test
             get { return "https://github.com"; }
         }
 
+        [SetUp]
+        public void Setup()
+        {
+            BrowserWindow = BrowserWindow.Launch(PathToPage);
+        }
+
         [Test]
         public void BrowserWindowTest_Alert()
         {
@@ -128,12 +134,6 @@ namespace CodedSelenium.Test
             BrowserWindow
                 .Uri
                 .ShouldBeEquivalentTo(lastNavigatedPage, "because forward should undo back.");
-        }
-
-        [TearDown]
-        public void Teardown()
-        {
-            BrowserWindow = BrowserWindow.Launch(PathToPage);
         }
     }
 }
