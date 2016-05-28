@@ -121,5 +121,17 @@ namespace CodedSelenium.Test
                 .Should()
                 .Be(beforeCount + 2, "because we added 2 Items");
         }
+
+        [Test]
+        public void UITestControlCollection_IsRead()
+        {
+            UITestControlCollection siblings = CheckBox.GetParent().GetChildren();
+            siblings.Should().NotBeNullOrEmpty("because the CheckBox should have siblings");
+
+            siblings
+                .IsReadOnly
+                .Should()
+                .BeFalse("because it's possible to edit the collection.");
+        }
     }
 }
