@@ -62,7 +62,7 @@ namespace CodedSelenium.Test
             {
                 if (BasicTest._webDriverWait == null)
                 {
-                    BasicTest._webDriverWait = new WebDriverWait(BrowserWindow.Driver, TimeSpan.FromSeconds(2));
+                    BasicTest._webDriverWait = new WebDriverWait(BrowserWindow.Driver, TimeSpan.FromSeconds(1));
                     BasicTest._webDriverWait.PollingInterval = TimeSpan.FromMilliseconds(0);
                 }
 

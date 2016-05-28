@@ -7,36 +7,6 @@ namespace CodedSelenium
 {
     public static class Mouse
     {
-        public static void Click()
-        {
-            Click(BrowserWindow.ActiveBrowserWindow);
-        }
-
-        public static void Click(ModifierKeys modifierKeys)
-        {
-            Click(BrowserWindow.ActiveBrowserWindow, modifierKeys);
-        }
-
-        public static void Click(MouseButtons button)
-        {
-            Click(BrowserWindow.ActiveBrowserWindow, button);
-        }
-
-        public static void Click(MouseButtons button, ModifierKeys modifierKeys)
-        {
-            Click(BrowserWindow.ActiveBrowserWindow, button, modifierKeys);
-        }
-
-        public static void Click(MouseButtons button, ModifierKeys modifierKeys, Point screenCoordinate)
-        {
-            Click(BrowserWindow.ActiveBrowserWindow, button, modifierKeys, screenCoordinate);
-        }
-
-        public static void Click(Point screenCoordinate)
-        {
-            Click(BrowserWindow.ActiveBrowserWindow, screenCoordinate);
-        }
-
         public static void Click(UITestControl control)
         {
             control.Click(MouseButtons.Left, ModifierKeys.None, null);
@@ -67,21 +37,6 @@ namespace CodedSelenium
             control.Click(MouseButtons.Left, ModifierKeys.None, screenCoordinate);
         }
 
-        public static void DoubleClick()
-        {
-            DoubleClick(BrowserWindow.ActiveBrowserWindow);
-        }
-
-        public static void DoubleClick(ModifierKeys modifierKeys)
-        {
-            DoubleClick(BrowserWindow.ActiveBrowserWindow, modifierKeys);
-        }
-
-        public static void DoubleClick(Point screenCoordinate)
-        {
-            DoubleClick(BrowserWindow.ActiveBrowserWindow, ModifierKeys.None, screenCoordinate);
-        }
-
         public static void DoubleClick(UITestControl control)
         {
             control.DoubleClick(ModifierKeys.None, null);
@@ -105,6 +60,11 @@ namespace CodedSelenium
         public static void Move(UITestControl control, Point relativeCoordinate)
         {
             control.MoveToElement(relativeCoordinate);
+        }
+
+        public static void Move(UITestControl control)
+        {
+            control.MoveToElement(null);
         }
     }
 }

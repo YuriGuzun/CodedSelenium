@@ -106,7 +106,7 @@ namespace CodedSelenium
             actions.Perform();
         }
 
-        internal void Click(MouseButtons button, ModifierKeys modifierKeys, Point? relativeCoordinate)
+        internal virtual void Click(MouseButtons button, ModifierKeys modifierKeys, Point? relativeCoordinate)
         {
             BrowserWindow browserWindow = TopParent as BrowserWindow;
 

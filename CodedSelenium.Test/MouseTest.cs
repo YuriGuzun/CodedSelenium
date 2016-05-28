@@ -1,6 +1,7 @@
 ﻿using CodedSelenium.Test.ObjectMap;
 using FluentAssertions;
 using NUnit.Framework;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -10,9 +11,10 @@ namespace CodedSelenium.Test
     [TestFixture]
     public class MouseTest : BasicTest
     {
+        private static int _divDimension = 200;
         private MouseTestPage _mouseTestPage;
 
-        private MouseTestPage MouseTestPage
+        private MouseTestPage TestPage
         {
             get
             {
@@ -27,52 +29,10 @@ namespace CodedSelenium.Test
         }
 
         [Test]
-        public void MouseTest_Click_NoControl_NoParameters()
-        {
-            Mouse.Move(MouseTestPage.FirstDiv, new Point(5, 7));
-            Mouse.Click();
-            AssertClick(MouseTestPage.FirstDiv, 5, 7, MouseClickDiv.MouseAction.Click, MouseButtons.Left, ModifierKeys.None);
-        }
-
-        [Test]
-        public void MouseTest_Click_NoControl_ModifierKeys()
-        {
-            Mouse.Move(MouseTestPage.FirstDiv, new Point(5, 7));
-            Mouse.Click(ModifierKeys.Alt);
-            AssertClick(MouseTestPage.FirstDiv, 5, 7, MouseClickDiv.MouseAction.Click, MouseButtons.Left, ModifierKeys.Alt);
-        }
-
-        [Test]
-        public void MouseTest_Click_NoControl_MouseButton()
-        {
-            Mouse.Move(MouseTestPage.FirstDiv, new Point(5, 7));
-            Mouse.Click(MouseButtons.Right);
-            AssertClick(MouseTestPage.FirstDiv, 5, 7, MouseClickDiv.MouseAction.MouseUp, MouseButtons.Right, ModifierKeys.None);
-        }
-
-        [Test]
-        public void MouseTest_Click_NoControl_MouseButton_ModifierKeys()
-        {
-            Mouse.Move(MouseTestPage.FirstDiv, new Point(5, 7));
-            Mouse.Click(MouseButtons.Right, ModifierKeys.Shift);
-            AssertClick(MouseTestPage.FirstDiv, 5, 7, MouseClickDiv.MouseAction.MouseUp, MouseButtons.Right, ModifierKeys.Shift);
-        }
-
-        [Test]
-        public void MouseTest_Click_NoControl_Point()
-        {
-            Point pointToClick = MouseTestPage.FirstDiv.BoundingRectangle.Location;
-            pointToClick.X += 5;
-            pointToClick.Y += 7;
-            Mouse.Click(pointToClick);
-            AssertClick(MouseTestPage.FirstDiv, 5, 7, MouseClickDiv.MouseAction.Click, MouseButtons.Left, ModifierKeys.None);
-        }
-
-        [Test]
         public void MouseTest_Click_Simple()
         {
-            Mouse.Click(MouseTestPage.FirstDiv);
-            AssertClick(MouseTestPage.FirstDiv, 113, 106, MouseClickDiv.MouseAction.Click, MouseButtons.Left, ModifierKeys.None);
+            Mouse.Click(TestPage.FirstDiv);
+            AssertClick(TestPage.FirstDiv, 113, 106, MouseClickDiv.MouseAction.Click, MouseButtons.Left, ModifierKeys.None);
         }
 
         [TestCase(10, 15, MouseClickDiv.MouseAction.Click, MouseButtons.Left, ModifierKeys.Control)]
@@ -83,8 +43,8 @@ namespace CodedSelenium.Test
         public void MouseTest_Click(
             int x, int y, MouseClickDiv.MouseAction action, MouseButtons mouseButton, ModifierKeys modifierKey)
         {
-            Mouse.Click(MouseTestPage.FirstDiv, mouseButton, modifierKey, new Point(x, y));
-            AssertClick(MouseTestPage.FirstDiv, x, y, action, mouseButton, modifierKey);
+            Mouse.Click(TestPage.FirstDiv, mouseButton, modifierKey, new Point(x, y));
+            AssertClick(TestPage.FirstDiv, x, y, action, mouseButton, modifierKey);
         }
 
         [TestCase(10, 15, ModifierKeys.Control)]
@@ -94,46 +54,28 @@ namespace CodedSelenium.Test
         public void MouseTest_DoubleClick(
             int x, int y, ModifierKeys modifierKey)
         {
-            Mouse.DoubleClick(MouseTestPage.FirstDiv, modifierKey, new Point(x, y));
-            AssertClick(MouseTestPage.FirstDiv, x, y, MouseClickDiv.MouseAction.DblClick, MouseButtons.Left, modifierKey);
+            Mouse.DoubleClick(TestPage.FirstDiv, modifierKey, new Point(x, y));
+            AssertClick(TestPage.FirstDiv, x, y, MouseClickDiv.MouseAction.DblClick, MouseButtons.Left, modifierKey);
         }
 
-        [Test]
-        public void MouseTest_DoubleClick_NoControl_NoParameters()
+        private static Point GetPoint()
         {
-            Mouse.Move(MouseTestPage.FirstDiv, new Point(5, 7));
-            Mouse.DoubleClick();
-            AssertClick(MouseTestPage.FirstDiv, 5, 7, MouseClickDiv.MouseAction.DblClick, MouseButtons.Left, ModifierKeys.None);
-        }
-
-        [Test]
-        public void MouseTest_DoubleClick_NoControl_ModifierKeys()
-        {
-            Mouse.Move(MouseTestPage.FirstDiv, new Point(5, 7));
-            Mouse.DoubleClick(ModifierKeys.Alt);
-            AssertClick(MouseTestPage.FirstDiv, 5, 7, MouseClickDiv.MouseAction.DblClick, MouseButtons.Left, ModifierKeys.Alt);
-        }
-
-        [Test]
-        public void MouseTest_DoubleClick_NoControl_Point()
-        {
-            Point pointToClick = MouseTestPage.FirstDiv.BoundingRectangle.Location;
-            pointToClick.X += 5;
-            pointToClick.Y += 7;
-            Mouse.DoubleClick(pointToClick);
-            AssertClick(MouseTestPage.FirstDiv, 5, 7, MouseClickDiv.MouseAction.DblClick, MouseButtons.Left, ModifierKeys.None);
+            _divDimension--;
+            return new Point(_divDimension, _divDimension);
         }
 
         private void AssertClick(
             MouseClickDiv div, int x, int y, MouseClickDiv.MouseAction action, MouseButtons mouseButton, ModifierKeys modifierKey)
         {
-            Wait.Until((d) => { return div.X.Equals(x.ToString()); });
+            Console.WriteLine("{0}, {1}", x, y);
+            Wait.Until((d) => { return !string.IsNullOrEmpty(div.X); });
             div.X.Should().Be(x.ToString(), "X");
             div.Y.Should().Be(y.ToString(), "Y");
             div.Action.Should().Be(action, "Action");
             div.MouseButton.Should().Be(mouseButton, "MouseButton");
             div.ModifierKey.Should().Be(modifierKey, "ModifierKey");
             CleanLogs();
+            Wait.Until((d) => { return string.IsNullOrEmpty(div.X); });
         }
     }
 }

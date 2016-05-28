@@ -196,15 +196,6 @@ namespace CodedSelenium
             }
         }
 
-        internal override void MoveToElement(Point? relativeCoordinate)
-        {
-            if (relativeCoordinate.HasValue)
-            {
-                Cursor cursor = new Cursor(Cursor.Current.Handle);
-                Cursor.Position = relativeCoordinate.Value;
-            }
-        }
-
         protected virtual void Dispose(bool disposing)
         {
             if (!_isDisposed)
