@@ -138,5 +138,11 @@ namespace CodedSelenium.Test
 
             browserWindow.Should().BeNull("because we disposed the object.");
         }
+
+        [TearDown]
+        public void Teardown()
+        {
+            BrowserWindow.Launch(PathToPage);
+        }
     }
 }
