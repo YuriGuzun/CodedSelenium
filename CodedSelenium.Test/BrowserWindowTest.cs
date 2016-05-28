@@ -9,9 +9,14 @@ namespace CodedSelenium.Test
     [TestFixture]
     public class BrowserWindowTest : BasicTest
     {
-        private string CurrentPage => "https://google.com";
+        private string CurrentPage {
+            get { return "https://google.com"; }
+        }
 
-        private string NextPage => "https://github.com";
+        private string NextPage
+        {
+            get { return "https://github.com"; }
+        }
 
         [Test]
         public void BrowserWindowTest_Alert()
