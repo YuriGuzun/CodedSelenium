@@ -9,6 +9,10 @@ namespace CodedSelenium.Test
     [TestFixture]
     public class BrowserWindowTest : BasicTest
     {
+        private string CurrentPage => "https://google.com";
+
+        private string NextPage => "https://github.com";
+
         [Test]
         public void BrowserWindowTest_Alert()
         {
@@ -44,6 +48,89 @@ namespace CodedSelenium.Test
                         break;
                 }
             }
+        }
+
+        [Test]
+        public void BrowserWindowTest_CanConstructWithoutParameters()
+        {
+            BrowserWindow browserWindow = new BrowserWindow();
+            browserWindow
+                .Should()
+                .NotBeNull("because the BrowserWindow should be able to be constructed without parameters.");
+        }
+
+        [Test]
+        public void BrowserWindowTest_RefreshShouldNotThrow()
+        {
+            BrowserWindow
+                .Invoking(x => x.Refresh())
+                .ShouldNotThrow();
+        }
+
+        [Test]
+        public void BrowserWindowTest_ForwardShouldNotThrow()
+        {
+            BrowserWindow
+                .Invoking(x => x.Forward())
+                .ShouldNotThrow();
+        }
+
+        [Test]
+        public void BrowserWindowTest_BackShouldNotThrow()
+        {
+            BrowserWindow
+                .Invoking(x => x.Back())
+                .ShouldNotThrow();
+        }
+
+        [Test]
+        public void BrowserWindowTest_RefreshShouldPersistTheCurrentPage()
+        {
+            BrowserWindow.NavigateToUrl(CurrentPage);
+            var currentUri = BrowserWindow.Uri;
+
+            BrowserWindow.Refresh();
+
+            BrowserWindow
+                .Uri
+                .ShouldBeEquivalentTo(currentUri, "because refreshing the page should not lead to another page.");
+        }
+
+        [Test]
+        public void BrowserWindowTest_BackShouldLeadToPreviousUri()
+        {
+            BrowserWindow.NavigateToUrl(CurrentPage);
+            var currentUri = BrowserWindow.Uri;
+
+            BrowserWindow.NavigateToUrl(NextPage);
+            BrowserWindow.Back();
+
+            BrowserWindow
+                .Uri
+                .ShouldBeEquivalentTo(currentUri, "because back should return to the previous page.");
+        }
+
+        [Test]
+        public void BrowserWindowTest_ForwardShouldUndoBack()
+        {
+            BrowserWindow.NavigateToUrl(CurrentPage);
+
+            BrowserWindow.NavigateToUrl(NextPage);
+            var lastNavigatedPage = BrowserWindow.Uri;
+            BrowserWindow.Back();
+
+            BrowserWindow
+                .Uri
+                .ShouldBeEquivalentTo(lastNavigatedPage, "because forward should undo back.");
+        }
+
+        [Test]
+        public void BrowserWindowTest_ShouldBeDisposeable()
+        {
+            var browserWindow = new BrowserWindow();
+            browserWindow.Dispose();
+
+            browserWindow.Should().BeNull("because we disposed the object.");
         }
     }
 }
