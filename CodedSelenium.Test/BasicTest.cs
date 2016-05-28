@@ -55,6 +55,10 @@ namespace CodedSelenium.Test
 
                 return BasicTest._browserWindow;
             }
+            set
+            {
+                BasicTest._browserWindow = value;
+            }
         }
 
         protected static WebDriverWait Wait

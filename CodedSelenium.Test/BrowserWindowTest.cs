@@ -142,7 +142,7 @@ namespace CodedSelenium.Test
         [TearDown]
         public void Teardown()
         {
-            BrowserWindow.Launch(PathToPage);
+            BrowserWindow = BrowserWindow.Launch(PathToPage);
         }
     }
 }
