@@ -27,7 +27,7 @@ namespace CodedSelenium.Test
         [SetUp]
         public void Setup()
         {
-            BrowserWindow = BrowserWindow.Launch(PathToPage);
+            BrowserWindow.NavigateToUrl(PathToPage);
         }
 
         [Test]
