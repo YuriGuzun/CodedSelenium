@@ -6,7 +6,8 @@ using OpenQA.Selenium.Support.UI;
 using System;
 using System.IO;
 
-namespace CodedSelenium.Test {
+namespace CodedSelenium.Test
+{
     public class BasicTest
     {
         public const string PageName = "BasicTestPage.html";
