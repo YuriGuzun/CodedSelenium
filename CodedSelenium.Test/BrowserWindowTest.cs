@@ -3,21 +3,15 @@ using CodedSelenium.HtmlControls;
 using FluentAssertions;
 using NUnit.Framework;
 using System;
+using System.IO;
 
 namespace CodedSelenium.Test
 {
     [TestFixture]
     public class BrowserWindowTest : BasicTest
     {
-        private string CurrentPage
-        {
-            get { return "https://google.com"; }
-        }
-
-        private string NextPage
-        {
-            get { return "https://github.com"; }
-        }
+        public const string GoogleUrl = "https://www.google.com";
+        public const string GitHubUrl = "https://github.com";
 
         [Test]
         public void BrowserWindowTest_Alert()
@@ -92,7 +86,7 @@ namespace CodedSelenium.Test
         [Test]
         public void BrowserWindowTest_RefreshShouldPersistTheCurrentPage()
         {
-            BrowserWindow.NavigateToUrl(CurrentPage);
+            BrowserWindow.NavigateToUrl(GoogleUrl);
             var currentUri = BrowserWindow.Uri;
 
             BrowserWindow.Refresh();
@@ -105,10 +99,10 @@ namespace CodedSelenium.Test
         [Test]
         public void BrowserWindowTest_BackShouldLeadToPreviousUri()
         {
-            BrowserWindow.NavigateToUrl(CurrentPage);
+            BrowserWindow.NavigateToUrl(GoogleUrl);
             var currentUri = BrowserWindow.Uri;
 
-            BrowserWindow.NavigateToUrl(NextPage);
+            BrowserWindow.NavigateToUrl(GitHubUrl);
             BrowserWindow.Back();
 
             BrowserWindow
@@ -119,30 +113,28 @@ namespace CodedSelenium.Test
         [Test]
         public void BrowserWindowTest_ForwardShouldUndoBack()
         {
-            BrowserWindow.NavigateToUrl(CurrentPage);
+            BrowserWindow.NavigateToUrl(GoogleUrl);
 
-            BrowserWindow.NavigateToUrl(NextPage);
-            var lastNavigatedPage = BrowserWindow.Uri;
-            BrowserWindow.Back();
-
+            BrowserWindow.NavigateToUrl(GitHubUrl);
             BrowserWindow
                 .Uri
-                .ShouldBeEquivalentTo(lastNavigatedPage, "because forward should undo back.");
-        }
+                .ShouldBeEquivalentTo(GitHubUrl, "because browser should have been redirected to '{0}'.", GitHubUrl);
 
-        [Test]
-        public void BrowserWindowTest_ShouldBeDisposeable()
-        {
-            var browserWindow = new BrowserWindow();
-            browserWindow.Dispose();
+            BrowserWindow.Back();
+            BrowserWindow
+                .Uri
+                .ShouldBeEquivalentTo(GoogleUrl, "because back should redirect browser to '{0}'.", GoogleUrl);
 
-            browserWindow.Should().BeNull("because we disposed the object.");
+            BrowserWindow.Forward();
+            BrowserWindow
+                .Uri
+                .ShouldBeEquivalentTo(GitHubUrl, "because forward should undo back.");
         }
 
         [TearDown]
         public void Teardown()
         {
-            BrowserWindow = BrowserWindow.Launch(PathToPage);
+            BrowserWindow.NavigateToUrl(PathToPage);
         }
     }
 }
