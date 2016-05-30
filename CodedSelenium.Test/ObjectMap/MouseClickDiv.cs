@@ -25,7 +25,8 @@ namespace CodedSelenium.Test.ObjectMap
             Click,
             MouseDown,
             MouseUp,
-            DblClick
+            DoubleClick,
+            Move
         }
 
         public MouseAction Action
@@ -52,7 +53,10 @@ namespace CodedSelenium.Test.ObjectMap
                         return MouseAction.MouseDown;
 
                     case "dblclick":
-                        return MouseAction.DblClick;
+                        return MouseAction.DoubleClick;
+
+                    case "mousemove":
+                        return MouseAction.Move;
 
                     default:
                         throw new NotImplementedException(string.Format("'{0}' mouse action type is not handled", value));

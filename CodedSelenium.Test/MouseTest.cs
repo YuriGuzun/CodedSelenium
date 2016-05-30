@@ -99,15 +99,77 @@ namespace CodedSelenium.Test
             CleanLogs();
         }
 
+        [Test]
+        public void MouseTest_DoubleClick_Simple()
+        {
+            Mouse.DoubleClick(TestPage.FirstDiv);
+            AssertClick(TestPage.FirstDiv, _defaultPoint.X, _defaultPoint.Y, MouseAction.DoubleClick, MouseButtons.Left, ModifierKeys.None);
+        }
+
+        [TestCase(ModifierKeys.Control)]
+        [TestCase(ModifierKeys.Alt)]
+        [TestCase(ModifierKeys.Shift)]
+        [Test]
+        public void MouseTest_DoubleClick_ModifierKeys(ModifierKeys modifierKey)
+        {
+            Mouse.DoubleClick(TestPage.FirstDiv, modifierKey);
+            AssertClick(TestPage.FirstDiv, _defaultPoint.X, _defaultPoint.Y, MouseAction.DoubleClick, MouseButtons.Left, modifierKey);
+        }
+
         [TestCase(10, 15, ModifierKeys.Control)]
         [TestCase(20, 25, ModifierKeys.Alt)]
         [TestCase(30, 35, ModifierKeys.Shift)]
         [Test]
-        public void MouseTest_DoubleClick(
+        public void MouseTest_DoubleClick_AllParams(
             int x, int y, ModifierKeys modifierKey)
         {
             Mouse.DoubleClick(TestPage.FirstDiv, modifierKey, new Point(x, y));
-            AssertClick(TestPage.FirstDiv, x, y, MouseAction.DblClick, MouseButtons.Left, modifierKey);
+            AssertClick(TestPage.FirstDiv, x, y, MouseAction.DoubleClick, MouseButtons.Left, modifierKey);
+        }
+
+        [TestCase(10, 10)]
+        [TestCase(0, 0)]
+        [TestCase(200, 200)]
+        [Test]
+        public void MouseTest_DoubleClick_Point(int x, int y)
+        {
+            Mouse.DoubleClick(TestPage.FirstDiv, new Point(x, y));
+            AssertClick(TestPage.FirstDiv, x, y, MouseAction.DoubleClick, MouseButtons.Left, ModifierKeys.None);
+        }
+
+        [TestCase(-1, -1)]
+        [Test]
+        public void MouseTest_DoubleClick_Point_Invalid(int x, int y)
+        {
+            Action action = () => Mouse.DoubleClick(TestPage.FirstDiv, new Point(x, y));
+            action.ShouldThrow<ArgumentOutOfRangeException>("relativeCoordinate has negative values");
+            CleanLogs();
+        }
+
+        [TestCase(10, 10)]
+        [TestCase(0, 0)]
+        [TestCase(200, 200)]
+        [Test]
+        public void MouseTest_Move_Point(int x, int y)
+        {
+            Mouse.Move(TestPage.FirstDiv, new Point(x, y));
+            AssertClick(TestPage.FirstDiv, x, y, MouseAction.Move, MouseButtons.Left, ModifierKeys.None);
+        }
+
+        [TestCase(-1, -1)]
+        [Test]
+        public void MouseTest_Move_Point_Invalid(int x, int y)
+        {
+            Action action = () => Mouse.DoubleClick(TestPage.FirstDiv, new Point(x, y));
+            action.ShouldThrow<ArgumentOutOfRangeException>("relativeCoordinate has negative values");
+            CleanLogs();
+        }
+
+        [Test]
+        public void MouseTest_Move()
+        {
+            Mouse.Move(TestPage.FirstDiv);
+            AssertClick(TestPage.FirstDiv, _defaultPoint.X, _defaultPoint.Y, MouseAction.Move, MouseButtons.Left, ModifierKeys.None);
         }
 
         private void AssertClick(
