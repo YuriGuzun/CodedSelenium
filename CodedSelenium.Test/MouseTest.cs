@@ -137,6 +137,54 @@ namespace CodedSelenium.Test
             AssertClick(TestPage.FirstDiv, x, y, MouseAction.DoubleClick, MouseButtons.Left, ModifierKeys.None);
         }
 
+        [Test]
+        public void MouseTest_Hover()
+        {
+            Mouse.Hover(TestPage.FirstDiv);
+            AssertClick(TestPage.FirstDiv, _defaultPoint.X, _defaultPoint.Y, MouseAction.Move, MouseButtons.Left, ModifierKeys.None);
+        }
+
+        [TestCase(10, 10)]
+        [TestCase(0, 0)]
+        [TestCase(200, 200)]
+        [Test]
+        public void MouseTest_Hover_Point(int x, int y)
+        {
+            Mouse.Hover(TestPage.FirstDiv, new Point(x, y));
+            AssertClick(TestPage.FirstDiv, x, y, MouseAction.Move, MouseButtons.Left, ModifierKeys.None);
+        }
+
+        [TestCase(-1, -1)]
+        [Test]
+        public void MouseTest_Hover_Point_Invalid(int x, int y)
+        {
+            Action action = () => Mouse.Hover(TestPage.FirstDiv, new Point(x, y));
+            action.ShouldThrow<ArgumentOutOfRangeException>("relativeCoordinate has negative values");
+            CleanLogs();
+        }
+
+        [Test]
+        public void MouseTest_Hover_Point_Timeout()
+        {
+            Point point = new Point(10, 10);
+            int waitTimemilliseconds = 2000;
+            TestPage.FirstDiv.Find();
+
+            DateTime stopTime = DateTime.Now.AddMilliseconds(waitTimemilliseconds);
+            Mouse.Hover(TestPage.FirstDiv, point, waitTimemilliseconds);
+            DateTime.Now.Should().BeCloseTo(stopTime, 100);
+            AssertClick(TestPage.FirstDiv, point.X, point.Y, MouseAction.Move, MouseButtons.Left, ModifierKeys.None);
+        }
+
+        [Test]
+        public void MouseTest_Hover_Point_Timeout_Invalid()
+        {
+            TestPage.FirstDiv.Find();
+
+            Action action = () => Mouse.Hover(TestPage.FirstDiv, new Point(10, 10), -1000);
+            action.ShouldThrow<ArgumentOutOfRangeException>("relativeCoordinate has negative values");
+        }
+
         [TestCase(-1, -1)]
         [Test]
         public void MouseTest_DoubleClick_Point_Invalid(int x, int y)

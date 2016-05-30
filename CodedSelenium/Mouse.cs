@@ -57,6 +57,25 @@ namespace CodedSelenium
             control.DoubleClick(ModifierKeys.None, relativeCoordinate);
         }
 
+        public static void Hover(UITestControl control)
+        {
+            Move(control);
+        }
+
+        public static void Hover(UITestControl control, Point relativeCoordinate)
+        {
+            Move(control, relativeCoordinate);
+        }
+
+        public static void Hover(UITestControl control, Point relativeCoordinate, int millisecondDuration)
+        {
+            if (millisecondDuration < 0)
+                throw new ArgumentOutOfRangeException("millisecondDuration", millisecondDuration.ToString());
+
+            Hover(control, relativeCoordinate);
+            Playback.Wait(millisecondDuration);
+        }
+
         public static void Move(UITestControl control, Point relativeCoordinate)
         {
             control.MoveToElement(relativeCoordinate);
