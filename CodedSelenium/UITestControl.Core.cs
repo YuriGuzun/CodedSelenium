@@ -30,6 +30,25 @@ namespace CodedSelenium
 
         public UITestControl ParentTestControl { get; private set; }
 
+        public long ScrollWheelPosition
+        {
+            get
+            {
+                BrowserWindow browserWindow = TopParent as BrowserWindow;
+                long currentPosition = (long)browserWindow.Driver.ExecuteScript(
+                    string.Format("return {0}.scrollTop({1})", AbsolutePathSelector.Selector, string.Empty));
+
+                return currentPosition;
+            }
+
+            set
+            {
+                BrowserWindow browserWindow = TopParent as BrowserWindow;
+                browserWindow.Driver.ExecuteScript(
+                    string.Format("{0}.scrollTop({1})", AbsolutePathSelector.Selector, value));
+            }
+        }
+
         protected ISearchContext ParentSearchContext { get; set; }
 
         protected virtual IWebElement WebElement
@@ -93,6 +112,28 @@ namespace CodedSelenium
             }
         }
 
+        private AbsolutePathSelector AbsolutePathSelector
+        {
+            get
+            {
+                string thisElementSelector = GetSelector();
+
+                UITestControl parentControl = ParentTestControl;
+                ISearchContext searchContext = ParentSearchContext;
+                while (!(searchContext is IWebDriver))
+                {
+                    thisElementSelector = thisElementSelector.Replace("%parent%", ", " + parentControl.GetSelector());
+                    parentControl = parentControl.ParentTestControl;
+                    searchContext = parentControl.ParentSearchContext;
+                }
+
+                thisElementSelector = thisElementSelector.Replace("%parent%", string.Empty);
+                Debug.WriteLine(thisElementSelector);
+
+                return new AbsolutePathSelector(searchContext as IWebDriver, thisElementSelector);
+            }
+        }
+
         internal virtual void MoveToElement(Point? relativeCoordinate)
         {
             BrowserWindow browserWindow = TopParent as BrowserWindow;
@@ -147,7 +188,7 @@ namespace CodedSelenium
                 actions.KeyDown(keyToPress).DoubleClick().KeyUp(keyToPress).Perform();
         }
 
-        private string GetSelector()
+        internal virtual string GetSelector()
         {
             string thisElementSelector = BuildSelector(SearchProperties);
 
@@ -165,24 +206,10 @@ namespace CodedSelenium
 
         private ReadOnlyCollection<IWebElement> FindMatchingWebElements()
         {
-            string thisElementSelector = GetSelector();
-
-            UITestControl parentControl = ParentTestControl;
-            ISearchContext searchContext = ParentSearchContext;
-            while (!(searchContext is IWebDriver))
-            {
-                thisElementSelector = thisElementSelector.Replace("%parent%", ", " + parentControl.GetSelector());
-                parentControl = parentControl.ParentTestControl;
-                searchContext = parentControl.ParentSearchContext;
-            }
-
-            thisElementSelector = thisElementSelector.Replace("%parent%", string.Empty);
-            Debug.WriteLine(thisElementSelector);
-
-            IJavaScriptExecutor driver = searchContext as IJavaScriptExecutor;
+            IJavaScriptExecutor driver = AbsolutePathSelector.Driver as IJavaScriptExecutor;
 
             ReadOnlyCollection<IWebElement> webElements = null;
-            object queryResponse = driver.ExecuteScript("return " + thisElementSelector);
+            object queryResponse = driver.ExecuteScript("return " + AbsolutePathSelector.Selector);
 
             if (queryResponse is ReadOnlyCollection<IWebElement>)
             {

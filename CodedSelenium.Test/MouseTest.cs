@@ -2,6 +2,7 @@
 using FluentAssertions;
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -218,6 +219,46 @@ namespace CodedSelenium.Test
         {
             Mouse.Move(TestPage.FirstDiv);
             AssertClick(TestPage.FirstDiv, _defaultPoint.X, _defaultPoint.Y, MouseAction.Move, MouseButtons.Left, ModifierKeys.None);
+        }
+
+        [TestCase(0, -1, 0)]
+        [TestCase(0, 0, 0)]
+        [TestCase(0, 1, 100)]
+        [TestCase(100, -1, 0)]
+        [Test]
+        public void MouseTest_MoveScrollWheel_NoControl(int initialPosition, int wheelMoveCount, int expectedLocation)
+        {
+            TestPage.Launch();
+            BrowserWindow.ScrollWheelPosition = initialPosition;
+            Mouse.MoveScrollWheel(wheelMoveCount);
+            BrowserWindow.ScrollWheelPosition.Should().Be(expectedLocation);
+        }
+
+        [TestCase(0, -1, 0)]
+        [TestCase(0, 0, 0)]
+        [TestCase(0, 1, 100)]
+        [TestCase(100, -1, 0)]
+        [Test]
+        public void MouseTest_MoveScrollWheel_Control(int initialPosition, int wheelMoveCount, int expectedLocation)
+        {
+            TestPage.TextArea.ScrollWheelPosition = initialPosition;
+            Mouse.MoveScrollWheel(TestPage.TextArea, wheelMoveCount);
+            TestPage.TextArea.ScrollWheelPosition.Should().Be(expectedLocation);
+        }
+
+        [Test]
+        public void MouseTest_NotImplemented()
+        {
+            List<Action> actions = new List<Action>()
+            {
+                () => Mouse.MoveScrollWheel(1, ModifierKeys.Alt),
+                () => Mouse.MoveScrollWheel(BrowserWindow, 1, ModifierKeys.Alt)
+            };
+
+            foreach (var action in actions)
+            {
+                action.ShouldThrow<NotImplementedException>();
+            }
         }
 
         private void AssertClick(

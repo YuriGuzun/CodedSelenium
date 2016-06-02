@@ -97,6 +97,7 @@
     <Compile Include="PropertyExpression.cs" />
     <Compile Include="PropertyExpressionCollection.cs" />
     <Compile Include="PropertyExpressionOperator.cs" />
+    <Compile Include="Selectors\AbsolutePathSelector.cs" />
     <Compile Include="Selectors\SelectorBasedControl.cs" />
     <Compile Include="Selectors\JQuerySelector.cs" />
     <Compile Include="Selectors\SelectorPart.cs" />

@@ -85,5 +85,26 @@ namespace CodedSelenium
         {
             control.MoveToElement(null);
         }
+
+        public static void MoveScrollWheel(int wheelMoveCount)
+        {
+            MoveScrollWheel(BrowserWindow.ActiveBrowserWindow, wheelMoveCount);
+        }
+
+        public static void MoveScrollWheel(int wheelMoveCount, ModifierKeys modifierKeys)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static void MoveScrollWheel(UITestControl control, int wheelMoveCount)
+        {
+            long currentPosition = control.ScrollWheelPosition;
+            control.ScrollWheelPosition = currentPosition + (wheelMoveCount * 100);
+        }
+
+        public static void MoveScrollWheel(UITestControl control, int wheelMoveCount, ModifierKeys modifierKeys)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

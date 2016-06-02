@@ -196,6 +196,11 @@ namespace CodedSelenium
             }
         }
 
+        internal override string GetSelector()
+        {
+            return "jQuery(document)";
+        }
+
         protected virtual void Dispose(bool disposing)
         {
             if (!_isDisposed)
