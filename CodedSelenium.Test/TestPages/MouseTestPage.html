@@ -6,29 +6,74 @@
     <title></title>
     <style type="text/css">
         div#firstDiv {
-            width: 200px;
-            height: 200px;
+            width: 300px;
+            height: 300px;
             background: #ccc;
-            padding: 5px;
-            padding-right: 20px;
             border: solid 1px black;
-            float: left;
         }
 
         div#log {
             background: #fc0;
             border: solid 1px black;
-            float: left;
-            position: relative;
-            left: 225px;
+            width: 200px;
+            height: 300px;
+        }
+
+        .cells {
+            width: 50px;
+            height: 50px;
+            border: 1px solid #aaaaaa;
+        }
+
+        #drag {
+            width: 50px;
+            height: 50px;
+            background: #ccc;
         }
     </style>
 </head>
 <body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script>
+        window.onload = function () {
+            var table = document.createElement('table');
+            table.id = "table";
+            document.body.insertBefore(table, document.getElementById("container"));
+
+            for (i = 0; i < 3; i++) {
+                var row = document.createElement('tr');
+                table.appendChild(row);
+
+                for (j = 0; j < 3; j++) {
+                    var cell = document.createElement('td');
+                    cell.id = "cell" + i + j
+                    cell.className = "cells";
+                    row.appendChild(cell);
+                }
+            }
+
+            var divToDrag = document.createElement('div');
+            divToDrag.id = "drag";
+            divToDrag.draggable = "true";
+            cell.appendChild(divToDrag);
+
+            $(function () {
+                $("div#drag").draggable();
+                $(".cells").droppable({
+                    drop: function (event, ui) {
+                        $(this)
+                            .append($("div#drag"));
+                        $("div#drag").css("left", "0px");
+                        $("div#drag").css("right", "0px");
+                        $("div#drag").css("top", "0px");
+                    }
+                });
+            });
+        };
+
         $(document).ready(function () {
-            $("div").on("click mousedown mouseup dblclick mousemove", function (e) {
+            $("div#firstDiv").on("click mousedown mouseup dblclick mousemove", function (e) {
                 console.log(e);
                 document.getElementById("logAction").innerHTML = e.type;
                 document.getElementById("button").innerHTML = e.originalEvent.button;
@@ -42,9 +87,8 @@
             });
         });
     </script>
-
-    <div id="firstDiv">
-        <div id="log">
+    <div id="container">
+        <div id="firstDiv">
             <p class="log" id="logAction" />
             <p class="log" id="logId" />
             <p class="log" id="button" />
@@ -54,10 +98,10 @@
             <p class="log" id="clientX" />
             <p class="log" id="clientY" />
         </div>
+        <div id="longDiv" style="height: 2000px;" />
+        <textarea id="textArea" rows="5">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </textarea>
     </div>
-    <div id="longDiv" style="height: 2000px;" />
-    <textarea id="textArea" rows="5" style="left: 90px; position: relative;">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </textarea>
 </body>
 </html>

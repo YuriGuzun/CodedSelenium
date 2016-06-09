@@ -1,6 +1,8 @@
-﻿using CodedSelenium.Test.ObjectMap;
+﻿using CodedSelenium.HtmlControls;
+using CodedSelenium.Test.ObjectMap;
 using FluentAssertions;
 using NUnit.Framework;
+using OpenQA.Selenium.Interactions;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -13,7 +15,7 @@ namespace CodedSelenium.Test
     [TestFixture]
     public class MouseTest : BasicTest
     {
-        private readonly Point _defaultPoint = new Point(113, 106);
+        private readonly Point _defaultPoint = new Point(151, 151);
         private MouseTestPage _mouseTestPage;
 
         private MouseTestPage TestPage
@@ -244,6 +246,19 @@ namespace CodedSelenium.Test
             TestPage.TextArea.ScrollWheelPosition = initialPosition;
             Mouse.MoveScrollWheel(TestPage.TextArea, wheelMoveCount);
             TestPage.TextArea.ScrollWheelPosition.Should().Be(expectedLocation);
+        }
+
+        [Test]
+        public void MouseTest_StartDragging()
+        {
+            var divToDrag = new HtmlDiv(TestPage);
+            divToDrag.SearchProperties.Add(HtmlDiv.PropertyNames.Id, "drag");
+
+            var cell = new HtmlCell(TestPage);
+            cell.SearchProperties.Add(HtmlCell.PropertyNames.Id, "cell00");
+
+            Mouse.StartDragging(divToDrag);
+            Mouse.StopDragging(cell);
         }
 
         [Test]

@@ -7,6 +7,25 @@ namespace CodedSelenium
 {
     public static class Mouse
     {
+        private static UITestControl _controlToDrag;
+
+        public static UITestControl ControlToDrag
+        {
+            get
+            {
+                var copy = _controlToDrag;
+                _controlToDrag = null;
+                return copy;
+            }
+
+            set
+            {
+                if (_controlToDrag != null)
+                    throw new InvalidOperationException("Mouse.StopDragging should follow after Mouse.StartDragging");
+                _controlToDrag = value;
+            }
+        }
+
         public static void Click(UITestControl control)
         {
             control.Click(MouseButtons.Left, ModifierKeys.None, null);
@@ -105,6 +124,16 @@ namespace CodedSelenium
         public static void MoveScrollWheel(UITestControl control, int wheelMoveCount, ModifierKeys modifierKeys)
         {
             throw new NotImplementedException();
+        }
+
+        public static void StartDragging(UITestControl control)
+        {
+            ControlToDrag = control;
+        }
+
+        public static void StopDragging(UITestControl control)
+        {
+            ControlToDrag.DragAndDropTo(control);
         }
     }
 }

@@ -48,9 +48,7 @@ namespace CodedSelenium.Test
             get
             {
                 if (BasicTest._browserWindow == null)
-                {
                     BasicTest._browserWindow = BrowserWindow.Launch(PathToPage);
-                }
 
                 return BasicTest._browserWindow;
             }

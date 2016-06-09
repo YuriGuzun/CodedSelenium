@@ -69,7 +69,7 @@ namespace CodedSelenium
             }
         }
 
-        protected override IWebElement WebElement
+        public override IWebElement WebElement
         {
             get
             {

@@ -49,9 +49,7 @@ namespace CodedSelenium
             }
         }
 
-        protected ISearchContext ParentSearchContext { get; set; }
-
-        protected virtual IWebElement WebElement
+        public virtual IWebElement WebElement
         {
             get
             {
@@ -73,6 +71,8 @@ namespace CodedSelenium
                 return webElement;
             }
         }
+
+        protected ISearchContext ParentSearchContext { get; set; }
 
         protected WebDriverWait Wait
         {
@@ -132,6 +132,12 @@ namespace CodedSelenium
 
                 return new AbsolutePathSelector(searchContext as IWebDriver, thisElementSelector);
             }
+        }
+
+        internal void DragAndDropTo(UITestControl control)
+        {
+            BrowserWindow browserWindow = TopParent as BrowserWindow;
+            new Actions(browserWindow.Driver).DragAndDrop(this.WebElement, control.WebElement).Build().Perform();
         }
 
         internal virtual void MoveToElement(Point? relativeCoordinate)

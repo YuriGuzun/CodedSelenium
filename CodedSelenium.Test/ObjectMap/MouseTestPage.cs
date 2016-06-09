@@ -25,7 +25,10 @@ namespace CodedSelenium.Test.ObjectMap
             get
             {
                 if (_firstDiv == null)
+                {
                     _firstDiv = new MouseClickDiv(this);
+                    _firstDiv.SearchProperties.Add(HtmlDiv.PropertyNames.Id, "firstDiv");
+                }
 
                 return _firstDiv;
             }
