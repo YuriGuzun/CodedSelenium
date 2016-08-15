@@ -41,13 +41,13 @@
             table.id = "table";
             document.body.insertBefore(table, document.getElementById("container"));
 
-            for (i = 0; i < 3; i++) {
+            for (i = 1; i <= 3; i++) {
                 var row = document.createElement('tr');
                 table.appendChild(row);
 
-                for (j = 0; j < 3; j++) {
+                for (j = 1; j <= 3; j++) {
                     var cell = document.createElement('td');
-                    cell.id = "cell" + i + j
+                    cell.id = i + j
                     cell.className = "cells";
                     row.appendChild(cell);
                 }
@@ -64,9 +64,13 @@
                     drop: function (event, ui) {
                         $(this)
                             .append($("div#drag"));
-                        $("div#drag").css("left", "0px");
-                        $("div#drag").css("right", "0px");
-                        $("div#drag").css("top", "0px");
+                        var styles = {
+                            left: "0px",
+                            right: "0px",
+                            top: "0px"
+                        };
+
+                        $("div#drag").css(styles);
                     }
                 });
             });

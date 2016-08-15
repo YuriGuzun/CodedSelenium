@@ -16,7 +16,7 @@
         {
             get
             {
-                return WebElement.GetAttribute(HtmlHyperlink.PropertyNames.AbsolutePath);
+                return GetAttribute(HtmlHyperlink.PropertyNames.AbsolutePath);
             }
         }
 
@@ -24,7 +24,7 @@
         {
             get
             {
-                return WebElement.GetAttribute(HtmlHyperlink.PropertyNames.Alt);
+                return GetAttribute(HtmlHyperlink.PropertyNames.Alt);
             }
         }
 
@@ -32,7 +32,7 @@
         {
             get
             {
-                return WebElement.GetAttribute(HtmlHyperlink.PropertyNames.Href);
+                return GetAttribute(HtmlHyperlink.PropertyNames.Href);
             }
         }
 
@@ -40,7 +40,7 @@
         {
             get
             {
-                return WebElement.GetAttribute(HtmlHyperlink.PropertyNames.Target);
+                return GetAttribute(HtmlHyperlink.PropertyNames.Target);
             }
         }
 

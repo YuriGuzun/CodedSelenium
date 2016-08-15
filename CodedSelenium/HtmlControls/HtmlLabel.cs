@@ -16,7 +16,7 @@
         {
             get
             {
-                return WebElement.GetAttribute(HtmlLabel.PropertyNames.DisplayText);
+                return GetAttribute(HtmlLabel.PropertyNames.DisplayText);
             }
         }
 
@@ -24,7 +24,7 @@
         {
             get
             {
-                return WebElement.GetAttribute(HtmlLabel.PropertyNames.LabelFor);
+                return GetAttribute(HtmlLabel.PropertyNames.LabelFor);
             }
         }
 

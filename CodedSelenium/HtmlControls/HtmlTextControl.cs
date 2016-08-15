@@ -19,7 +19,7 @@ namespace CodedSelenium.HtmlControls
         {
             get
             {
-                return WebElement.GetAttribute(HtmlTextArea.PropertyNames.ValueAttribute);
+                return GetAttribute(HtmlTextArea.PropertyNames.ValueAttribute);
             }
 
             set
@@ -35,7 +35,7 @@ namespace CodedSelenium.HtmlControls
         {
             get
             {
-                return WebElement.GetAttribute(HtmlTextArea.PropertyNames.LabeledBy);
+                return GetAttribute(HtmlTextArea.PropertyNames.LabeledBy);
             }
         }
 
@@ -43,7 +43,7 @@ namespace CodedSelenium.HtmlControls
         {
             get
             {
-                return WebElement.GetAttribute(HtmlTextArea.PropertyNames.ReadOnly).Equals(HtmlTextArea.PropertyNames.ReadOnly);
+                return GetAttribute(HtmlTextArea.PropertyNames.ReadOnly).Equals(HtmlTextArea.PropertyNames.ReadOnly);
             }
         }
 

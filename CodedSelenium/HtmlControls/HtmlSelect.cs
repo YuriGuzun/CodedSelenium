@@ -45,7 +45,7 @@ namespace CodedSelenium.HtmlControls
         {
             get
             {
-                return WebElement.GetAttribute(HtmlComboBox.PropertyNames.LabeledBy);
+                return GetAttribute(HtmlComboBox.PropertyNames.LabeledBy);
             }
         }
 

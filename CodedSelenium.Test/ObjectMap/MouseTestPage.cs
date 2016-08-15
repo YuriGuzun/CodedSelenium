@@ -1,11 +1,14 @@
 ﻿using CodedSelenium.HtmlControls;
+using System.Collections.Generic;
 
 namespace CodedSelenium.Test.ObjectMap
 {
     public class MouseTestPage : Page
     {
+        private HtmlDiv _divToDrag;
         private MouseClickDiv _firstDiv;
         private HtmlTextArea _textArea;
+        private HtmlTable _table;
 
         public MouseTestPage(BrowserWindow browserWindow)
             : base(browserWindow)
@@ -17,6 +20,31 @@ namespace CodedSelenium.Test.ObjectMap
             get
             {
                 return "MouseTestPage.html";
+            }
+        }
+
+        public HtmlDiv DivToDrag
+        {
+            get
+            {
+                if (_divToDrag == null)
+                {
+                    _divToDrag = new HtmlDiv(this);
+                    _divToDrag.SearchProperties.Add(HtmlDiv.PropertyNames.Id, "drag");
+                }
+
+                return _divToDrag;
+            }
+        }
+
+        public HtmlTable Table
+        {
+            get
+            {
+                if (_table == null)
+                    _table = new HtmlTable(this);
+
+                return _table;
             }
         }
 

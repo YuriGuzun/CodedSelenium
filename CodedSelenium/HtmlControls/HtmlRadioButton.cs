@@ -33,7 +33,7 @@
         {
             get
             {
-                return WebElement.GetAttribute(HtmlRadioButton.PropertyNames.Value);
+                return GetAttribute(HtmlRadioButton.PropertyNames.Value);
             }
         }
 
@@ -49,7 +49,7 @@
         {
             get
             {
-                string value = WebElement.GetAttribute(HtmlRadioButton.PropertyNames.ItemCount);
+                string value = GetAttribute(HtmlRadioButton.PropertyNames.ItemCount);
                 return int.Parse(value);
             }
         }
@@ -58,7 +58,7 @@
         {
             get
             {
-                return WebElement.GetAttribute(HtmlRadioButton.PropertyNames.LabeledBy);
+                return GetAttribute(HtmlRadioButton.PropertyNames.LabeledBy);
             }
         }
 

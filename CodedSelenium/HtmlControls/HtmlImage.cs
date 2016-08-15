@@ -16,7 +16,7 @@
         {
             get
             {
-                return WebElement.GetAttribute(HtmlImage.PropertyNames.Alt);
+                return GetAttribute(HtmlImage.PropertyNames.Alt);
             }
         }
 
@@ -24,7 +24,7 @@
         {
             get
             {
-                return WebElement.GetAttribute(HtmlImage.PropertyNames.Src);
+                return GetAttribute(HtmlImage.PropertyNames.Src);
             }
         }
 
@@ -32,7 +32,7 @@
         {
             get
             {
-                return WebElement.GetAttribute(HtmlImage.PropertyNames.AbsolutePath);
+                return GetAttribute(HtmlImage.PropertyNames.AbsolutePath);
             }
         }
 
@@ -40,7 +40,7 @@
         {
             get
             {
-                return WebElement.GetAttribute(HtmlImage.PropertyNames.LinkAbsolutePath);
+                return GetAttribute(HtmlImage.PropertyNames.LinkAbsolutePath);
             }
         }
 
@@ -48,7 +48,7 @@
         {
             get
             {
-                return WebElement.GetAttribute(HtmlImage.PropertyNames.Href);
+                return GetAttribute(HtmlImage.PropertyNames.Href);
             }
         }
 

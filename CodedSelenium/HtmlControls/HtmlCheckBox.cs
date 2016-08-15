@@ -34,7 +34,7 @@
         {
             get
             {
-                return (string)WebElement.GetAttribute(HtmlCheckBox.PropertyNames.ValueAttribute);
+                return (string)GetAttribute(HtmlCheckBox.PropertyNames.ValueAttribute);
             }
         }
 
@@ -42,7 +42,7 @@
         {
             get
             {
-                return (string)WebElement.GetAttribute(HtmlCheckBox.PropertyNames.LabeledBy);
+                return (string)GetAttribute(HtmlCheckBox.PropertyNames.LabeledBy);
             }
         }
 

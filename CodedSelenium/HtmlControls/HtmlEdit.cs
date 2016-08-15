@@ -16,7 +16,7 @@
         {
             get
             {
-                return WebElement.GetAttribute(HtmlEdit.PropertyNames.Type).Equals("password");
+                return GetAttribute(HtmlEdit.PropertyNames.Type).Equals("password");
             }
         }
 
@@ -24,7 +24,7 @@
         {
             get
             {
-                return WebElement.GetAttribute(HtmlEdit.PropertyNames.DefaultText);
+                return GetAttribute(HtmlEdit.PropertyNames.DefaultText);
             }
         }
 
@@ -40,7 +40,7 @@
         {
             get
             {
-                string value = WebElement.GetAttribute(HtmlEdit.PropertyNames.MaxLength);
+                string value = GetAttribute(HtmlEdit.PropertyNames.MaxLength);
                 return int.Parse(value);
             }
         }

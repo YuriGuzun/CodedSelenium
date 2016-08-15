@@ -16,7 +16,7 @@
         {
             get
             {
-                return WebElement.GetAttribute(HtmlIFrame.PropertyNames.PageUrl);
+                return GetAttribute(HtmlIFrame.PropertyNames.PageUrl);
             }
         }
 
@@ -24,7 +24,7 @@
         {
             get
             {
-                return WebElement.GetAttribute(HtmlIFrame.PropertyNames.AbsolutePath);
+                return GetAttribute(HtmlIFrame.PropertyNames.AbsolutePath);
             }
         }
 
@@ -32,7 +32,7 @@
         {
             get
             {
-                string scrolingValue = WebElement.GetAttribute(HtmlIFrame.PropertyNames.Scrollable);
+                string scrolingValue = GetAttribute(HtmlIFrame.PropertyNames.Scrollable);
 
                 if (string.IsNullOrEmpty(scrolingValue) || !scrolingValue.Contains("no"))
                 {

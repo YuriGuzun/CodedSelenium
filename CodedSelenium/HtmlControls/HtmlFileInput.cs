@@ -17,7 +17,7 @@
         {
             get
             {
-                return WebElement.GetAttribute(HtmlFileInput.PropertyNames.FileName);
+                return GetAttribute(HtmlFileInput.PropertyNames.FileName);
             }
 
             set
@@ -30,7 +30,7 @@
         {
             get
             {
-                return WebElement.GetAttribute(HtmlFileInput.PropertyNames.LabeledBy);
+                return GetAttribute(HtmlFileInput.PropertyNames.LabeledBy);
             }
         }
 
@@ -38,7 +38,7 @@
         {
             get
             {
-                return bool.Parse(WebElement.GetAttribute(HtmlFileInput.PropertyNames.ReadOnly));
+                return bool.Parse(GetAttribute(HtmlFileInput.PropertyNames.ReadOnly));
             }
         }
 

@@ -248,17 +248,22 @@ namespace CodedSelenium.Test
             TestPage.TextArea.ScrollWheelPosition.Should().Be(expectedLocation);
         }
 
+        [TestCase(1, 1)]
+        [TestCase(1, 2)]
+        [TestCase(3, 3)]
         [Test]
-        public void MouseTest_StartDragging()
+        public void MouseTest_DraggAndDrop_Simple(int columnIndex, int rowIndex)
         {
-            var divToDrag = new HtmlDiv(TestPage);
-            divToDrag.SearchProperties.Add(HtmlDiv.PropertyNames.Id, "drag");
+            BrowserWindow.Refresh();
+            var cell = new HtmlCell(TestPage.Table);
+            cell.SearchProperties.Add(HtmlCell.PropertyNames.ColumnIndex, columnIndex.ToString());
+            cell.SearchProperties.Add(HtmlCell.PropertyNames.RowIndex, rowIndex.ToString());
 
-            var cell = new HtmlCell(TestPage);
-            cell.SearchProperties.Add(HtmlCell.PropertyNames.Id, "cell00");
-
-            Mouse.StartDragging(divToDrag);
+            Mouse.StartDragging(TestPage.DivToDrag);
             Mouse.StopDragging(cell);
+
+            new HtmlDiv(cell).Exists
+                .Should().BeTrue("div should have been moved to {0} cell position", columnIndex);
         }
 
         [Test]

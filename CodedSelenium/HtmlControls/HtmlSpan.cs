@@ -16,7 +16,7 @@
         {
             get
             {
-                return WebElement.GetAttribute(HtmlSpan.PropertyNames.DisplayText);
+                return GetAttribute(HtmlSpan.PropertyNames.DisplayText);
             }
         }
 
