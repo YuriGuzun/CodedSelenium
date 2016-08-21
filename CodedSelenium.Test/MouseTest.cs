@@ -2,7 +2,6 @@
 using CodedSelenium.Test.ObjectMap;
 using FluentAssertions;
 using NUnit.Framework;
-using OpenQA.Selenium.Interactions;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -302,7 +301,7 @@ namespace CodedSelenium.Test
             new HtmlDiv(targetCell).Exists
                 .Should().BeTrue("div should have been moved to {0},{1} cell position", 2, 1);
         }
-        
+
         [Test]
         public void MouseTest_NotImplemented()
         {
