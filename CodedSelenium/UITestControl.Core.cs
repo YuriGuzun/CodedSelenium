@@ -137,7 +137,13 @@ namespace CodedSelenium
         internal void DragAndDropTo(UITestControl control)
         {
             BrowserWindow browserWindow = TopParent as BrowserWindow;
-            new Actions(browserWindow.Driver).DragAndDrop(this.WebElement, control.WebElement).Build().Perform();
+            new Actions(browserWindow.Driver).DragAndDrop(this.WebElement, control.WebElement).Perform();
+        }
+
+        internal void DragAndDropTo(int moveByX, int moveByY)
+        {
+            BrowserWindow browserWindow = TopParent as BrowserWindow;
+            new Actions(browserWindow.Driver).DragAndDropToOffset(this.WebElement, moveByX, moveByY).Perform();
         }
 
         internal virtual void MoveToElement(Point? relativeCoordinate)

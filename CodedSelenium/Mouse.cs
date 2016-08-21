@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Input;
+using CodedSelenium.HtmlControls;
 
 namespace CodedSelenium
 {
@@ -134,6 +135,34 @@ namespace CodedSelenium
         public static void StopDragging(UITestControl control)
         {
             ControlToDrag.DragAndDropTo(control);
+        }
+
+        public static void StopDragging(int moveByX, int moveByY)
+        {
+            ControlToDrag.DragAndDropTo(moveByX, moveByY);
+        }
+
+        public static void StopDragging(Point pointToStop)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static void StopDragging(UITestControl control, int moveByX, int moveByY)
+        {
+            int controlToDragX = _controlToDrag.BoundingRectangle.X + (_controlToDrag.BoundingRectangle.Width / 2);
+            int controlToDragY = _controlToDrag.BoundingRectangle.Y + (_controlToDrag.BoundingRectangle.Height / 2);
+
+            int destinationControlX = control.BoundingRectangle.X + (control.BoundingRectangle.Width / 2);
+            int destinationControlY = control.BoundingRectangle.Y + (control.BoundingRectangle.Height / 2);
+
+            int x = (-1 * (controlToDragX - destinationControlX)) + moveByX;
+            int y = (-1 * (controlToDragY - destinationControlY)) + moveByY;
+            ControlToDrag.DragAndDropTo(x, y);
+        }
+
+        public static void StopDragging(UITestControl control, Point relativeCoordinate)
+        {
+            StopDragging(control, relativeCoordinate.X, relativeCoordinate.Y);
         }
     }
 }

@@ -252,27 +252,65 @@ namespace CodedSelenium.Test
         [TestCase(1, 2)]
         [TestCase(3, 3)]
         [Test]
-        public void MouseTest_DraggAndDrop_Simple(int columnIndex, int rowIndex)
+        public void MouseTest_DraggAndDrop_TestControl(int cellColumnIndex, int cellRowIndex)
         {
             BrowserWindow.Refresh();
             var cell = new HtmlCell(TestPage.Table);
-            cell.SearchProperties.Add(HtmlCell.PropertyNames.ColumnIndex, columnIndex.ToString());
-            cell.SearchProperties.Add(HtmlCell.PropertyNames.RowIndex, rowIndex.ToString());
+            cell.SearchProperties.Add(HtmlCell.PropertyNames.ColumnIndex, cellColumnIndex.ToString());
+            cell.SearchProperties.Add(HtmlCell.PropertyNames.RowIndex, cellRowIndex.ToString());
 
             Mouse.StartDragging(TestPage.DivToDrag);
             Mouse.StopDragging(cell);
 
             new HtmlDiv(cell).Exists
-                .Should().BeTrue("div should have been moved to {0} cell position", columnIndex);
+                .Should().BeTrue("div should have been moved to {0},{1} cell position", cellColumnIndex, cellRowIndex);
         }
 
+        // Cell size is 50px
+        [TestCase(-125, -125, 1, 1)]
+        [TestCase(-50, 0, 2, 3)]
+        [Test]
+        public void MouseTest_DraggAndDrop_Coordinates(int moveByX, int moveByY, int cellColumnIndex, int cellRowIndex)
+        {
+            BrowserWindow.Refresh();
+            var cell = new HtmlCell(TestPage.Table);
+            cell.SearchProperties.Add(HtmlCell.PropertyNames.ColumnIndex, cellColumnIndex.ToString());
+            cell.SearchProperties.Add(HtmlCell.PropertyNames.RowIndex, cellRowIndex.ToString());
+
+            Mouse.StartDragging(TestPage.DivToDrag);
+            Mouse.StopDragging(moveByX, moveByY);
+
+            new HtmlDiv(cell).Exists
+                .Should().BeTrue("div should have been moved to {0},{1} cell position", cellColumnIndex, cellRowIndex);
+        }
+
+        [Test]
+        public void MouseTest_DraggAndDrop_TestControlAndPoint()
+        {
+            BrowserWindow.Refresh();
+            var parentCell = new HtmlCell(TestPage.Table);
+            parentCell.SearchProperties.Add(HtmlCell.PropertyNames.ColumnIndex, "1");
+            parentCell.SearchProperties.Add(HtmlCell.PropertyNames.RowIndex, "1");
+
+            var targetCell = new HtmlCell(TestPage.Table);
+            targetCell.SearchProperties.Add(HtmlCell.PropertyNames.ColumnIndex, "3");
+            targetCell.SearchProperties.Add(HtmlCell.PropertyNames.RowIndex, "2");
+
+            Mouse.StartDragging(TestPage.DivToDrag);
+            Mouse.StopDragging(parentCell, new Point(125, 75));
+
+            new HtmlDiv(targetCell).Exists
+                .Should().BeTrue("div should have been moved to {0},{1} cell position", 2, 1);
+        }
+        
         [Test]
         public void MouseTest_NotImplemented()
         {
             List<Action> actions = new List<Action>()
             {
                 () => Mouse.MoveScrollWheel(1, ModifierKeys.Alt),
-                () => Mouse.MoveScrollWheel(BrowserWindow, 1, ModifierKeys.Alt)
+                () => Mouse.MoveScrollWheel(BrowserWindow, 1, ModifierKeys.Alt),
+                () => Mouse.StopDragging(new Point())
             };
 
             foreach (var action in actions)

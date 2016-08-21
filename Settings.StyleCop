@@ -97,7 +97,7 @@
         <StringProperty Name="AdvancedNaming_PrivateConst">_$(aaBb)</StringProperty>
         <StringProperty Name="AdvancedNaming_InternalConst">$(AaBb)</StringProperty>
         <StringProperty Name="AdvancedNaming_MethodTest">$(AaBb):$(Aa_Bb):$(AaBb)_$(AaBb):$(AaBb)_$(AaBb)_$(AaBb):$(AaBb)_$(AaBb)_$(AaBb)_$(AaBb):$(AaBb)_$(AaBb)_$(AaBb)_$(AaBb)_$(AaBb)</StringProperty>
-        <StringProperty Name="AdvancedNaming_Words">3D A B C FxCop ID IDs IFrame JQuery OK StyleCop UITest X</StringProperty>
+        <StringProperty Name="AdvancedNaming_Words">3D A B C FxCop ID IDs IFrame JQuery OK StyleCop UITest X Y ByX ByY</StringProperty>
       </AnalyzerSettings>
     </Analyzer>
     <Analyzer AnalyzerId="StyleCop.CSharp.ReadabilityRules">
