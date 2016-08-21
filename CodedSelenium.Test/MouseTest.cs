@@ -248,7 +248,6 @@ namespace CodedSelenium.Test
         }
 
         [TestCase(1, 1)]
-        [TestCase(1, 2)]
         [TestCase(3, 3)]
         [Test]
         public void MouseTest_DraggAndDrop_TestControl(int cellColumnIndex, int cellRowIndex)
