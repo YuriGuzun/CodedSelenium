@@ -23,6 +23,12 @@ namespace CodedSelenium.Test
             }
         }
 
+        [SetUp]
+        public void Setup()
+        {
+            BrowserWindow.NavigateToUrl(PathToPage);
+        }
+
         [Test]
         public void UITestControlTest_Properties_TagName()
         {
@@ -63,6 +69,31 @@ namespace CodedSelenium.Test
         public void UITestControlTest_Properties_HelpText()
         {
             CheckBox.HelpText.Should().Be("titleValue");
+        }
+
+        [Test]
+        public void UITestControlTest_TryFind_ShouldBeTrue()
+        {
+            CheckBox
+                .TryFind()
+                .Should()
+                .BeTrue("because the checkbox should exists, and TryFind should return true");
+        }
+
+        [Test]
+        public void UITestControlTest_DrawHighlight_ShouldNotThrow()
+        {
+            CheckBox
+                .Invoking(x => x.DrawHighlight())
+                .ShouldNotThrow("because calling DrawHighlight should not throw.");
+        }
+
+        [Test]
+        public void UITestControlTest_Find_ShouldNotThrow()
+        {
+            CheckBox
+                .Invoking(x => x.Find())
+                .ShouldNotThrow("because calling Find should not throw.");
         }
     }
 }
