@@ -91,6 +91,7 @@
     <Compile Include="HtmlControls\HtmlTable.cs" />
     <Compile Include="HtmlControls\HtmlTextArea.cs" />
     <Compile Include="HtmlControls\HtmlTextControl.cs" />
+    <Compile Include="Keyboard.cs" />
     <Compile Include="Mouse.cs" />
     <Compile Include="Playback.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -99,9 +100,7 @@
     <Compile Include="PropertyExpressionOperator.cs" />
     <Compile Include="Selectors\AbsolutePathSelector.cs" />
     <Compile Include="Selectors\SelectorBasedControl.cs" />
-    <Compile Include="Selectors\JQuerySelector.cs" />
     <Compile Include="Selectors\SelectorPart.cs" />
-    <Compile Include="TestControl.cs" />
     <Compile Include="UITestControl.Core.cs" />
     <Compile Include="UITestControl.cs" />
     <Compile Include="UITestControlCollection.cs" />

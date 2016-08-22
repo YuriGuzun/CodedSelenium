@@ -2,7 +2,6 @@
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Input;
-using CodedSelenium.HtmlControls;
 
 namespace CodedSelenium
 {
@@ -22,7 +21,11 @@ namespace CodedSelenium
             set
             {
                 if (_controlToDrag != null)
+                {
+                    _controlToDrag = null;
                     throw new InvalidOperationException("Mouse.StopDragging should follow after Mouse.StartDragging");
+                }
+
                 _controlToDrag = value;
             }
         }

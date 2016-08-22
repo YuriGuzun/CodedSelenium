@@ -304,6 +304,7 @@ namespace CodedSelenium.Test
         [Test]
         public void MouseTest_DraggAndDrop_InvalidOperationException()
         {
+            BrowserWindow.Refresh();
             Mouse.StartDragging(TestPage.DivToDrag);
             List<Action> actions = new List<Action>()
             {
