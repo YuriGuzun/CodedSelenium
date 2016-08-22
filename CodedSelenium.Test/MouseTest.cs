@@ -302,6 +302,21 @@ namespace CodedSelenium.Test
         }
 
         [Test]
+        public void MouseTest_DraggAndDrop_InvalidOperationException()
+        {
+            Mouse.StartDragging(TestPage.DivToDrag);
+            List<Action> actions = new List<Action>()
+            {
+                () => Mouse.StartDragging(TestPage.DivToDrag)
+            };
+
+            foreach (var action in actions)
+            {
+                action.ShouldThrow<InvalidOperationException>();
+            }
+        }
+
+        [Test]
         public void MouseTest_NotImplemented()
         {
             List<Action> actions = new List<Action>()
