@@ -24,6 +24,12 @@ namespace CodedSelenium.Test
             }
         }
 
+        [SetUp]
+        public void Setup()
+        {
+            BrowserWindow.NavigateToUrl(PathToPage);
+        }
+
         [Test]
         public void UITestControlCollection_CanSetElementByIndex()
         {
