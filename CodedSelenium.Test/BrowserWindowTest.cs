@@ -1,5 +1,6 @@
 ﻿using CodedSelenium.Extension;
 using CodedSelenium.HtmlControls;
+using CodedSelenium.Test.ObjectMap;
 using FluentAssertions;
 using NUnit.Framework;
 using System;
@@ -10,8 +11,9 @@ namespace CodedSelenium.Test
     [TestFixture]
     public class BrowserWindowTest : BasicTest
     {
-        public const string GoogleUrl = "https://www.google.com";
-        public const string GitHubUrl = "https://github.com";
+        private static readonly string _pathToPages = Directory.GetCurrentDirectory() + "\\TestPages\\";
+        private static readonly string _basicTestPageUrl = _pathToPages + BasicTestPage.Endpoint;
+        private static readonly string _mouseTestPageUrl = _pathToPages + new MouseTestPage(BasicTest.BrowserWindow).Endpoint;
 
         [Test]
         public void BrowserWindowTest_Alert()
@@ -86,7 +88,7 @@ namespace CodedSelenium.Test
         [Test]
         public void BrowserWindowTest_RefreshShouldPersistTheCurrentPage()
         {
-            BrowserWindow.NavigateToUrl(GoogleUrl);
+            BrowserWindow.NavigateToUrl(_basicTestPageUrl);
             var currentUri = BrowserWindow.Uri;
 
             BrowserWindow.Refresh();
@@ -99,10 +101,10 @@ namespace CodedSelenium.Test
         [Test]
         public void BrowserWindowTest_BackShouldLeadToPreviousUri()
         {
-            BrowserWindow.NavigateToUrl(GoogleUrl);
+            BrowserWindow.NavigateToUrl(_basicTestPageUrl);
             var currentUri = BrowserWindow.Uri;
 
-            BrowserWindow.NavigateToUrl(GitHubUrl);
+            BrowserWindow.NavigateToUrl(_mouseTestPageUrl);
             BrowserWindow.Back();
 
             BrowserWindow
@@ -113,22 +115,22 @@ namespace CodedSelenium.Test
         [Test]
         public void BrowserWindowTest_ForwardShouldUndoBack()
         {
-            BrowserWindow.NavigateToUrl(GoogleUrl);
+            BrowserWindow.NavigateToUrl(_basicTestPageUrl);
 
-            BrowserWindow.NavigateToUrl(GitHubUrl);
+            BrowserWindow.NavigateToUrl(_mouseTestPageUrl);
             BrowserWindow
                 .Uri
-                .ShouldBeEquivalentTo(GitHubUrl, "because browser should have been redirected to '{0}'.", GitHubUrl);
+                .ShouldBeEquivalentTo(_mouseTestPageUrl, "because browser should have been redirected to '{0}'.", _mouseTestPageUrl);
 
             BrowserWindow.Back();
             BrowserWindow
                 .Uri
-                .ShouldBeEquivalentTo(GoogleUrl, "because back should redirect browser to '{0}'.", GoogleUrl);
+                .ShouldBeEquivalentTo(_basicTestPageUrl, "because back should redirect browser to '{0}'.", _basicTestPageUrl);
 
             BrowserWindow.Forward();
             BrowserWindow
                 .Uri
-                .ShouldBeEquivalentTo(GitHubUrl, "because forward should undo back.");
+                .ShouldBeEquivalentTo(_mouseTestPageUrl, "because forward should undo back.");
         }
 
         [TearDown]

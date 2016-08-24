@@ -2,8 +2,8 @@
 using OpenQA.Selenium.Interactions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Text.RegularExpressions;
+using System.Windows.Input;
 
 namespace CodedSelenium
 {
@@ -11,15 +11,15 @@ namespace CodedSelenium
     {
         private static readonly List<string> _notSupportedKeys = new List<string>()
         {
-            "{BREAK}",
-            "{CAPSLOCK}",
-            "{NUMLOCK}",
-            "{PRTSC}",
-            "{SCROLLLOCK}",
-            "{F13}",
-            "{F14}",
-            "{F15}",
-            "{F16}"
+            "BREAK",
+            "CAPSLOCK",
+            "NUMLOCK",
+            "PRTSC",
+            "SCROLLLOCK",
+            "F13",
+            "F14",
+            "F15",
+            "F16"
         };
 
         private static readonly Dictionary<string, string> _keysDictionary = new Dictionary<string, string>()
@@ -72,27 +72,96 @@ namespace CodedSelenium
 
         public static void SendKeys(string text)
         {
-            SendKeys(text, null);
+            SendKeys(text, ModifierKeys.None);
         }
 
-        private static void SendKeys(string text, UITestControl control)
+        public static void SendKeys(string text, ModifierKeys modifierKeys)
         {
+            SendKeys(text, null, modifierKeys);
+        }
+
+        public static void SendKeys(UITestControl control, string text)
+        {
+            SendKeys(text, control, ModifierKeys.None);
+        }
+
+        public static void SendKeys(UITestControl control, string text, ModifierKeys modifierKeys)
+        {
+            SendKeys(text, control, modifierKeys);
+        }
+
+        private static void SendKeys(string text, UITestControl control, ModifierKeys modifierKeys)
+        {
+            CheckForNonSupportedKeys(text);
+
             var driver = control == null ? BrowserWindow.ActiveBrowserWindow.Driver : (control.TopParent as BrowserWindow).Driver;
-            new Actions(driver).SendKeys(text.ReplaceKeys()).Perform();
+            string keyToPress = GetKeyToPress(modifierKeys);
+            var actions = new Actions(driver);
+
+            if (!string.IsNullOrEmpty(keyToPress))
+                actions = actions.KeyDown(keyToPress);
+
+            if (control == null)
+                actions = actions.SendKeys(text.ReplaceKeys());
+            else
+                actions = actions.SendKeys(control.WebElement, text.ReplaceKeys());
+
+            if (!string.IsNullOrEmpty(keyToPress))
+                actions = actions.KeyUp(keyToPress);
+            actions.Perform();
+        }
+
+        private static string GetKeyToPress(ModifierKeys modifierKeys)
+        {
+            switch (modifierKeys)
+            {
+                case ModifierKeys.Alt:
+                    return Keys.Alt;
+
+                case ModifierKeys.Control:
+                    return Keys.Control;
+
+                case ModifierKeys.Shift:
+                    return Keys.Shift;
+
+                case ModifierKeys.Windows:
+                    throw new NotImplementedException("Following keys are not supported: ModifierKeys.Windows");
+                default:
+                    return string.Empty;
+            }
         }
 
         private static string ReplaceKeys(this string inputString)
         {
-            if (_notSupportedKeys.Any(item => inputString.Contains(item)))
-                throw new InvalidOperationException(
-                    "Following keys are not supported: " + string.Join(Environment.NewLine, _notSupportedKeys));
-
-            var sb = new StringBuilder(inputString);
+            inputString = ReplaceControlAltShift(inputString);
 
             foreach (var item in _keysDictionary)
-                sb.Replace(item.Key, item.Value);
+            {
+                string pattern = item.Key;
+                if (pattern.StartsWith("{"))
+                    pattern = item.Key.Replace("{", "\\{").Replace("}", "\\}");
+                else
+                    pattern = "\\" + pattern;
 
-            return sb.ToString();
+                inputString = Regex.Replace(inputString, pattern, item.Value, RegexOptions.IgnoreCase);
+            }
+
+            return inputString;
+        }
+
+        private static void CheckForNonSupportedKeys(string inputString)
+        {
+            string pattern = "\\{" + string.Join("\\}|\\{", _notSupportedKeys) + "\\}";
+            if (Regex.IsMatch(inputString, pattern, RegexOptions.IgnoreCase))
+                throw new NotImplementedException(
+                    "Following keys are not supported: " + string.Join(Environment.NewLine, _notSupportedKeys));
+        }
+
+        private static string ReplaceControlAltShift(string inputString)
+        {
+            string pattern = @"(\+|\%|\^)([^}]{1})";
+            string replacedString = Regex.Replace(inputString, pattern, "$1$2$1", RegexOptions.IgnoreCase);
+            return replacedString;
         }
     }
 }
