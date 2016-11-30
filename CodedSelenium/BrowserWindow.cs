@@ -16,7 +16,13 @@ namespace CodedSelenium
 {
     public class BrowserWindow : UITestControl, IDisposable
     {
+        public const int DefaultWidth = 321;
+
+        public const int DefaultHeight = 321;
+
         private bool _isDisposed = false;
+
+        private bool _isMaximized = false;
 
         public BrowserWindow()
         {
@@ -58,6 +64,40 @@ namespace CodedSelenium
             get
             {
                 return new Uri(Driver.Url);
+            }
+        }
+
+        public virtual bool Maximized
+        {
+            get
+            {
+                return _isMaximized;
+            }
+
+            set
+            {
+                _isMaximized = value;
+
+                if (_isMaximized)
+                    Driver.Manage().Window.Maximize();
+                else
+                    Driver.Manage().Window.Size = new Size(DefaultWidth, DefaultHeight);
+            }
+        }
+
+        public virtual int Width
+        {
+            get
+            {
+                return Driver.Manage().Window.Size.Width;
+            }
+        }
+
+        public virtual int Height
+        {
+            get
+            {
+                return Driver.Manage().Window.Size.Height;
             }
         }
 
