@@ -90,6 +90,7 @@
     <Compile Include="ObjectMap\MouseTestPage.cs" />
     <Compile Include="ObjectMap\BasicPage.cs" />
     <Compile Include="ObjectMap\Page.cs" />
+    <Compile Include="PlaybackTest.cs" />
     <Compile Include="UITestControlCollectionTest.cs" />
     <Compile Include="UITestControlTest.cs" />
     <Compile Include="HtmlControls\HtmlListTest.cs" />
