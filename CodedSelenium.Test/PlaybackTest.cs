@@ -14,9 +14,11 @@ namespace CodedSelenium.Test
         [Test]
         public void PlaybackTest_RegisterErrorCallback_DoesntThrow()
         {
+            Action assignPlaybackError = () => Playback.PlaybackError += PlaybackErrorHandler;
             assignPlaybackError.ShouldNotThrow();
         }
 
+        private void PlaybackErrorHandler(object sender, PlaybackErrorEventArgs e)
         {
             throw new NotImplementedException();
         }
