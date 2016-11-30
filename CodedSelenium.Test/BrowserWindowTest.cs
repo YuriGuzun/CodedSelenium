@@ -113,6 +113,25 @@ namespace CodedSelenium.Test
         }
 
         [Test]
+        public void BrowserWindowTest_Maximized()
+        {
+            BrowserWindow.NavigateToUrl(_basicTestPageUrl);
+            BrowserWindow.Maximized = true;
+
+            BrowserWindow.Width.Should().NotBe(BrowserWindow.DefaultWidth);
+            BrowserWindow.Height.Should().NotBe(BrowserWindow.DefaultHeight);
+
+            BrowserWindow.Maximized.Should().BeTrue();
+
+            BrowserWindow.Maximized = false;
+
+            BrowserWindow.Width.Should().Be(BrowserWindow.DefaultWidth);
+            BrowserWindow.Height.Should().Be(BrowserWindow.Height);
+
+            BrowserWindow.Maximized.Should().BeFalse();
+        }
+
+        [Test]
         public void BrowserWindowTest_ForwardShouldUndoBack()
         {
             BrowserWindow.NavigateToUrl(_basicTestPageUrl);
