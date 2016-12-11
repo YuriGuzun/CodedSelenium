@@ -84,6 +84,7 @@
   <ItemGroup>
     <Compile Include="BasicCheck.cs" />
     <Compile Include="BasicTest.cs" />
+    <Compile Include="HtmlControls\HtmlListItemTest.cs" />
     <Compile Include="KeyboardTest.cs" />
     <Compile Include="MouseTest.cs" />
     <Compile Include="ObjectMap\MouseClickDiv.cs" />
